@@ -1,19 +1,29 @@
 {
   "name": "talemelier",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "L'Atelier du Talemelier",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev" : "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C2R2/Talemelier.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/C2R2/Talemelier/issues"
+  },
+  "homepage": "https://github.com/C2R2/Talemelier#readme",
   "dependencies": {
-    "dotenv": "^10.0.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^11.0.0",
     "express": "^4.17.2",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

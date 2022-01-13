@@ -1,0 +1,19 @@
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "fullName": "aaa",
+  "email": "aaa@aaa.com",
+  "role": "normal",
+  "password": "aaaaaaaa"
+}
+
+###
+
+POST  http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "aaa@aaa.com",
+  "password": "aaaaaaaa"
+}
