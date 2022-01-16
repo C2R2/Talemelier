@@ -1,0 +1,27 @@
+### insert a new ad
+
+POST http://localhost:3001/
+Content-Type: application/json
+
+{
+  "title": "Miam",
+  "price": 2
+}
+
+### get all ads
+
+GET http://localhost:3001/
+
+### delete ad
+
+DELETE http://localhost:3001/61e31345a1c3daa59fa01403
+
+### update ad
+
+PUT http://localhost:3001/61e31350a1c3daa59fa01404
+Content-Type: application/json
+
+{
+  "title": "Pizza",
+  "price": 10.5
+}

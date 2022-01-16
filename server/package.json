@@ -1,10 +1,10 @@
 {
   "name": "talemelier",
   "version": "1.0.0",
-  "description": "L'Atelier du Talemelier",
-  "main": "app.js",
+  "description": "- [ ] Finish design",
+  "main": "index.js",
   "scripts": {
-    "dev" : "nodemon app.js",
+    "start": "node src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,13 +19,12 @@
   },
   "homepage": "https://github.com/C2R2/Talemelier#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "dotenv": "^11.0.0",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.6"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
+    "helmet": "^5.0.1",
+    "mongodb": "^4.3.0",
+    "mongodb-memory-server": "^8.1.0",
+    "morgan": "^1.10.0"
   }
 }
