@@ -54,7 +54,12 @@ startDatabase().then(async () => {
   await insertAd({ title: "Hello, now from the in-memory database!" })
 
   // start the server
+<<<<<<< HEAD
   app.listen(3001, async () => {
     console.log("listening on port 3001")
+=======
+  app.listen(8080, async () => {
+    console.log("listening on port 8080")
+>>>>>>> b6ed050d8a70a973d8143358c46170d599b3f241
   })
 })
