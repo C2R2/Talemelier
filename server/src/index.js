@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const helmet = require("helmet")
 const morgan = require("morgan")
-const {deleteAd, updateAd} = require('./database/ads');
+const { deleteAd, updateAd } = require("./database/ads")
 const { startDatabase } = require("./database/mongo")
 const { insertAd, getAds } = require("./database/ads")
 
@@ -28,38 +28,32 @@ app.get("/", async (req, res) => {
   res.send(await getAds())
 })
 
-app.post('/', async (req, res) => {
+app.post("/", async (req, res) => {
   console.log(req.body)
-  const newAd = req.body;
-  await insertAd(newAd);
-  res.send({ message: 'New ad inserted.' });
-});
+  const newAd = req.body
+  await insertAd(newAd)
+  res.send({ message: "New ad inserted." })
+})
 
 // endpoint to delete an ad
-app.delete('/:id', async (req, res) => {
-  await deleteAd(req.params.id);
-  res.send({ message: 'Ad removed.' });
-});
+app.delete("/:id", async (req, res) => {
+  await deleteAd(req.params.id)
+  res.send({ message: "Ad removed." })
+})
 
 // endpoint to update an ad
-app.put('/:id', async (req, res) => {
-  const updatedAd = req.body;
-  await updateAd(req.params.id, updatedAd);
-  res.send({ message: 'Ad updated.' });
-});
-
+app.put("/:id", async (req, res) => {
+  const updatedAd = req.body
+  await updateAd(req.params.id, updatedAd)
+  res.send({ message: "Ad updated." })
+})
 
 // start the in-memory MongoDB instance
 startDatabase().then(async () => {
   await insertAd({ title: "Hello, now from the in-memory database!" })
 
   // start the server
-<<<<<<< HEAD
   app.listen(3001, async () => {
     console.log("listening on port 3001")
-=======
-  app.listen(8080, async () => {
-    console.log("listening on port 8080")
->>>>>>> b6ed050d8a70a973d8143358c46170d599b3f241
   })
 })
