@@ -15,6 +15,10 @@
 
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<form action="http://localhost:3001" method="post">
+    <input type="text" name="title" placeholder="title"/>
+    <button type="submit">Send</button>
+</form>
 {#if ads}
     <ul>
         {#each ads as ad}
