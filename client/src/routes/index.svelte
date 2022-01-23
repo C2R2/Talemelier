@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte"
 
+  let title
+
   let ads
   onMount(() => {
       fetch("http://localhost:3001")
@@ -15,8 +17,19 @@
 
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<form action="http://localhost:3001" method="post">
-    <input type="text" name="title" placeholder="title"/>
+<form method="post" on:submit|preventDefault={
+  () => {
+    console.log(title)
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3001", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+    title: title
+}))
+  }
+}>
+    <input bind:value={title} name="title" placeholder="title" type="text"/>
     <button type="submit">Send</button>
 </form>
 {#if ads}

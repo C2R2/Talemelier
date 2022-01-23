@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const helmet = require("helmet")
 const morgan = require("morgan")
-const { deleteAd, updateAd } = require("./database/ads")
+const { deleteAd, updateAd, deleteAllAds } = require("./database/ads")
 const { startDatabase } = require("./database/mongo")
 const { insertAd, getAds } = require("./database/ads")
 

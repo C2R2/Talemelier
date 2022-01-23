@@ -1,7 +1,7 @@
 {
   "name": "talemelier",
   "version": "1.0.0",
-  "description": "- [ ] Finish design",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node src",
