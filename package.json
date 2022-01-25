@@ -1,0 +1,24 @@
+{
+  "name": "talemelier",
+  "version": "1.0.0",
+  "description": "- [ ] Finish design",
+  "main": "index.js",
+  "dependencies": {
+    "svelte": "^3.46.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "server": "cd server && npm start",
+    "client": "cd client && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C2R2/Talemelier.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/C2R2/Talemelier/issues"
+  },
+  "homepage": "https://github.com/C2R2/Talemelier#readme"
+}
