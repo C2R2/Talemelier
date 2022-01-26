@@ -4,25 +4,31 @@
   let title
 
   let ads
+
+  function getPosts () {
+    fetch("http://localhost:3001/posts")
+      .then(res => res.json())
+      .then(data => {
+        ads = data
+      })
+  }
+
   onMount(() => {
-      fetch("http://localhost:3001")
-        .then(res => res.json())
-        .then(data => {
-          ads = data
-        })
+      getPosts()
     }
   )
 </script>
 
 <form method="post" on:submit|preventDefault={
-  () => {
+  async () => {
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:3001", true);
+    xhr.open("POST", "http://localhost:3001/posts", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
     title: title
     }))
     title = ""
+    await getPosts()
   }
 }>
     <input bind:value={title} name="title" placeholder="title" type="text"/>
