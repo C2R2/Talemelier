@@ -27,20 +27,17 @@ app.use(morgan("combined"))
 
 app.use(express.json())
 
-const posts = [
-  {
-    username : "Kyle",
-    title: "Hello",
-  }
-]
+const posts = [{
+  username: "admin", title: "Hello"
+}]
 // defining an endpoint to return all ads
 app.get("/posts", authenticateToken, async (req, res) => {
   // res.send(await getAds())
-  res.json(posts.filter(post => post.username === req.user.name))
+  res.json(posts.filter(post => post.username === req.user.name)
+  )
 })
 
 app.post("/posts", async (req, res) => {
-  console.log(req.body)
   const newAd = req.body
   await insertAd(newAd)
   res.send({ message: "New ad inserted." })
@@ -74,7 +71,7 @@ function authenticateToken (req, res, next) {
 
   if (token == null) return res.sendStatus(401)
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=> {
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403)
     req.user = user
     next()

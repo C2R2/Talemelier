@@ -35,3 +35,7 @@ Content-Type: application/json
   "username": "admin",
   "password": "admin"
 }
+
+###
+GET http://localhost:3001/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NDM1NTA2MzF9.zaT2TpqBgv0yXr4uNNV5FdCaB9IVZDUNW5ilTgr2jp4

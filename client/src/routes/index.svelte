@@ -1,23 +1,39 @@
 <script>
-  import { onMount } from "svelte"
-
   let title
+  let username
+  let password
 
   let ads
 
-  function getPosts () {
-    fetch("http://localhost:3001/posts")
-      .then(res => res.json())
-      .then(data => {
-        ads = data
+  async function handleLogin () {
+    await fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        username, password
       })
+    }).then(res => res.json()).then(data => {
+      let xhr = new XMLHttpRequest()
+      xhr.open("GET", "http://localhost:3001/posts")
+      xhr.setRequestHeader("Authorization", `Bearer ${data.accessToken}`)
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          ads = JSON.parse(xhr.responseText)
+        }
+      }
+      xhr.send()
+    })
   }
-
-  onMount(() => {
-      getPosts()
-    }
-  )
 </script>
+
+<form method="post" on:submit|preventDefault={handleLogin}>
+  <input bind:value={username} placeholder="Username" type="text">
+  <input bind:value={password} placeholder="Password" type="password">
+  <button type="submit">Login</button>
+</form>
 
 <form method="post" on:submit|preventDefault={
   async () => {
@@ -28,20 +44,20 @@
     title: title
     }))
     title = ""
-    await getPosts()
+
   }
 }>
-    <input bind:value={title} name="title" placeholder="title" type="text"/>
-    <button type="submit">Send</button>
+  <input bind:value={title} name="title" placeholder="title" type="text"/>
+  <button type="submit">Send</button>
 </form>
 {#if ads}
-    <ul>
-        {#each ads as ad}
-            <li>
-                <h3>{ad._id}</h3>
-                <p>{ad.title}</p>
-            </li>
-            <hr>
-        {/each}
-    </ul>
+  <ul>
+    {#each ads as ad}
+      <li>
+        <h3>{ad.username}</h3>
+        <p>{ad.title}</p>
+      </li>
+      <hr>
+    {/each}
+  </ul>
 {/if}
