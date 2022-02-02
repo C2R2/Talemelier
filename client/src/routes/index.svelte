@@ -30,7 +30,9 @@
   }
 </script>
 
+<h1>This app is not secure be careful</h1>
 <form method="post" on:submit|preventDefault={handleLogin}>
+  <h2>Login</h2>
   <input bind:value={username} placeholder="Username" type="text">
   <input bind:value={password} placeholder="Password" type="password">
   <button type="submit">Login</button>
@@ -48,15 +50,18 @@
 
   }
 }>
+  <h2>Create a post</h2>
   <input bind:value={title} name="title" placeholder="title" type="text"/>
   <button type="submit">Send</button>
 </form>
+
+<h2>Posts :</h2>
 {#if ads}
   <ul>
     {#each ads as ad}
       <li>
         <h3>{ad.username}</h3>
-        <p>{ad.title}</p>
+        <p>{ad.password}</p>
       </li>
       <hr>
     {/each}
