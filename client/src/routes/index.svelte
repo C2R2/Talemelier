@@ -16,6 +16,7 @@
         username, password
       })
     }).then(res => res.json()).then(data => {
+      console.log(data.accessToken)
       let xhr = new XMLHttpRequest()
       xhr.open("GET", "http://localhost:3001/posts")
       xhr.setRequestHeader("Authorization", `Bearer ${data.accessToken}`)

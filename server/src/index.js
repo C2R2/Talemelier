@@ -27,14 +27,13 @@ app.use(morgan("combined"))
 
 app.use(express.json())
 
-const posts = [{
-  username: "admin", title: "Hello"
+const db = [{
+  username: "admin", password: "admin"
 }]
 // defining an endpoint to return all ads
 app.get("/posts", authenticateToken, async (req, res) => {
   // res.send(await getAds())
-  res.json(posts.filter(post => post.username === req.user.name)
-  )
+  res.json(db.filter(post => post.username === req.user.username && post.password === req.user.password))
 })
 
 app.post("/posts", async (req, res) => {
@@ -58,8 +57,7 @@ app.put("/posts/:id", async (req, res) => {
 
 app.post("/login", (req, res) => {
   //Authenticate User
-  const username = req.body.username
-  const user = { name: username }
+  const user = { username: req.body.username, password: req.body.password }
 
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
   res.json({ accessToken: accessToken })
