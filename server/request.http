@@ -46,10 +46,14 @@ GET http://localhost:3001/users
 
 ### add user
 
-POST http://localhost:3001/users
+POST http://localhost:3001/register
 Content-Type: application/json
 
 {
-  "username": "admin1",
-  "password": "admin1"
+  "username": "gabriel",
+  "password": "leplusbeau"
 }
+
+### delete user
+
+DELETE http://localhost:3001/users/620180d5cb361fad438795fb

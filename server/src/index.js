@@ -12,12 +12,13 @@ const users = require("./user.json")
 
 const MongoClient = require("mongodb").MongoClient
 const url = "mongodb://localhost:27017"
-const dbName = "userApi"
+const dbName = "TalemelierDB"
 let db
 
 MongoClient.connect(url, (err, client) => {
   console.log("Connected successfully to server")
   db = client.db(dbName)
+  if (err) throw err
 })
 
 // defining the Express app
@@ -41,8 +42,8 @@ app.use(express.json())
 //   username: "admin", password: "$2b$10$OPsvN3WmUhasn.PeqiNl5.8E0quoOkIrAPAzkw.KyUdxGS6R030ni"
 // }]
 
-app.get('/users', (req,res) => {
-  db.collection('users').find({}).toArray()
+app.get("/users", (req, res) => {
+  db.collection("users").find({}).toArray()
     .then(docs => res.status(200).json(docs))
     .catch(err => {
       console.log(err)
@@ -50,11 +51,32 @@ app.get('/users', (req,res) => {
     })
 })
 
-app.post('/users', (req,res) => {
-  const { username, password } = req.body
-  const user = { username, password }
-  db.collection('users').insertOne(user)
-    .then(result => res.status(201).json(result))
+app.post("/register", (req, res) => {
+  //Authenticate User
+  bcrypt.hash(req.body.password, 12, (err, hash) => {
+    if (err) {
+      return res.status(500).json({
+        error: req.body.password
+      })
+    } else {
+      const username = req.body.username
+      const password = hash
+      const user = { username, password }
+      db.collection("users").insertOne(user)
+        .then(result => res.status(201).json(result))
+        .catch(err => {
+          console.log(err)
+          throw err
+        })
+      // const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+      // console.log(hash)
+      // res.json({ accessToken: accessToken })
+    }
+  })
+})
+app.delete("/users/:id", (req, res) => {
+  db.collection("users").deleteOne({ _id: req.params.id })
+    .then(result => res.status(200).json(result))
     .catch(err => {
       console.log(err)
       throw err
