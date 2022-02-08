@@ -8,8 +8,6 @@ const morgan = require("morgan")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
-const users = require("./user.json")
-
 const MongoClient = require("mongodb").MongoClient
 const url = "mongodb://localhost:27017"
 const dbName = "TalemelierDB"
@@ -38,17 +36,10 @@ app.use(morgan("combined"))
 
 app.use(express.json())
 
-// let db = [{
-//   username: "admin", password: "$2b$10$OPsvN3WmUhasn.PeqiNl5.8E0quoOkIrAPAzkw.KyUdxGS6R030ni"
-// }]
-
 app.get("/users", (req, res) => {
   db.collection("users").find({}).toArray()
     .then(docs => res.status(200).json(docs))
-    .catch(err => {
-      console.log(err)
-      throw err
-    })
+    .catch(err => res.status(500).json(err))
 })
 
 app.post("/register", (req, res) => {
@@ -56,7 +47,7 @@ app.post("/register", (req, res) => {
   bcrypt.hash(req.body.password, 12, (err, hash) => {
     if (err) {
       return res.status(500).json({
-        error: req.body.password
+        err
       })
     } else {
       const username = req.body.username
@@ -64,13 +55,6 @@ app.post("/register", (req, res) => {
       const user = { username, password }
       db.collection("users").insertOne(user)
         .then(result => res.status(201).json(result))
-        .catch(err => {
-          console.log(err)
-          throw err
-        })
-      // const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-      // console.log(hash)
-      // res.json({ accessToken: accessToken })
     }
   })
 })
@@ -85,7 +69,7 @@ app.delete("/users/:id", (req, res) => {
 
 // defining an endpoint to return all ads
 app.get("/posts", authenticateToken, async (req, res) => {
-  bcrypt.compare(req.user.password, db.filter(post => post.username === req.user.username)[0].password, (err, result) => {
+  bcrypt.compare(req.user.password, db.posts.findOne({ username: req.user.username }), (err, result) => {
     if (err) {
       return res.status(500).send({
         message: result
@@ -102,22 +86,6 @@ app.get("/posts", authenticateToken, async (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-  //Authenticate User
-  // bcrypt.hash(req.body.password, 10, (err, hash) => {
-  //   if (err) {
-  //     return res.status(500).json({
-  //       error: err
-  //     })
-  //   } else {
-  //     const username = req.body.username
-  //     const password = hash
-  //     const user = { username, password }
-  //     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-  //     console.log(hash)
-  //     res.json({ accessToken: accessToken })
-  //   }
-  // })
-
   //log user
   const user = { username: req.body.username, password: req.body.password }
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
