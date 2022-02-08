@@ -1,6 +1,9 @@
 <script>
+  import { getUsers } from "../routes/index.svelte"
+
   let username
   let password
+  export let promise
 
   async function handleRegister () {
     await fetch("http://localhost:3001/register", {
@@ -11,8 +14,9 @@
       body: JSON.stringify({
         username, password
       })
-    }).then(res => res.json()).then(data => {
+    }).then(res => res.json()).then(async data => {
       console.log(data)
+      promise = getUsers()
     }).catch(err => {
       console.error(err)
     })

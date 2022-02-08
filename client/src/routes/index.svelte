@@ -1,34 +1,38 @@
+<script context="module">
+  let promise = getUsers()
+
+  export async function getUsers () {
+    return await fetch("http://localhost:3001/users")
+      .then(response => response.json())
+
+  }
+
+</script>
+
 <script>
-  import { onMount } from "svelte"
   import Login from "$lib/Login.svelte"
   import Register from "$lib/Register.svelte"
 
   let username
   let password
-  let ads
 
-  onMount(() => {
-    fetch("http://localhost:3001/users")
-      .then(res => res.json())
-      .then(res => ads = res)
-  })
 
 </script>
 
-<h1>This app is not secure be careful</h1>
+<h1>This app is a bit more secure be careful</h1>
 
 <Login/>
-<Register/>
+<Register {promise}/>
 
 <h2>Users :</h2>
-{#if ads}
+{#await getUsers() then users}
   <ul>
-    {#each ads as ad}
+    {#each users as user}
       <li>
-        <h3>{ad.username}</h3>
-        <p>{ad.password}</p>
+        <h3>{user.username}</h3>
+        <p>{user.password}</p>
       </li>
       <hr>
     {/each}
   </ul>
-{/if}
+{/await}
