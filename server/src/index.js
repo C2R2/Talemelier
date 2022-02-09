@@ -7,9 +7,17 @@ const helmet = require("helmet")
 const morgan = require("morgan")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-const { deleteAd, updateAd, deleteAllAds } = require("./database/ads")
-const { startDatabase } = require("./database/mongo")
-const { insertAd, getAds } = require("./database/ads")
+
+const MongoClient = require("mongodb").MongoClient
+const url = "mongodb://localhost:27017"
+const dbName = "TalemelierDB"
+let db
+
+MongoClient.connect(url, (err, client) => {
+  console.log("Connected successfully to server")
+  db = client.db(dbName)
+  if (err) throw err
+})
 
 // defining the Express app
 const app = express()
@@ -28,21 +36,46 @@ app.use(morgan("combined"))
 
 app.use(express.json())
 
-const db = [{
-  username: "admin", password: "$2b$10$OPsvN3WmUhasn.PeqiNl5.8E0quoOkIrAPAzkw.KyUdxGS6R030ni"
-}]
+app.get("/users", (req, res) => {
+  db.collection("users").find({}).toArray()
+    .then(docs => res.status(200).json(docs))
+    .catch(err => res.status(500).json(err))
+})
+
+app.post("/register", (req, res) => {
+  //Authenticate User
+  bcrypt.hash(req.body.password, 12, (err, hash) => {
+    if (err) {
+      return res.status(500).json({
+        err
+      })
+    } else {
+      const username = req.body.username
+      const password = hash
+      const user = { username, password }
+      db.collection("users").insertOne(user)
+        .then(result => res.status(201).json(result))
+    }
+  })
+})
+app.delete("/users/:id", (req, res) => {
+  db.collection("users").deleteOne({ _id: req.params.id })
+    .then(result => res.status(200).json(result))
+    .catch(err => {
+      console.log(err)
+      throw err
+    })
+})
+
 // defining an endpoint to return all ads
 app.get("/posts", authenticateToken, async (req, res) => {
-  // res.send(await getAds())
-  console.log(req.user.password)
-  bcrypt.compare(req.user.password, db.filter(post => post.username === req.user.username)[0].password, (err, result) => {
+  bcrypt.compare(req.user.password, db.posts.findOne({ username: req.user.username }), (err, result) => {
     if (err) {
       return res.status(500).send({
         message: result
       })
     }
     if (result) {
-      console.log(result)
       res.json(db.filter(post => post.username === req.user.username))
     } else {
       return res.status(401).send({
@@ -52,41 +85,8 @@ app.get("/posts", authenticateToken, async (req, res) => {
   })
 })
 
-app.post("/posts", async (req, res) => {
-  const newAd = req.body
-  await insertAd(newAd)
-  res.send({ message: "New ad inserted." })
-})
-
-// endpoint to delete an ad
-app.delete("/posts/:id", async (req, res) => {
-  await deleteAd(req.params.id)
-  res.send({ message: "Ad removed." })
-})
-
-// endpoint to update an ad
-app.put("/posts/:id", async (req, res) => {
-  const updatedAd = req.body
-  await updateAd(req.params.id, updatedAd)
-  res.send({ message: "Ad updated." })
-})
-
 app.post("/login", (req, res) => {
-  //Authenticate User
-  // bcrypt.hash(req.body.password, 10, (err, hash) => {
-  //   if (err) {
-  //     return res.status(500).json({
-  //       error: err
-  //     })
-  //   } else {
-  //     const username = req.body.username
-  //     const password = hash
-  //     const user = { username, password }
-  //     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-  //     console.log(hash)
-  //     res.json({ accessToken: accessToken })
-  //   }
-  // })
+  //log user
   const user = { username: req.body.username, password: req.body.password }
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
   res.json({ accessToken: accessToken })
@@ -106,14 +106,7 @@ function authenticateToken (req, res, next) {
 
 }
 
-// start the in-memory MongoDB instance
-startDatabase().then(async () => {
-  await insertAd({
-    title: "Hello, now from the in-memory database!"
-  })
-
-  // start the server
-  app.listen(3001, async () => {
-    console.log("listening on port 3001")
-  })
+// start the server
+app.listen(3001, async () => {
+  console.log("listening on port 3001")
 })

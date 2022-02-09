@@ -39,3 +39,21 @@ Content-Type: application/json
 ###
 GET http://localhost:3001/posts
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NDM1NTA2MzF9.zaT2TpqBgv0yXr4uNNV5FdCaB9IVZDUNW5ilTgr2jp4
+
+### get users
+
+GET http://localhost:3001/users
+
+### add user
+
+POST http://localhost:3001/register
+Content-Type: application/json
+
+{
+  "username": "gabriel",
+  "password": "leplusbeau"
+}
+
+### delete user
+
+DELETE http://localhost:3001/users/620180d5cb361fad438795fb
