@@ -18,6 +18,8 @@
   }
 </script>
 
+<a href="/">Back</a>
+
 <form method="post" on:submit|preventDefault={handleLogin}>
   <h2>Login</h2>
   <input bind:value={username} placeholder="Username" type="text">
