@@ -1,32 +1,14 @@
-### insert a new ad
+### add user
 
-POST http://localhost:3001/
+POST http://localhost:3001/register
 Content-Type: application/json
 
 {
-  "title": "Miam",
-  "price": 2
+  "username": "admin",
+  "password": "admin"
 }
 
-### get all ads
-
-GET http://localhost:3001/
-
-### delete ad
-
-DELETE http://localhost:3001/
-
-### update ad
-
-PUT http://localhost:3001/61e31350a1c3daa59fa01404
-Content-Type: application/json
-
-{
-  "title": "Pizza",
-  "price": 10.5
-}
-
-### login
+### log user
 
 POST http://localhost:3001/login
 Content-Type: application/json
@@ -36,24 +18,6 @@ Content-Type: application/json
   "password": "admin"
 }
 
-###
-GET http://localhost:3001/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2NDM1NTA2MzF9.zaT2TpqBgv0yXr4uNNV5FdCaB9IVZDUNW5ilTgr2jp4
-
-### get users
+### get all users
 
 GET http://localhost:3001/users
-
-### add user
-
-POST http://localhost:3001/register
-Content-Type: application/json
-
-{
-  "username": "gabriel",
-  "password": "leplusbeau"
-}
-
-### delete user
-
-DELETE http://localhost:3001/users/620180d5cb361fad438795fb

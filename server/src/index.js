@@ -51,6 +51,43 @@ app.post("/register", (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+//Login user
+app.post("/login", (req, res) => {
+    //check if user exists
+    db.collection("users").findOne({ username: req.body.username })
+        .then(result => {
+            if (result) {
+                //check if password is correct
+                bcrypt.compare(req.body.password, result.password, (err, result) => {
+                    if (err) {
+                        return res.status(500).json({
+                            error: err
+                        })
+                    } else if (result) {
+                        //create token
+                        const token = jwt.sign({
+                            username: result.username
+                        }, "secret", { expiresIn: "1h" })
+                        res.status(200).json({
+                            message: "Authentication successful", token: token
+                        })
+                    } else {
+                        //password incorrect
+                        res.status(401).json({
+                            message: "Authentication failed"
+                        })
+                    }
+                })
+            } else {
+                //user does not exist
+                res.status(401).json({
+                    message: "User does not exist"
+                })
+            }
+        })
+        .catch(err => res.status(500).json(err))
+})
+
 app.get("/users", (req, res) => {
     db.collection("users").find().toArray()
         .then(result => res.status(200).json(result))
