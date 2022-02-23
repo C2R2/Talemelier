@@ -42,7 +42,8 @@ app.post("/register", (req, res) => {
                         //create user
                         const username = req.body.username
                         const password = hash
-                        const user = { username, password }
+                        const role = req.body.role
+                        const user = { username, password, role }
                         db.collection("users").insertOne(user)
                             .then(result => res.status(201).json("User " + result.insertedId + " registered"))
                     }
@@ -70,19 +71,19 @@ app.post("/login", (req, res) => {
                             username: result.username
                         }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
                         res.status(200).json({
-                            message: "Authentication successful", token: token
+                            msg: "Authentication successful", token: token
                         })
                     } else {
                         //password incorrect
                         res.status(401).json({
-                            message: "Password incorrect"
+                            msg: "Password incorrect"
                         })
                     }
                 })
             } else {
                 //user does not exist
                 res.status(401).json({
-                    message: "User does not exist"
+                    msg: "User does not exist"
                 })
             }
         })
