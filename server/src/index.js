@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors")
@@ -67,14 +68,14 @@ app.post("/login", (req, res) => {
                         //create token
                         const token = jwt.sign({
                             username: result.username
-                        }, "secret", { expiresIn: "1h" })
+                        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
                         res.status(200).json({
                             message: "Authentication successful", token: token
                         })
                     } else {
                         //password incorrect
                         res.status(401).json({
-                            message: "Authentication failed"
+                            message: "Password incorrect"
                         })
                     }
                 })
