@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const morgan = require("morgan")
 const helmet = require("helmet")
+const cookieParser = require("cookie-parser")
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(morgan("combined"))
+app.use(cookieParser())
 
 const MongoClient = require("mongodb").MongoClient
 const url = "mongodb://localhost:27017"
@@ -95,19 +97,21 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/users", authenticateToken, (req, res) => {
+    console.log(req.cookies)
     db.collection("users").find().toArray()
         .then(result => res.status(200).json(result))
         .catch(err => res.status(500).json(err))
 })
 
-function authenticateToken () {
+function authenticateToken (req, res, next) {
     const authHeader = req.headers["authorization"]
     const token = authHeader && authHeader.split(" ")[1]
     if (token == null) return res.sendStatus(401)
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        console.log(err)
-        if (err) return res.sendStatus(403)
+        if (err) return res.status(403).json({
+            msg: "Token is not valid. Please login again"
+        })
         req.user = user
         next()
     })
