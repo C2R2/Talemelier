@@ -57,21 +57,25 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res) => {
     //check if user exists
     db.collection("users").findOne({ username: req.body.username })
-        .then(result => {
-            if (result) {
+        .then(dbResult => {
+            if (dbResult) {
                 //check if password is correct
-                bcrypt.compare(req.body.password, result.password, (err, result) => {
+                bcrypt.compare(req.body.password, dbResult.password, (err, bcryptResult) => {
                     if (err) {
                         return res.status(500).json({
                             error: err
                         })
-                    } else if (result) {
+                    } else if (bcryptResult) {
                         //create token
+                        const user = {
+                            username: dbResult.username, role: dbResult.role
+                        }
                         const token = jwt.sign({
-                            username: result.username
+                            user
                         }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
+                        res.cookie("token", token, { httpOnly: true })
                         res.status(200).json({
-                            msg: "Authentication successful", token: token
+                            msg: "Authentication successful", token, user
                         })
                     } else {
                         //password incorrect
@@ -90,11 +94,24 @@ app.post("/login", (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-app.get("/users", (req, res) => {
+app.get("/users", authenticateToken, (req, res) => {
     db.collection("users").find().toArray()
         .then(result => res.status(200).json(result))
         .catch(err => res.status(500).json(err))
 })
+
+function authenticateToken () {
+    const authHeader = req.headers["authorization"]
+    const token = authHeader && authHeader.split(" ")[1]
+    if (token == null) return res.sendStatus(401)
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        console.log(err)
+        if (err) return res.sendStatus(403)
+        req.user = user
+        next()
+    })
+}
 
 app.listen(3001, async () => {
     console.log("listening on port 3001")
