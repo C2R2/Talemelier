@@ -22,4 +22,3 @@ Content-Type: application/json
 ### get all users
 
 GET http://localhost:3001/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjQ1NzAzODk1LCJleHAiOjE2NDU3MDc0OTV9.4SbhboRcHYUFl-2Tvr_QZFWrP9zrLAosfV_pNTAo0lk

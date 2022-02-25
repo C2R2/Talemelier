@@ -97,20 +97,23 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/users", authenticateToken, (req, res) => {
-    console.log(req.cookies)
     db.collection("users").find().toArray()
         .then(result => res.status(200).json(result))
         .catch(err => res.status(500).json(err))
 })
 
 function authenticateToken (req, res, next) {
-    const authHeader = req.headers["authorization"]
+    const authHeader = "Bearer " + req.cookies.token
     const token = authHeader && authHeader.split(" ")[1]
     if (token == null) return res.sendStatus(401)
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+
         if (err) return res.status(403).json({
             msg: "Token is not valid. Please login again"
+        })
+        if (user.role !== "admin") return res.status(403).json({
+            msg: "You are not authorized to view this page"
         })
         req.user = user
         next()
