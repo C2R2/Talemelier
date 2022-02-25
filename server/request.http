@@ -4,9 +4,9 @@ POST http://localhost:3001/register
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "admin",
-  "role": "admin"
+  "username": "user",
+  "password": "user",
+  "role": "user"
 }
 
 ### log user
@@ -22,3 +22,4 @@ Content-Type: application/json
 ### get all users
 
 GET http://localhost:3001/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjQ1ODMyMTk0LCJleHAiOjE2NDU4MzU3OTR9.XBa5Oa-j0u6ZemSOi1aJVtoFgZ3zzYhTllRkgbwJy-o

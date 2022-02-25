@@ -1,8 +1,8 @@
 <script>
-  import getUsers from "../functions/getUsers.js"
+    import getUsers from "../functions/getUsers.js"
 
-  let username
-  let password
+    let username
+    let password
 
 </script>
 
@@ -27,4 +27,6 @@
   {:else}
     <p>No users found</p>
   {/if}
+{:catch error}
+  <p>Error: {error}</p>
 {/await}
