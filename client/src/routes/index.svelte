@@ -28,5 +28,5 @@
     <p>No users found</p>
   {/if}
 {:catch error}
-  <p>Error: {error}</p>
+  <p>{error}</p>
 {/await}
