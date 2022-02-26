@@ -6,7 +6,6 @@
   "dependencies": {
     "svelte": "^3.46.2"
   },
-  "devDependencies": {},
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd client && npm start"
