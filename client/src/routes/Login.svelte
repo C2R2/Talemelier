@@ -1,4 +1,6 @@
 <script>
+    import Cookies from "js-cookie"
+
     let username
     let password
 
@@ -15,7 +17,8 @@
         }).then(res => res.json()).then(
             data => {
                 console.log(data)
-                document.cookie = `token=${data.token};secure`
+                Cookies.set("token", data.token, { secure: true })
+                window.location = "/"
             }
         ).catch(err => console.error(err))
     }
