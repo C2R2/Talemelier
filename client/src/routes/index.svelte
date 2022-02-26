@@ -9,7 +9,11 @@
 
 <h1>This app is a bit more secure be careful</h1>
 {#if Cookies.get('token')}
-  <p>You are logged in</p>
+  <button on:click={() => {
+    Cookies.remove('token')
+    window.location.reload()
+  }}>Logout
+  </button>
 {:else}
   <a href="/login">Login</a>
   <a href="/register">Register</a>
