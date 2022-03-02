@@ -5,6 +5,14 @@
     let username
     let password
 
+    const animation = () => {
+        return {
+            duration: 1000,
+            css: (t) => `
+            transform: translateY(${t * -100 + 100}px);
+         `
+        }
+    }
 </script>
 
 <h1>This app is a bit more secure be careful</h1>
@@ -24,7 +32,7 @@
   <p>Loading...</p>
 {:then users}
   {#if users.length}
-    <ul>
+    <ul in:animation>
       {#each users as user}
         <li>
           <h3>{user.username}</h3>
