@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Talemelier - Inscription</title>
+</svelte:head>
+
 <script>
 
   let username

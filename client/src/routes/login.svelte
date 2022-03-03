@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Talemelier - Connexion</title>
+</svelte:head>
+
 <script>
     import Cookies from "js-cookie"
 

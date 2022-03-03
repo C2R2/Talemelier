@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>L'Atelier du Talemelier</title>
+</svelte:head>
+
 <script>
     import getUsers from "../functions/getUsers.js"
     import Cookies from "js-cookie"
@@ -5,14 +9,14 @@
     let username
     let password
 
-    const animation = () => {
-        return {
-            duration: 1000,
-            css: (t) => `
-            transform: translateY(${t * -100 + 100}px);
-         `
-        }
-    }
+    /*  const animation = () => {
+          return {
+              duration: 1000,
+              css: (t) => `
+              transform: translateY(${t * -100 + 100}px);
+           `
+          }
+      }*/
 </script>
 
 <h1>This app is a bit more secure be careful</h1>
@@ -32,7 +36,7 @@
   <p>Loading...</p>
 {:then users}
   {#if users.length}
-    <ul in:animation>
+    <ul>
       {#each users as user}
         <li>
           <h3>{user.username}</h3>
