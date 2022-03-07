@@ -24,7 +24,9 @@
                 Cookies.set("token", data.token, { secure: true })
                 window.location = "/"
             }
-        ).catch(err => console.error(err))
+        ).catch(err =>
+            //TODO : handle error
+            console.error(err))
     }
 </script>
 

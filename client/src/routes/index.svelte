@@ -5,6 +5,7 @@
 <script>
     import getUsers from "../functions/getUsers.js"
     import Cookies from "js-cookie"
+    import Btn from "$lib/Btn.svelte"
 
     let username
     let password
@@ -21,14 +22,14 @@
 
 <h1>This app is a bit more secure be careful</h1>
 {#if Cookies.get('token')}
-  <button on:click={() => {
+  <Btn onClick={() => {
     Cookies.remove('token')
     window.location.reload()
   }}>Logout
-  </button>
+  </Btn>
 {:else}
-  <a href="/login">Login</a>
-  <a href="/register">Register</a>
+  <Btn href="/login">Login</Btn>
+  <Btn href="/register">Register</Btn>
 {/if}
 
 <h2>Users :</h2>
