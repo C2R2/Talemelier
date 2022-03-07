@@ -58,3 +58,15 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+input {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--black);
+  border-radius: 0.25rem;
+  transition: transform 0.1s ease-in-out;
+}
+
+input:focus-visible {
+  outline: 1px solid var(--black);
+  transform: scale(1.005);
+}

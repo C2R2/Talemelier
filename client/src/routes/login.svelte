@@ -4,6 +4,7 @@
 
 <script>
     import Cookies from "js-cookie"
+    import Btn from "$lib/Btn.svelte"
 
     let username
     let password
@@ -30,14 +31,16 @@
     }
 </script>
 
-<a href="/">Back</a>
+<Btn href="/">Back</Btn>
 
 <form method="post" on:submit|preventDefault={handleLogin}>
   <h2>Login</h2>
-  <input bind:value={username} placeholder="Username" type="text">
-  <input bind:value={password} placeholder="Password" type="password">
-  <button type="submit">Login</button>
+  <input bind:value={username} placeholder="Mail" required type="email">
+  <input bind:value={password} placeholder="Mot de passe" required type="password">
+  <Btn type="submit">Me connecter</Btn>
 </form>
 
-<style>
+<style lang="scss">
+
+
 </style>
