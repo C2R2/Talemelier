@@ -38,7 +38,7 @@
   <div class="input-container">
     <input bind:value={username} placeholder="Mail" required type="email">
     <input bind:value={password} placeholder="Mot de passe" required type="password">
-    <Btn width="50%" type="submit">Me connecter</Btn>
+    <Btn width="50%">Me connecter</Btn>
   </div>
 </form>
 
@@ -47,10 +47,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid ;
+    border: 1px solid;
     border-radius: 0.5rem;
     overflow: hidden;
     width: 50%;
+    margin: auto;
   }
 
   h2 {
@@ -60,7 +61,6 @@
     padding: 0.5rem 0;
     text-align: center;
   }
-
 
   .input-container {
     display: flex;

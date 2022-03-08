@@ -1,7 +1,7 @@
 <script>
-    export let href
-    export let onClick
-    export let width
+    export let href = undefined
+    export let onClick = () => {}
+    export let width = undefined
 </script>
 
 {#if href}
@@ -17,11 +17,11 @@
 <style>
   * {
     display: inline-block;
+    min-width: min-content;
     padding: 0.5rem 1rem;
+    white-space: nowrap;
     border-radius: 0.25rem;
     background-color: var(--primary-color);
-    min-width: min-content;
-    white-space: nowrap;
   }
 
 </style>
