@@ -44,9 +44,16 @@
                 username: mail, password
             })
         }).then(res => res.json()).then(data => {
-            console.log(data)
-            window.location = "/"
+            if (data.success) {
+                console.log(data)
+
+                window.location = "/"
+            } else {
+                console.error(data.msg)
+                error = data.msg
+            }
         }).catch(err => {
+            error = err
             console.error(err)
         })
     }
