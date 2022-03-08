@@ -44,10 +44,9 @@ app.post("/register", (req, res) => {
                         //create user
                         const username = req.body.username
                         const password = hash
-                        const role = req.body.role
-                        const user = { username, password, role }
+                        const user = { username, password, admin: false }
                         db.collection("users").insertOne(user)
-                            .then(result => res.status(201).json({ msg: "User " + result.insertedId + " registered" }))
+                            .then(result => res.status(201).json({ msg: "Utilisateur " + result.insertedId + " enregistré" }))
                     }
                 })
             }
@@ -82,7 +81,7 @@ app.post("/login", (req, res) => {
                     } else {
                         //password incorrect
                         res.status(401).json({
-                            msg: "Password incorrect"
+                            msg: "Mot de passe incorrect"
                         })
                     }
                 })
@@ -109,10 +108,10 @@ function authenticateToken (req, res, next) {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) return res.status(403).json({
-            msg: "Token is not valid. Please login again"
+            msg: "Le token n'est pas valide. Veuilez vous reconnecter."
         })
         if (user.user.role !== "admin") return res.status(403).json({
-            msg: "You are not authorized to view this page"
+            msg: "Vous n'avez pas les droits pour acceder à cette page."
         })
         req.user = user
         next()
