@@ -89,7 +89,7 @@ app.post("/login", (req, res) => {
             } else {
                 //user does not exist
                 res.status(401).json({
-                    msg: "User does not exist"
+                    msg: "L'utilisateur n'existe pas. Veuillez vous inscrire."
                 })
             }
         })
