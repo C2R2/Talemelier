@@ -33,7 +33,7 @@ app.post("/register", (req, res) => {
     //check if user already exists
     db.collection("users").findOne({ username: req.body.username })
         .then((result) => {
-            if (result) {res.status(400).send("User already exists")} else {
+            if (result) {res.status(400).json({ msg: "L'utilisateur existe déjà. Veuillez vous connecter." })} else {
                 //hash password
                 bcrypt.hash(req.body.password, 12, (err, hash) => {
                     if (err) {
@@ -47,7 +47,7 @@ app.post("/register", (req, res) => {
                         const role = req.body.role
                         const user = { username, password, role }
                         db.collection("users").insertOne(user)
-                            .then(result => res.status(201).json("User " + result.insertedId + " registered"))
+                            .then(result => res.status(201).json({ msg: "User " + result.insertedId + " registered" }))
                     }
                 })
             }
@@ -89,7 +89,7 @@ app.post("/login", (req, res) => {
             } else {
                 //user does not exist
                 res.status(401).json({
-                    msg: "L'utilisateur n'existe pas. Veuillez vous inscrire."
+                    msg: "L'utilisateur n'existe pas. Vous allez etre redirigé vers la page d'inscription."
                 })
             }
         })

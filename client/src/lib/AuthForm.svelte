@@ -19,13 +19,18 @@
             })
         }).then(res => res.json()).then(
             data => {
-                if (data.success) {
-                    console.log(data.statusCode)
+                if (data.token) {
+                    console.log(data)
                     Cookies.set("token", data.token, { secure: true })
                     window.location = "/"
                 } else {
-                    console.error(data.msg)
+                    console.error(data)
                     error = data.msg
+                    setTimeout(()=>{
+                        if (data.msg.includes("inscription")) {
+                            window.location = "/register"
+                        }
+                    }, 2000)
                 }
             }
         ).catch(err => {
@@ -44,17 +49,17 @@
                 username: mail, password
             })
         }).then(res => res.json()).then(data => {
-            if (data.success) {
-                console.log(data)
-
-                window.location = "/"
+            console.log(data)
+            if (data) {
+                handleLogin()
+                // window.location = "/"
             } else {
                 console.error(data.msg)
                 error = data.msg
             }
         }).catch(err => {
             error = err
-            console.error(err)
+            console.log(err)
         })
     }
 

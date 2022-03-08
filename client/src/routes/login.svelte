@@ -6,10 +6,6 @@
     import Btn from "$lib/Btn.svelte"
     import AuthForm from "$lib/AuthForm.svelte"
 
-    let mail
-    let password
-
-
 </script>
 
 <Btn href="/">Back</Btn>

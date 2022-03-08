@@ -16,6 +16,7 @@
 
 <style>
   * {
+    cursor: pointer;
     display: inline-block;
     min-width: min-content;
     padding: 0.5rem 1rem;
