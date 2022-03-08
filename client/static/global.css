@@ -68,5 +68,4 @@ input {
 
 input:focus-visible {
   outline: 1px solid var(--black);
-  transform: scale(1.005);
 }

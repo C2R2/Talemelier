@@ -1,14 +1,15 @@
 <script>
     export let href
     export let onClick
+    export let width
 </script>
 
 {#if href}
-  <a href={href}>
+  <a style:width={width} href={href}>
     <slot/>
   </a>
 {:else}
-  <button on:click={onClick}>
+  <button style:width={width} on:click={onClick}>
     <slot/>
   </button>
 {/if}
@@ -19,6 +20,8 @@
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     background-color: var(--primary-color);
+    min-width: min-content;
+    white-space: nowrap;
   }
 
 </style>
