@@ -7,22 +7,22 @@
       <li class="title">
         Contact
       </li>
-      <li><a href="/">Partenariat</a></li>
-      <li><a href="/">Un problème rencontré ?</a></li>
+      <li><a class="underline" href="/">Partenariat</a></li>
+      <li><a class="underline" href="/">Un problème rencontré ?</a></li>
     </ul>
     <ul>
       <li class="title">
         À propos
       </li>
-      <li><a href="/">Conditions générales de ventes</a></li>
-      <li><a href="/">Mentions légales</a></li>
+      <li><a class="underline" href="/">Conditions générales de ventes</a></li>
+      <li><a class="underline" href="/">Mentions légales</a></li>
     </ul>
     <ul>
       <li class="title">
         Commande et livraison
       </li>
-      <li><a href="/">Infos pratiques</a></li>
-      <li><a href="/">Suivi des commandes</a></li>
+      <li><a class="underline" href="/">Infos pratiques</a></li>
+      <li><a class="underline" href="/">Suivi des commandes</a></li>
     </ul>
 
   </div>

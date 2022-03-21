@@ -70,7 +70,26 @@ input:focus-visible {
   outline: 1px solid var(--black);
 }
 
-h1{
+.underline {
+  position: relative;;
+}
+
+.underline:before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--black);
+  transition: width 0.25s ease-in-out;
+}
+
+.underline:hover:before {
+  width: 100%;
+}
+
+h1 {
   font-family: var(--title-font);
   font-weight: 600;
   font-size: 4rem;
