@@ -23,8 +23,19 @@
     align-items: center;
     text-align: center;
 
-    .title > * {
-      color: white;
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      > * {
+        color: white;
+      }
     }
   }
+
+  .cta {
+    margin-top: 2rem;
+  }
+
 </style>

@@ -29,6 +29,7 @@ time, mark, audio, video {
   text-decoration: none;
   appearance: none;
 }
+
 @media (max-width: 768px) {
   html, body {
     font-size: 14px;
@@ -98,4 +99,9 @@ h1 {
   font-family: var(--title-font);
   font-weight: 600;
   font-size: 4rem;
+}
+
+h2 {
+  font-family: var(--title-font);
+  font-size: 2rem;
 }
