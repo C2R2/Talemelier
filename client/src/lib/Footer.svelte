@@ -38,6 +38,9 @@
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
   }
 
   hr {
@@ -48,6 +51,8 @@
   .links {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
 
     ul {
       display: flex;
@@ -55,7 +60,7 @@
       gap: 1rem;
 
       .title {
-        font-size: 1.125rem;
+        font-weight: 600;
       }
     }
   }
@@ -65,5 +70,9 @@
     align-items: center;
     flex-direction: column;
     gap: 0.5rem;
+
+    img {
+      width: 8rem;
+    }
   }
 </style>

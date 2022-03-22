@@ -5,7 +5,7 @@
 <header>
   <div class="header-left"><img alt="logo Talemelier" src="/logo.svg"></div>
   <div class="header-right">
-    <a href="" class="cart">
+    <a class="cart" href="">
       Panier
       <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
            stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +14,7 @@
         <path d="M16 10a4 4 0 01-8 0"></path>
       </svg>
     </a>
-    <a href="/login" class="account">
+    <a class="account" href="/login">
       Mon compte
       <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
            stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -32,11 +32,19 @@
     align-items: center;
     justify-content: space-between;
     padding: 2rem;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
   }
 
   .header-right {
     display: flex;
     gap: 1.5rem;
+
+    svg {
+      width: 1.5rem;
+    }
 
     > * {
       display: flex;

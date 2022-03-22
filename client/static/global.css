@@ -29,6 +29,11 @@ time, mark, audio, video {
   text-decoration: none;
   appearance: none;
 }
+@media (max-width: 768px) {
+  html, body {
+    font-size: 14px;
+  }
+}
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -71,7 +76,7 @@ input:focus-visible {
 }
 
 .underline {
-  position: relative;;
+  position: relative;
 }
 
 .underline:before {
