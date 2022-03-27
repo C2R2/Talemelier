@@ -2,6 +2,7 @@
   --primary-color: #F6BD60;
   --background-color: #DDD5D0;
   --black: #161616;
+  --second-black: #323232;
   --title-font: "meno-banner", serif;
   --body-font: "Acumin", sans-serif;
 }
@@ -104,4 +105,10 @@ h1 {
 h2 {
   font-family: var(--title-font);
   font-size: 2rem;
+}
+
+h3 {
+  font-family: var(--title-font);
+  font-size: 2rem;
+  color: var(--second-black);
 }
