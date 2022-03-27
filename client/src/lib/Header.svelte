@@ -48,7 +48,11 @@
       padding: 1rem;
     }
   }
-
+.header-left{
+  img{
+    width: 6rem;
+  }
+}
   .header-right {
     display: flex;
     gap: 1.5rem;

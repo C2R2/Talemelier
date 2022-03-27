@@ -7,7 +7,7 @@
     <h1>L'Atelier du Talemelier</h1>
     <h2>Artisan Boulanger</h2>
   </div>
-  <Btn href="products">
+  <Btn width="20rem" href="products">
     Découvrir les produits
   </Btn>
 </div>
@@ -37,5 +37,4 @@
   .cta {
     margin-top: 2rem;
   }
-
 </style>
