@@ -1,6 +1,7 @@
 <script>
     import Btn from "$lib/Btn.svelte"
-    import ProductCard from "$lib/ProductCard.svelte"
+    import ProductCard from "$lib/ProductCard/ProductCard.svelte"
+    import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
 </script>
 
 <svelte:head>
@@ -12,10 +13,25 @@
     <h1>L'Atelier du Talemelier</h1>
     <h2>Artisan Boulanger</h2>
   </div>
-  <Btn class="cta" href="products" width="20rem">
+  <Btn class="cta" fontSize="1.25rem" href="products" width="20rem">
     Découvrir les produits
   </Btn>
 </section>
+<!-- -->
+<section class="products">
+  <h2>Nos produits</h2>
+  <ProductCardCarrousel>
+    <ProductCard/>
+    <ProductCard/>
+    <ProductCard/>
+  </ProductCardCarrousel>
+  <div class="more">
+    <Btn fontSize="1.25rem" href="products" width="100%">
+      Découvrir nos produits
+    </Btn>
+  </div>
+</section>
+<!-- -->
 <section class="about">
   <img alt="L'atelier du talemelier" src="/img/production.webp">
   <div class="text">
@@ -25,19 +41,6 @@
       traiteur depuis
       plus de 35 ans.
     </p>
-  </div>
-</section>
-<section class="products">
-  <h2>Nos produits</h2>
-  <div class="productCard-container">
-    <ProductCard/>
-    <ProductCard/>
-    <ProductCard/>
-  </div>
-  <div class="more">
-    <Btn fontSize="1.25rem" href="products" width="100%">
-      Découvrir nos produits
-    </Btn>
   </div>
 </section>
 
@@ -83,13 +86,6 @@
       font-size: 4rem;
       text-align: center;
       margin-bottom: 1rem;
-    }
-
-    .productCard-container{
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      padding: 0 5%;
     }
 
     .more {
