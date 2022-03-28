@@ -38,8 +38,7 @@
     <h2>Une entreprise artisanale</h2>
     <p>
       L’Atelier du Talemelier est une entreprise artisanale productrice de produits de boulangerie, pâtisserie et
-      traiteur depuis
-      plus de 35 ans.
+      traiteur depuis plus de 35 ans.
     </p>
   </div>
 </section>
