@@ -3,6 +3,10 @@
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
 </script>
 
+<svelte:head>
+  <title>Produits - L'Atelier du Talemelier</title>
+</svelte:head>
+
 <h1>Les produits</h1>
 
 <p class="instruction">
