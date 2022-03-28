@@ -19,20 +19,6 @@
   </Btn>
 </section>
 <!-- -->
-<section class="products">
-  <h2>Nos produits</h2>
-  <ProductCardCarrousel>
-    <ProductCard/>
-    <ProductCard/>
-    <ProductCard/>
-  </ProductCardCarrousel>
-  <div class="more">
-    <Btn fontSize="1.25rem" href="products" width="100%">
-      Découvrir nos produits
-    </Btn>
-  </div>
-</section>
-<!-- -->
 <section class="about">
   <img alt="L'atelier du talemelier" src="/img/production.webp">
   <div class="text">
@@ -43,13 +29,14 @@
     </p>
   </div>
 </section>
+<!-- -->
 <section class="products">
   <h2>Nos produits</h2>
-  <div class="productCard-container">
+  <ProductCardCarrousel>
     <ProductCard/>
     <ProductCard/>
     <ProductCard/>
-  </div>
+  </ProductCardCarrousel>
   <div class="more">
     <Btn fontSize="1.25rem" href="products" width="100%">
       Découvrir nos produits
@@ -100,6 +87,7 @@
       text-align: center;
       margin-bottom: 1rem;
     }
+
     .more {
       width: 90%;
       margin: 2rem auto;
