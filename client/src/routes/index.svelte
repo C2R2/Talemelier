@@ -2,6 +2,10 @@
     import Btn from "$lib/Btn.svelte"
 </script>
 
+<svelte:head>
+  <title>L'atelier du Talemelier</title>
+</svelte:head>
+
 <section class="display">
   <div class="title">
     <h1>L'Atelier du Talemelier</h1>
@@ -21,6 +25,9 @@
       plus de 35 ans.
     </p>
   </div>
+</section>
+<section class="products">
+
 </section>
 
 
