@@ -1,5 +1,6 @@
 <script>
     import Btn from "$lib/Btn.svelte"
+    import ProductCard from "$lib/ProductCard.svelte"
 </script>
 
 <svelte:head>
@@ -11,14 +12,14 @@
     <h1>L'Atelier du Talemelier</h1>
     <h2>Artisan Boulanger</h2>
   </div>
-  <Btn href="products" width="20rem">
+  <Btn class="cta" href="products" width="20rem">
     Découvrir les produits
   </Btn>
 </section>
 <section class="about">
   <img alt="L'atelier du talemelier" src="/img/production.webp">
   <div class="text">
-    <h3>Une entreprise artisanale</h3>
+    <h2>Une entreprise artisanale</h2>
     <p>
       L’Atelier du Talemelier est une entreprise artisanale productrice de produits de boulangerie, pâtisserie et
       traiteur depuis
@@ -27,7 +28,14 @@
   </div>
 </section>
 <section class="products">
+  <h2>Nos produits</h2>
+  <ProductCard/>
 
+  <div class="more">
+    <Btn fontSize="1.25rem" href="products" width="100%">
+      Découvrir nos produits
+    </Btn>
+  </div>
 </section>
 
 
@@ -59,10 +67,24 @@
     gap: 0.5rem;
     align-items: center;
     width: 90%;
-    margin: 2rem auto;
+    margin: 4rem auto;
 
     img {
       width: 100%;
+      border-radius: 0.25rem;
+    }
+  }
+
+  .products {
+    h2 {
+      font-size: 4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .more {
+      width: 90%;
+      margin: 2rem auto;
     }
   }
 </style>
