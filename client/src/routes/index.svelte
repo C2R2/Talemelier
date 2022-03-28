@@ -29,8 +29,11 @@
 </section>
 <section class="products">
   <h2>Nos produits</h2>
-  <ProductCard/>
-
+  <div class="productCard-container">
+    <ProductCard/>
+    <ProductCard/>
+    <ProductCard/>
+  </div>
   <div class="more">
     <Btn fontSize="1.25rem" href="products" width="100%">
       Découvrir nos produits
@@ -80,6 +83,13 @@
       font-size: 4rem;
       text-align: center;
       margin-bottom: 1rem;
+    }
+
+    .productCard-container{
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 0 5%;
     }
 
     .more {

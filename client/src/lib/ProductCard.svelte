@@ -17,9 +17,10 @@
 <style lang="scss">
   figure {
     overflow: hidden;
-    width: 90%;
-    margin: 0 auto;
+    width: 24rem;
     border-radius: 0.25rem;
+    background-color: #D4CAC4;
+    flex-shrink: 0;
   }
 
   figcaption {
