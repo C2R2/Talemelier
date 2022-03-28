@@ -43,6 +43,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--background-color);
 
     @media (max-width: 768px) {
       padding: 1rem;
