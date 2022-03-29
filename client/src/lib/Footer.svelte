@@ -65,6 +65,7 @@
     }
   }
 
+
   .copyright {
     display: flex;
     align-items: center;
