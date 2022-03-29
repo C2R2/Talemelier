@@ -49,7 +49,13 @@
     <ProductCard/>
   </div>
 
-  <div class="pagination"></div>
+  <div class="pagination">
+    <span class="left">←</span>
+    <span class="current">1</span>
+    <span>2</span>
+    <span>3</span>
+    <span class="right">→</span>
+  </div>
 </section>
 
 <style lang="scss">
@@ -71,6 +77,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
     h2 {
       width: 90%;
       margin: 0 auto;
@@ -91,4 +98,28 @@
     }
   }
 
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > * {
+      cursor: pointer;
+      border-radius: 0.25rem;
+      border: 1px solid var(--black);
+      height: 3rem;
+      width: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .left,.right{
+      height: 2rem;
+    }
+    .current{
+      font-weight: 600;
+      border-width: 2px;
+
+    }
+  }
 </style>
