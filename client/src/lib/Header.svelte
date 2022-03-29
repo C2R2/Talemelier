@@ -48,6 +48,7 @@
     left: 0;
     right: 0;
     background-color: var(--background-color);
+    z-index: 10;
 
     @media (max-width: 768px) {
       padding: 1rem;
