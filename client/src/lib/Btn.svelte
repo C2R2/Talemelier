@@ -25,7 +25,6 @@
   * {
     display: inline-block;
     min-width: min-content;
-
     padding: 0.5rem 1rem;
     cursor: pointer;
     text-align: center;
@@ -33,5 +32,4 @@
     border-radius: 0.25rem;
     background-color: var(--primary-color);
   }
-
 </style>

@@ -4,7 +4,7 @@
 </script>
 
 <header>
-  <div class="header-left"><img alt="logo Talemelier" src="/logo.svg"></div>
+  <a href="/" class="header-left"><img alt="logo Talemelier" src="/logo.svg"></a>
   <div class="header-right">
     {#if Cookies.get('token')}
       <Btn onClick={() => {

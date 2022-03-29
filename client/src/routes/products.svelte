@@ -1,26 +1,33 @@
 <script>
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
+    import Select from "$lib/Select.svelte"
 </script>
 
-<h1>Les produits</h1>
+<svelte:head>
+  <title>Produits - L'Atelier du Talemelier</title>
+</svelte:head>
 
-<p class="instruction">
-  Passez votre commande puis venez récupérer vos produits sur les différents marchés.
-</p>
+<section class="head">
+  <h1>Les produits</h1>
+
+  <p class="instruction">
+    Passez votre commande puis venez récupérer vos produits sur les différents marchés.
+  </p>
+</section>
 <!-- -->
-<div class="best-seller">
+<section class="best-seller">
   <h2>Meilleures ventes</h2>
   <ProductCardCarrousel>
     <ProductCard/>
     <ProductCard/>
     <ProductCard/>
   </ProductCardCarrousel>
-</div>
+</section>
 <!-- -->
-<div class="all-products">
+<section class="all-products">
   <h2>Tous nos produits</h2>
-  <select>
+  <Select>
     <option>Trier</option>
     <option>
       A-Z
@@ -34,7 +41,7 @@
     <option>
       Prix décroissant
     </option>
-  </select>
+  </Select>
 
   <div class="products">
     <ProductCard/>
@@ -43,36 +50,39 @@
   </div>
 
   <div class="pagination"></div>
-</div>
+</section>
 
 <style lang="scss">
-  h1 {
+  .head {
     width: 90%;
-    margin: 0 auto;
+    margin: 6rem auto 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .instruction {
     font-weight: 600;
-    width: 90%;
-    margin: 2rem auto;
-    padding: 2rem;
+    padding: 1.5rem;
     background-color: #D4CAC4;
   }
 
   .best-seller {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     h2 {
       width: 90%;
-      margin: 0 auto 1rem auto;
+      margin: 0 auto;
     }
   }
 
   .all-products {
     margin: 2rem auto;
     width: 90%;
-
-    select {
-      margin: 1rem 0;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
     .products {
       display: flex;
