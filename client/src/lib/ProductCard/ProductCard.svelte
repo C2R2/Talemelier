@@ -2,17 +2,19 @@
     import Btn from "$lib/Btn.svelte"
 </script>
 
-<figure class="product-card">
-  <img alt="du pain" src="/img/product_placeholder.webp"/>
-  <figcaption>
-    <span class="title">Product Name</span>
-    <p>Product description</p>
-    <span class="price">1,50 €</span>
-    <div class="cta">
-      <Btn width="100%">Voir le produit</Btn>
-    </div>
-  </figcaption>
-</figure>
+<a href="products/baguette">
+  <figure class="product-card">
+    <img alt="du pain" src="/img/product_placeholder.webp"/>
+    <figcaption>
+      <span class="title">Product Name</span>
+      <p>Product description</p>
+      <span class="price">1,50 €</span>
+      <div class="cta">
+        <Btn width="100%">Voir le produit</Btn>
+      </div>
+    </figcaption>
+  </figure>
+</a>
 
 <style lang="scss">
   figure {

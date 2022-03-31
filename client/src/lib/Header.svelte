@@ -4,7 +4,7 @@
 </script>
 
 <header>
-  <a href="/" class="header-left"><img alt="logo Talemelier" src="/logo.svg"></a>
+  <a class="header-left" href="/"><img alt="logo Talemelier" src="/logo.svg"></a>
   <div class="header-right">
     {#if Cookies.get('token')}
       <Btn onClick={() => {
@@ -54,11 +54,13 @@
       padding: 1rem;
     }
   }
-.header-left{
-  img{
-    width: 6rem;
+
+  .header-left {
+    img {
+      width: 6rem;
+    }
   }
-}
+
   .header-right {
     display: flex;
     gap: 1.5rem;

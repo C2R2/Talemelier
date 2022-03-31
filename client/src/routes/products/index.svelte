@@ -113,10 +113,12 @@
       justify-content: center;
       align-items: center;
     }
-    .left,.right{
+
+    .left, .right {
       height: 2rem;
     }
-    .current{
+
+    .current {
       font-weight: 600;
       border-width: 2px;
 
