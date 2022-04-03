@@ -31,18 +31,11 @@
     <span class="title">{productId}</span>
     <span class="price">Prix : <b>1,10 €</b></span>
     <div class="quantity">
-      Quantité : {productQuantity}
+      Quantité :
       <div class="quantity-control">
-        <svg fill="none" height="10" on:click={()=> addProduct()} stroke="currentColor" stroke-linecap="round"
-             stroke-linejoin="round"
-             stroke-width="2" viewBox="5 0 15 10" width="15" xmlns="http://www.w3.org/2000/svg">
-          <polyline points="6 9 12 3 18 9"/>
-        </svg>
-        <svg fill="none" height="8" on:click={()=> removeProduct()} stroke="currentColor" stroke-linecap="round"
-             stroke-linejoin="round"
-             stroke-width="2" viewBox="5 8 15 8" width="15" xmlns="http://www.w3.org/2000/svg">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
+        <Btn onClick={() => removeProduct()} outline>-</Btn>
+        <span>{productQuantity}</span>
+        <Btn onClick={() => addProduct()} outline>+</Btn>
       </div>
     </div>
     <span>Ingrédients :</span>
@@ -103,11 +96,13 @@
 
   .quantity-control {
     display: flex;
-    flex-direction: column;
     gap: 0.5rem;
+    align-items: center;
 
-    > * {
-      cursor: pointer;
+    span {
+      padding: calc(0.5rem + 1px) calc(1rem + 1px);
+      border-radius: 0.25rem;
+      background-color: var(--background-color);
     }
   }
 
