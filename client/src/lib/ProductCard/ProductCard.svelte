@@ -2,7 +2,7 @@
     import Btn from "$lib/Btn.svelte"
 </script>
 
-<a href="products/baguette">
+<a href="/products/baguette">
   <figure class="product-card">
     <img alt="du pain" src="/img/product_placeholder.webp"/>
     <figcaption>

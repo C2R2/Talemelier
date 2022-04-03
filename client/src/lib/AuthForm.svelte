@@ -26,7 +26,7 @@
                 } else {
                     console.error(data)
                     error = data.msg
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         if (data.msg.includes("inscription")) {
                             window.location = "/register"
                         }
@@ -76,18 +76,23 @@
     {/if}
     <Btn width="50%">{login ? "Me connecter" : "M'inscrire" }</Btn>
   </div>
+  {#if login}
+    <a href="forget" class="forget">
+      Mot de passe oublié ?
+    </a>
+  {/if}
 </form>
 
-<style>
+<style lang="scss">
   form {
     display: flex;
     overflow: hidden;
     align-items: center;
     flex-direction: column;
-    width: 50%;
-    margin: auto;
+    width: 100%;
     border: 1px solid;
     border-radius: 0.5rem;
+    max-width: 512px;
   }
 
   h2 {
@@ -109,6 +114,11 @@
 
   input {
     width: 100%;
+  }
+
+  .forget {
+    align-self: flex-end;
+    margin: 0 1rem 0.5rem 0;
   }
 
 </style>

@@ -3,15 +3,36 @@
 </svelte:head>
 
 <script>
-    import Btn from "$lib/Btn.svelte"
-    import AuthForm from "$lib/AuthForm.svelte"
 
+    import AuthForm from "$lib/AuthForm.svelte"
 </script>
 
-<Btn href="/">Back</Btn>
-<h1>Connexion</h1>
-<AuthForm login/>
+<div>
+  <h1>Connexion</h1>
+  <AuthForm login/>
 
+  <a href="/register">
+    Pas encore de compte ? <u>Inscrivez-vous</u>
+  </a>
+</div>
 <style lang="scss">
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    height: 60vh;
+    margin: auto;
+  }
+
+  h1 {
+    align-self: flex-start;
+    margin: 6rem 0 2rem 0;
+  }
+
+a{
+  margin-top: 1rem;
+}
 
 </style>
