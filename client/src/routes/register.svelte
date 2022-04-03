@@ -3,13 +3,30 @@
 </svelte:head>
 
 <script>
-    import Btn from "$lib/Btn.svelte"
     import AuthForm from "$lib/AuthForm.svelte"
 </script>
 
-<Btn href="/">Back</Btn>
-<h1>Inscription</h1>
-<AuthForm/>
+<div>
+  <h1>Inscription</h1>
+  <AuthForm/>
+</div>
 
 
-<style></style>
+<style>
+  div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    height: 60vh;
+    margin: auto;
+
+  }
+
+  h1 {
+    align-self: flex-start;
+    margin: 6rem 0 2rem 0;
+  }
+
+</style>

@@ -77,6 +77,10 @@ input:focus-visible {
   outline: 1px solid var(--black);
 }
 
+u{
+  text-decoration: underline;
+}
+
 .underline {
   position: relative;
 }

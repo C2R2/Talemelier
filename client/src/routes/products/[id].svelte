@@ -1,5 +1,6 @@
 <script>
     import { page } from "$app/stores"
+    import Cookies from "js-cookie"
     import Btn from "$lib/Btn.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
@@ -49,7 +50,7 @@
       Farine, <b>oeuf</b>, beurre, <b>lait</b>, sel, levure, huile d'olive
     </p>
   </div>
-  <Btn>Ajouter au panier</Btn>
+  <Btn href={Cookies.get('token') ? '/cart' : "/register"}>Ajouter au panier</Btn>
 </section>
 
 <section class="other">
