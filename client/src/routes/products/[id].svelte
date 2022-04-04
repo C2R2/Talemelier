@@ -4,20 +4,10 @@
     import Btn from "$lib/Btn.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
+    import QuantityControl from "$lib/QuantityControl.svelte"
 
     const productId = $page.params.id
 
-    let productQuantity = 1
-
-    function addProduct () {
-        productQuantity++
-    }
-
-    function removeProduct () {
-        if (productQuantity > 1) {
-            productQuantity--
-        }
-    }
 </script>
 
 <svelte:head>
@@ -32,11 +22,7 @@
     <span class="price">Prix : <b>1,10 €</b></span>
     <div class="quantity">
       Quantité :
-      <div class="quantity-control">
-        <Btn onClick={() => removeProduct()} outline>-</Btn>
-        <span>{productQuantity}</span>
-        <Btn onClick={() => addProduct()} outline>+</Btn>
-      </div>
+      <QuantityControl/>
     </div>
     <span>Ingrédients :</span>
     <p class="ingredients">
@@ -92,18 +78,6 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-  }
-
-  .quantity-control {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-
-    span {
-      padding: calc(0.5rem + 1px) calc(1rem + 1px);
-      border-radius: 0.25rem;
-      background-color: var(--background-color);
-    }
   }
 
   .ingredients {

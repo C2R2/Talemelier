@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Talemelier - Connexion</title>
+  <title>Connexion - Talemelier</title>
 </svelte:head>
 
 <script>
@@ -22,7 +22,7 @@
     flex-direction: column;
     justify-content: center;
     width: 90%;
-    height: 60vh;
+    min-height: 60vh;
     margin: auto;
   }
 
