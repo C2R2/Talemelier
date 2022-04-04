@@ -1,5 +1,11 @@
-<div class="select">
-  <select>
+<script>
+    export let allsize = false
+    export let id = undefined
+    let select
+</script>
+
+<div class="select" class:allsize>
+  <select bind:this={select} name={id}>
     <slot/>
   </select>
 </div>
@@ -7,6 +13,7 @@
 <style>
   select {
     font-weight: 600;
+    width: 100%;
     border: none;
     background: transparent;
     appearance: none;
@@ -18,6 +25,10 @@
     padding: 1rem 1.5rem 1rem 1rem;
     border: 1px solid var(--black);
     border-radius: 0.25rem;
+  }
+
+  .allsize {
+    width: 100%;
   }
 
   .select::after {
