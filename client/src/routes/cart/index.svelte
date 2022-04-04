@@ -1,5 +1,8 @@
 <script>
     import QuantityControl from "$lib/QuantityControl.svelte"
+    import Btn from "$lib/Btn.svelte"
+    import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
+    import ProductCard from "$lib/ProductCard/ProductCard.svelte"
 </script>
 
 <svelte:head>
@@ -41,15 +44,26 @@
       </div>
     </div>
   </ul>
+  <Btn href="/cart/2">Valider la commande</Btn>
+</section>
+
+<section class="other">
+  <h2>Autres produits</h2>
+  <ProductCardCarrousel>
+    <ProductCard/>
+    <ProductCard/>
+    <ProductCard/>
+  </ProductCardCarrousel>
 </section>
 
 <style lang="scss">
   .cart {
     width: 90%;
-    margin: 6rem auto 1rem auto;
+    margin: 6rem auto 4rem auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
   }
 
   ul {
@@ -78,7 +92,6 @@
     height: 4rem;
     border-radius: 0.25rem;
     object-fit: cover;
-
   }
 
   hr {
@@ -86,11 +99,12 @@
     width: 100%;
   }
 
-  .bottom{
+  .bottom {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
+
   .total {
     display: flex;
     justify-content: space-between;
@@ -98,6 +112,18 @@
 
     > * {
       font-weight: 600;
+    }
+
+  }
+
+  .other {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h2 {
+      width: 90%;
+      margin: 0 auto;
     }
 
   }
