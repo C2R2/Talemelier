@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Talemelier - Inscription</title>
+  <title>Inscription - Talemelier</title>
 </svelte:head>
 
 <script>
@@ -19,7 +19,7 @@
     flex-direction: column;
     justify-content: center;
     width: 90%;
-    height: 60vh;
+    min-height: 60vh;
     margin: auto;
 
   }
