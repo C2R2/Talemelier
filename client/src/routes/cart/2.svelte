@@ -5,6 +5,10 @@
     import Btn from "$lib/Btn.svelte"
 </script>
 
+<svelte:head>
+    <title>Informations complémentaires - Talemelier</title>
+</svelte:head>
+
 <section class="collect">
   <h1>Collecte</h1>
   <div class="input-container">
@@ -35,7 +39,7 @@
       </Select>
     </div>
   </div>
-  <Btn>Continuer</Btn>
+  <Btn href="/cart/3">Continuer</Btn>
 </section>
 
 <section class="other">

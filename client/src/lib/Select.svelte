@@ -12,12 +12,12 @@
 <style lang="scss">
   select {
     font-weight: 600;
-    width: 100%;
     padding: 1rem 1.5rem 1rem 1rem;
     background: transparent;
     appearance: none;
     border: 1px solid var(--black);
     border-radius: 0.25rem;
+    width: min-content;
   }
 
   .select {
@@ -29,6 +29,10 @@
 
   .allsize {
     width: 100%;
+
+    > select {
+      width: 100%;
+    }
   }
 
   .select::after {
