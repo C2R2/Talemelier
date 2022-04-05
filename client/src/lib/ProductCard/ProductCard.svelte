@@ -17,9 +17,13 @@
 </a>
 
 <style lang="scss">
+  a {
+    min-width: 24rem;
+    max-width: 30rem;
+  }
+
   figure {
     overflow: hidden;
-    width: 24rem;
     border-radius: 0.25rem;
     background-color: #D4CAC4;
     flex-shrink: 0;

@@ -27,9 +27,10 @@
 
 <style>
   * {
+    font-weight: 600;
     display: inline-block;
     min-width: min-content;
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     cursor: pointer;
     text-align: center;
     white-space: nowrap;
@@ -37,8 +38,9 @@
     background-color: var(--primary-color);
   }
 
-  .outline{
-    background-color: var(--background-color);
+  .outline {
     border: 1px solid var(--second-black);
+    background-color: var(--background-color);
+    padding: 0.5rem 1rem;
   }
 </style>

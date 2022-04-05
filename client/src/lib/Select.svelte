@@ -1,34 +1,38 @@
 <script>
     export let allsize = false
     export let id = undefined
-    let select
 </script>
 
 <div class="select" class:allsize>
-  <select bind:this={select} name={id}>
+  <select id={id}>
     <slot/>
   </select>
 </div>
 
-<style>
+<style lang="scss">
   select {
     font-weight: 600;
-    width: 100%;
-    border: none;
+    padding: 1rem 1.5rem 1rem 1rem;
     background: transparent;
     appearance: none;
+    border: 1px solid var(--black);
+    border-radius: 0.25rem;
+    width: min-content;
   }
 
   .select {
     position: relative;
+    display: flex;
+    align-items: center;
     width: min-content;
-    padding: 1rem 1.5rem 1rem 1rem;
-    border: 1px solid var(--black);
-    border-radius: 0.25rem;
   }
 
   .allsize {
     width: 100%;
+
+    > select {
+      width: 100%;
+    }
   }
 
   .select::after {
@@ -39,6 +43,6 @@
   }
 
   select:focus-visible {
-    outline: none;
+    outline: 1px solid var(--black);
   }
 </style>

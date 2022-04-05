@@ -77,7 +77,7 @@ input:focus-visible {
   outline: 1px solid var(--black);
 }
 
-u{
+u {
   text-decoration: underline;
 }
 
@@ -115,5 +115,9 @@ h3 {
   font-family: var(--title-font);
   font-size: 2rem;
   color: var(--second-black);
+}
+
+p {
+  line-height: 130%;
 }
 

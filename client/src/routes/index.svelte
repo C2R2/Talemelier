@@ -14,7 +14,7 @@
     <h1>L'Atelier du Talemelier</h1>
     <h2>Artisan Boulanger</h2>
   </div>
-  <Btn class="cta" fontSize="1.25rem" href="products" width="20rem">
+  <Btn class="cta" href="products" width="20rem">
     Découvrir les produits
   </Btn>
 </section>
@@ -38,7 +38,7 @@
     <ProductCard/>
   </ProductCardCarrousel>
   <div class="more">
-    <Btn fontSize="1.25rem" href="products" width="100%">
+    <Btn href="products" width="100%">
       Découvrir nos produits
     </Btn>
   </div>
