@@ -4,7 +4,9 @@
     let productQuantity = 1
 
     function addProduct () {
-        productQuantity++
+        if (productQuantity < 99) {
+            productQuantity++
+        }
     }
 
     function removeProduct () {
@@ -16,7 +18,13 @@
 
 <div class="quantity-control">
   <Btn onClick={() => removeProduct()} outline>-</Btn>
-  <input bind:value={productQuantity} min="1" required type="number"/>
+  <input bind:value={productQuantity} max="99" maxlength="2" min="1"
+         on:keypress={(e)=> {
+            e.key === '-' ? e.preventDefault() : null
+            productQuantity.toString().length >= 2 ? e.preventDefault(): null
+         }}
+         required
+         type="number"/>
   <Btn onClick={() => addProduct()} outline>+</Btn>
 </div>
 
@@ -27,11 +35,9 @@
     align-items: center;
 
     input {
-      padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
       border: none;
       background-color: var(--background-color);
-      width: 1em;
+      text-align: right;
 
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;
