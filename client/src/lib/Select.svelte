@@ -1,11 +1,9 @@
 <script>
     export let allsize = false
-    export let id = undefined
-    let select
 </script>
 
 <div class="select" class:allsize>
-  <select bind:this={select} name={id}>
+  <select>
     <slot/>
   </select>
 </div>
@@ -14,6 +12,7 @@
   select {
     font-weight: 600;
     width: 100%;
+    padding: 1rem 1.5rem 1rem 1rem;
     border: none;
     background: transparent;
     appearance: none;
@@ -21,8 +20,9 @@
 
   .select {
     position: relative;
+    display: flex;
+    align-items: center;
     width: min-content;
-    padding: 1rem 1.5rem 1rem 1rem;
     border: 1px solid var(--black);
     border-radius: 0.25rem;
   }
