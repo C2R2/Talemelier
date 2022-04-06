@@ -1,15 +1,12 @@
 {
   "name": "talemelier",
   "version": "1.0.0",
-  "description": "- [ ] Finish design",
+  "description": "",
   "main": "index.js",
-  "dependencies": {
-    "svelte": "^3.46.2"
-  },
   "scripts": {
     "server": "cd server && npm start",
     "client": "cd client && npm run dev",
-    "deploy": "git subtree push --prefix server heroku main"
+    "heroku": "git subtree push --prefix server heroku main"
   },
   "repository": {
     "type": "git",
@@ -20,9 +17,5 @@
   "bugs": {
     "url": "https://github.com/C2R2/Talemelier/issues"
   },
-  "homepage": "https://github.com/C2R2/Talemelier#readme",
-  "devDependencies": {
-    "sass": "^1.49.9",
-    "svelte-preprocess": "^4.10.4"
-  }
+  "homepage": "https://github.com/C2R2/Talemelier#readme"
 }
