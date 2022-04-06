@@ -8,7 +8,8 @@
   },
   "scripts": {
     "server": "cd server && npm start",
-    "client": "cd client && npm run dev"
+    "client": "cd client && npm run dev",
+    "deploy": "git subtree push --prefix server heroku main"
   },
   "repository": {
     "type": "git",

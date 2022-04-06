@@ -17,7 +17,6 @@ app.use(bodyParser.json())
 app.use(express.json())
 app.use(morgan("combined"))
 app.use(cookieParser())
-app.listen(PORT, () => console.log(`>>> Server is running & listening on ${PORT} <<<`))
 
 const MongoClient = require("mongodb").MongoClient
 const url = "mongodb://localhost:27017"
@@ -104,7 +103,7 @@ app.get("/users", authenticateToken, (req, res) => {
 })
 
 app.get("/", (req, res) => {
-    res.send("Hello the World")
+    res.send("Hello World")
 })
 
 function authenticateToken (req, res, next) {
@@ -123,3 +122,5 @@ function authenticateToken (req, res, next) {
         next()
     })
 }
+
+app.listen(PORT, () => console.log(`>>> Server is running & listening on ${PORT} <<<`))
