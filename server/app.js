@@ -19,7 +19,7 @@ app.use(morgan("combined"))
 app.use(cookieParser())
 
 const MongoClient = require("mongodb").MongoClient
-const url = "mongodb://localhost:27017"
+const url = "mongodb://localhost/talemelier"
 const dbName = "TalemelierDB"
 let db
 
