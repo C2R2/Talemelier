@@ -35,6 +35,7 @@
     align-items: center;
 
     input {
+      padding: 0.5rem 1rem 0.5rem 0.25rem;
       border: none;
       background-color: var(--background-color);
       text-align: right;
