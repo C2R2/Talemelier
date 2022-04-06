@@ -24,7 +24,7 @@ const dbName = "TalemelierDB"
 let db
 
 MongoClient.connect(url, (err, client) => {
-    console.log("Connected successfully to server")
+    console.log("Connected successfully to server", client)
     db = client.db(dbName)
     if (err) throw err
 })
