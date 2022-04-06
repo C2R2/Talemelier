@@ -104,7 +104,7 @@ app.get("/users", authenticateToken, (req, res) => {
 })
 
 app.get("/", (req, res) => {
-    res.send("Hello World")
+    res.send("Hello the World")
 })
 
 function authenticateToken (req, res, next) {
