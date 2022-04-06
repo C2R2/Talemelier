@@ -4,7 +4,7 @@
 </script>
 
 <header>
-  <a class="header-left" href="/"><img alt="logo Talemelier" src="/logo.svg"></a>
+  <a class="header-left" href="/"><img alt="logo Talemelier" src="/logo.svg"/></a>
   <div class="header-right">
     {#if Cookies.get('token')}
       <Btn onClick={() => {
@@ -31,8 +31,8 @@
         </svg>
       </a>
     {:else}
-      <Btn href="/login">Login</Btn>
-      <Btn href="/register">Register</Btn>
+      <Btn href="/login" outline>Login</Btn>
+      <Btn href="/register" outline>Register</Btn>
     {/if}
   </div>
 </header>

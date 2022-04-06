@@ -11,6 +11,7 @@
      style:width={width}
      href={href}
      class={$$props.class}
+     class:outline
   >
     <slot/>
   </a>
@@ -36,11 +37,12 @@
     white-space: nowrap;
     border-radius: 0.25rem;
     background-color: var(--primary-color);
+    height: min-content;
   }
 
   .outline {
+    padding: 0.5rem 1rem;
     border: 1px solid var(--second-black);
     background-color: var(--background-color);
-    padding: 0.5rem 1rem;
   }
 </style>

@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt")
 const morgan = require("morgan")
 const helmet = require("helmet")
 const cookieParser = require("cookie-parser")
+const PORT = process.env.PORT || 3000
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 app.use(express.json())
 app.use(morgan("combined"))
 app.use(cookieParser())
+app.listen(PORT, () => console.log(`>>> Server is running & listening on ${PORT} <<<`))
 
 const MongoClient = require("mongodb").MongoClient
 const url = "mongodb://localhost:27017"
@@ -101,6 +103,10 @@ app.get("/users", authenticateToken, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+app.get("/", (req, res) => {
+    res.send("Hello World")
+})
+
 function authenticateToken (req, res, next) {
     const authHeader = req.headers["authorization"]
     const token = authHeader && authHeader.split(" ")[1]
@@ -117,7 +123,3 @@ function authenticateToken (req, res, next) {
         next()
     })
 }
-
-app.listen(3001, async () => {
-    console.log("listening on port 3001")
-})
