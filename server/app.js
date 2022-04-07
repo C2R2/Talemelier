@@ -116,8 +116,10 @@ app.get("/free-endpoint", (request, response) => {
 })
 
 // authentication endpoint
-app.get("/auth-endpoint", auth, (request, response) => {
-    response.send({ message: "You are authorized to access me" })
+app.get("/users", auth, (request, response) => {
+    User.find().toArray()
+        .then(result => response.status(200).json(result))
+        .catch(err => res.status(500).json(err))
 })
 
 module.exports = app
