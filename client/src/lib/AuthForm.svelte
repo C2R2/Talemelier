@@ -26,7 +26,7 @@
                     error = "L'utilisateur n'existe pas"
                 } else if (res.status === 400) {
                     console.error(await res.json())
-                    error = "Mot de passe incorrect"
+                    document.location === "/login" ? error = "Mot de passe incorrect" : null
                 } else {
                     console.error(await res.json())
                     error = "Erreur inconnue. Veuillez réessayer"
