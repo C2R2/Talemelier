@@ -119,7 +119,7 @@ app.get("/free-endpoint", (request, response) => {
 app.get("/users", auth, (request, response) => {
     User.find().toArray()
         .then(result => response.status(200).json(result))
-        .catch(err => res.status(500).json(err))
+        .catch(err => response.status(500).json(err))
 })
 
 module.exports = app
