@@ -1,25 +1,24 @@
 ### add user
 
-POST http://localhost:3001/register
+POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-  "username": "user",
-  "password": "user",
-  "role": "user"
+  "email": "user",
+  "password": "user"
 }
 
 ### log user
 
-POST http://localhost:3001/login
+POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "admin"
+  "email": "user",
+  "password": "user"
 }
 
 ### get all users
 
-GET http://localhost:3001/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4ifSwiaWF0IjoxNjQ1ODMyMTk0LCJleHAiOjE2NDU4MzU3OTR9.XBa5Oa-j0u6ZemSOi1aJVtoFgZ3zzYhTllRkgbwJy-o
+GET http://localhost:3000/auth-endpoint
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRkYTQzYmM0YmFiMWVkNzQxN2U0NWQiLCJ1c2VyRW1haWwiOiJ1c2VyIiwiaWF0IjoxNjQ5MzE3MzM5LCJleHAiOjE2NDk0MDM3Mzl9.rb_rrtHvVxFXRa_FdUAwF2InJegLjWRqan51kbxT8Us

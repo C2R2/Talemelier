@@ -1,126 +1,123 @@
-require("dotenv").config()
 const express = require("express")
-const bodyParser = require("body-parser")
-const cors = require("cors")
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
-const morgan = require("morgan")
-const helmet = require("helmet")
-const cookieParser = require("cookie-parser")
-const PORT = process.env.PORT || 3000
-
 const app = express()
+const bodyParser = require("body-parser")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
-app.use(helmet())
-app.use(cors())
+// require database connection
+const dbConnect = require("./db/dbConnect")
+const User = require("./db/userModel")
+const auth = require("./auth")
+
+// execute database connection
+dbConnect()
+
+// Curb Cores Error by adding a header here
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization")
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS")
+    next()
+})
+
+// body parser configuration
 app.use(bodyParser.json())
-app.use(express.json())
-app.use(morgan("combined"))
-app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }))
 
-const MongoClient = require("mongodb").MongoClient
-const url = "mongodb://localhost/talemelier"
-const dbName = "TalemelierDB"
-let db
-
-MongoClient.connect(url, (err, client) => {
-    console.log("Connected successfully to server", client)
-    db = client.db(dbName)
-    if (err) throw err
+app.get("/", (request, response, next) => {
+    response.json({ message: "Hey! This is your server response!" })
+    next()
 })
 
-//Authenticate User
-app.post("/register", (req, res) => {
-    //check if user already exists
-    db.collection("users").findOne({ username: req.body.username })
-        .then((result) => {
-            if (result) {res.status(400).json({ msg: "L'utilisateur existe déjà. Veuillez vous connecter." })} else {
-                //hash password
-                bcrypt.hash(req.body.password, 12, (err, hash) => {
-                    if (err) {
-                        return res.status(500).json({
-                            error: err
-                        })
-                    } else {
-                        //create user
-                        const username = req.body.username
-                        const password = hash
-                        const user = { username, password, admin: false }
-                        db.collection("users").insertOne(user)
-                            .then(result => res.status(201).json({ msg: "Utilisateur " + result.insertedId + " enregistré" }))
-                    }
+// register endpoint
+app.post("/register", (request, response) => {
+    // hash the password
+    bcrypt
+        .hash(request.body.password, 12)
+        .then((hashedPassword) => {
+            // create a new user instance and collect the data
+            const user = new User({
+                email: request.body.email, password: hashedPassword
+            })
+
+            // save the new user
+            user
+                .save()
+                // return success if the new user is added to the database successfully
+                .then((result) => {
+                    response.status(201).send({
+                        message: "User Created Successfully", result
+                    })
                 })
-            }
+                // catch error if the new user wasn't added successfully to the database
+                .catch((error) => {
+                    response.status(500).send({
+                        message: "Error creating user", error
+                    })
+                })
         })
-        .catch(err => res.status(500).json(err))
+        // catch error if the password hash isn't successful
+        .catch((e) => {
+            response.status(500).send({
+                message: "Password was not hashed successfully", e
+            })
+        })
 })
 
-//Login user
-app.post("/login", (req, res) => {
-    //check if user exists
-    db.collection("users").findOne({ username: req.body.username })
-        .then(dbResult => {
-            if (dbResult) {
-                //check if password is correct
-                bcrypt.compare(req.body.password, dbResult.password, (err, bcryptResult) => {
-                    if (err) {
-                        return res.status(500).json({
-                            error: err
-                        })
-                    } else if (bcryptResult) {
-                        //create token
-                        const user = {
-                            username: dbResult.username, role: dbResult.role
-                        }
-                        const token = jwt.sign({
-                            user
-                        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" })
-                        res.cookie("token", token, { httpOnly: true })
-                        res.status(200).json({
-                            token, user
-                        })
-                    } else {
-                        //password incorrect
-                        res.status(401).json({
-                            msg: "Mot de passe incorrect"
+// login endpoint
+app.post("/login", (request, response) => {
+    // check if email exists
+    User.findOne({ email: request.body.email })
+
+        // if email exists
+        .then((user) => {
+            // compare the password entered and the hashed password found
+            bcrypt
+                .compare(request.body.password, user.password)
+
+                // if the passwords match
+                .then((passwordCheck) => {
+
+                    // check if password matches
+                    if (!passwordCheck) {
+                        return response.status(400).send({
+                            message: "Passwords does not match", error
                         })
                     }
+
+                    //   create JWT token
+                    const token = jwt.sign({
+                        userId: user._id, userEmail: user.email
+                    }, "RANDOM-TOKEN", { expiresIn: "24h" })
+
+                    //   return success response
+                    response.status(200).send({
+                        message: "Login Successful", email: user.email, token
+                    })
                 })
-            } else {
-                //user does not exist
-                res.status(401).json({
-                    msg: "L'utilisateur n'existe pas. Vous allez etre redirigé vers la page d'inscription."
+                // catch error if password do not match
+                .catch((error) => {
+                    response.status(400).send({
+                        message: "Passwords does not match", error
+                    })
                 })
-            }
         })
-        .catch(err => res.status(500).json(err))
+        // catch error if email does not exist
+        .catch((e) => {
+            response.status(404).send({
+                message: "Email not found", e
+            })
+        })
 })
 
-app.get("/users", authenticateToken, (req, res) => {
-    db.collection("users").find().toArray()
-        .then(result => res.status(200).json(result))
-        .catch(err => res.status(500).json(err))
+// free endpoint
+app.get("/free-endpoint", (request, response) => {
+    response.json({ message: "You are free to access me anytime" })
 })
 
-app.get("/", (req, res) => {
-    res.send("Hello World")
+// authentication endpoint
+app.get("/auth-endpoint", auth, (request, response) => {
+    response.send({ message: "You are authorized to access me" })
 })
 
-function authenticateToken (req, res, next) {
-    const authHeader = req.headers["authorization"]
-    const token = authHeader && authHeader.split(" ")[1]
-    if (token == null) return res.sendStatus(401)
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.status(403).json({
-            msg: "Le token n'est pas valide. Veuilez vous reconnecter."
-        })
-        if (user.user.role !== "admin") return res.status(403).json({
-            msg: "Vous n'avez pas les droits pour acceder à cette page."
-        })
-        req.user = user
-        next()
-    })
-}
-
-app.listen(PORT, () => console.log(`>>> Server is running & listening on ${PORT} <<<`))
+module.exports = app
