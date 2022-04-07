@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken")
 const dbConnect = require("./db/dbConnect")
 const User = require("./db/userModel")
 const auth = require("./auth")
+const port = process.env.PORT || 3000
 
 // execute database connection
 dbConnect()
@@ -122,4 +123,6 @@ app.get("/users", auth, (request, response) => {
         .catch(err => response.status(500).json(err))
 })
 
-module.exports = app
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
+})
