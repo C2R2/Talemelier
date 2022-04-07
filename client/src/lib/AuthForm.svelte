@@ -3,34 +3,33 @@
     import Cookies from "js-cookie"
 
     export let login = false
-    let mail
+    let email
     let password
     let error
 
     async function handleLogin () {
-        await fetch("http://localhost:3001/login", {
+        await fetch("https://talemelier.herokuapp.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json"
             },
             body: JSON.stringify({
-                username: mail, password
+                email, password
             })
-        }).then(res => res.json()).then(
-            data => {
-                if (data.token) {
-                    console.log(data)
-                    Cookies.set("token", data.token, { secure: true })
+        }).then(async res => {
+                if (res.status === 200) {
+                    Cookies.set("token", res.headers.get("Authorization"), { secure: true })
                     window.location = "/"
+                } else if (res.status === 404) {
+                    console.error(await res.json())
+                    error = "L'utilisateur n'existe pas"
+                } else if (res.status === 400) {
+                    console.error(await res.json())
+                    error = "Mot de passe incorrect"
                 } else {
-                    console.error(data)
-                    error = data.msg
-                    setTimeout(() => {
-                        if (data.msg.includes("inscription")) {
-                            window.location = "/register"
-                        }
-                    }, 2000)
+                    console.error(await res.json())
+                    error = "Erreur inconnue. Veuillez réessayer"
                 }
             }
         ).catch(err => {
@@ -40,22 +39,24 @@
     }
 
     async function handleRegister () {
-        await fetch("http://localhost:3001/register", {
+        await fetch("https://talemelier.herokuapp.com/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                username: mail, password
+                email, password
             })
-        }).then(res => res.json()).then(data => {
-            console.log(data)
-            if (data) {
-                handleLogin()
-                // window.location = "/"
+        }).then(async res => {
+            if (res.status === 201) {
+                await handleLogin()
+            } else if (res.status === 208) {
+                console.error(await res.json())
+                error = "L'utilisateur existe déjà"
+                await handleLogin()
             } else {
-                console.error(data.msg)
-                error = data.msg
+                console.error(await res.json())
+                error = "Erreur inconnue. Veuillez réessayer"
             }
         }).catch(err => {
             error = err
@@ -69,7 +70,7 @@
 <form method="post" on:submit|preventDefault={login ? handleLogin : handleRegister}>
   <h2>{login ? "Se connecter à son" : "Créer un"} compte</h2>
   <div class="input-container">
-    <input bind:value={mail} placeholder="Mail" required type="text">
+    <input bind:value={email} placeholder="Mail" required type="text">
     <input bind:value={password} placeholder="Mot de passe" required type="password">
     {#if error}
       <span>{error}</span>
