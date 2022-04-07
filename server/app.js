@@ -118,7 +118,8 @@ app.get("/free-endpoint", (request, response) => {
 
 // authentication endpoint
 app.get("/users", auth, (request, response) => {
-    User.find().toArray()
+
+    User.find()
         .then(result => response.status(200).json(result))
         .catch(err => response.status(500).json(err))
 })

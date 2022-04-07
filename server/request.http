@@ -20,5 +20,5 @@ Content-Type: application/json
 
 ### get all users
 
-GET http://localhost:3000/auth-endpoint
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRkYTQzYmM0YmFiMWVkNzQxN2U0NWQiLCJ1c2VyRW1haWwiOiJ1c2VyIiwiaWF0IjoxNjQ5MzE3MzM5LCJleHAiOjE2NDk0MDM3Mzl9.rb_rrtHvVxFXRa_FdUAwF2InJegLjWRqan51kbxT8Us
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsImlhdCI6MTY0OTMyNzI2OCwiZXhwIjoxNjQ5NDEzNjY4fQ.pjyi-MArjcXFqOOTv4tQrNGngK2TTiMz5XXDjiH9l-U
