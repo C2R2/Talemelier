@@ -7,8 +7,10 @@
     let password = ""
     let error
     let passwordHidden = "password"
+    let pending = false
 
     async function handleLogin () {
+        pending = true
         await fetch("https://talemelier.herokuapp.com/login", {
             method: "POST",
             headers: {
@@ -27,11 +29,12 @@
                     error = "L'utilisateur n'existe pas"
                 } else if (res.status === 400) {
                     console.error(await res.json())
-                    document.location === "/login" ? error = "Mot de passe incorrect" : null
+                    document.location.pathname === "/login" ? error = "Mot de passe incorrect" : null
                 } else {
                     console.error(await res.json())
                     error = "Erreur inconnue. Veuillez réessayer"
                 }
+                pending = false
             }
         ).catch(err => {
             error = err
@@ -40,6 +43,7 @@
     }
 
     async function handleRegister () {
+        pending = true
         await fetch("https://talemelier.herokuapp.com/register", {
             method: "POST",
             headers: {
@@ -59,13 +63,12 @@
                 console.error(await res.json())
                 error = "Erreur inconnue. Veuillez réessayer"
             }
+            pending = false
         }).catch(err => {
             error = err
             console.log(err)
         })
     }
-
-
 </script>
 
 <form method="post" on:submit|preventDefault={login ? handleLogin : handleRegister}>
@@ -96,7 +99,7 @@
     {#if error}
       <span>{error}</span>
     {/if}
-    <Btn width="50%">{login ? "Me connecter" : "M'inscrire" }</Btn>
+    <Btn width="50%">{pending ? "Chargement..." : login ? "Me connecter" : "M'inscrire"}</Btn>
   </div>
   {#if login}
     <a href="forget" class="forget">
