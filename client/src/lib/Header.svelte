@@ -11,7 +11,7 @@
     Cookies.remove('token')
     window.location.reload()
       }}>
-        Logout
+        Deconnexion
       </Btn>
       <a class="cart" href="/cart">
         Panier
@@ -31,8 +31,8 @@
         </svg>
       </a>
     {:else}
-      <Btn href="/login" outline>Login</Btn>
-      <Btn href="/register" outline>Register</Btn>
+      <Btn href="/login" outline>Se connecter</Btn>
+      <Btn href="/register" outline>S'inscrire</Btn>
     {/if}
   </div>
 </header>
