@@ -24,11 +24,11 @@
     width: 90%;
     min-height: 60vh;
     margin: auto;
+    gap: 2rem;
   }
 
   h1 {
     align-self: flex-start;
-    margin: 6rem 0 2rem 0;
   }
 
 a{
