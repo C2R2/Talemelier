@@ -7,7 +7,7 @@
   <a class="header-left" href="/"><img alt="logo Talemelier" src="/logo.svg"/></a>
   <div class="header-right">
     {#if Cookies.get('token')}
-      <Btn onClick={() => {
+      <Btn outline onClick={() => {
     Cookies.remove('token')
     window.location.reload()
       }}>

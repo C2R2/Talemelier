@@ -4,8 +4,9 @@
 
     export let login = false
     let email
-    let password
+    let password = ""
     let error
+    let passwordHidden = "password"
 
     async function handleLogin () {
         await fetch("https://talemelier.herokuapp.com/login", {
@@ -71,7 +72,27 @@
   <h2>{login ? "Se connecter à son" : "Créer un"} compte</h2>
   <div class="input-container">
     <input bind:value={email} placeholder="Mail" required type="text">
-    <input bind:value={password} placeholder="Mot de passe" required type="password">
+    <div class="password">
+      <input on:input={(e)=>{password = e.target.value}} placeholder="Mot de passe" required
+             type={passwordHidden}
+             value={password}/>
+      <svg fill="none" height="24"
+           on:click={()=> passwordHidden=== "password" ? passwordHidden = "text" : passwordHidden = "password" }
+           stroke="currentColor"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+        {#if passwordHidden === "password"}
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        {:else}
+          <path
+              d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        {/if}
+      </svg>
+
+    </div>
     {#if error}
       <span>{error}</span>
     {/if}
@@ -115,6 +136,20 @@
 
   input {
     width: 100%;
+  }
+
+  .password {
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+
+    svg {
+      cursor: pointer;
+      position: absolute;
+      right: 0.5rem;
+      stroke: var(--black);
+    }
   }
 
   .forget {
