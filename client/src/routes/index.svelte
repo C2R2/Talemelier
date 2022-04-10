@@ -30,6 +30,25 @@
   </div>
 </section>
 <!-- -->
+<section class="infos">
+  <div class="where">
+    <span>Où ?</span>
+    <p>
+      Nos produits sont disponibles sur une sélections de marchés du sud-ouest de la France.
+    </p>
+    <Btn>Voir les marchés</Btn>
+  </div>
+  <div class="when">
+    <span>Quand ?</span>
+    <p>
+      Les horaires de récupération des produits change en fonction des marchés.
+    </p>
+    <Btn>
+      Voir les horaires
+    </Btn>
+  </div>
+</section>
+<!-- -->
 <section class="products">
   <h2>Nos produits</h2>
   <ProductCardCarrousel>
@@ -63,6 +82,35 @@
 
       > * {
         color: white;
+      }
+    }
+  }
+
+  .infos {
+    background-color: #D4CAC4;
+    border: dashed 1px var(--black);
+    overflow: scroll;
+    width: 90%;
+    margin: 0 auto 4rem auto;
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 2rem;
+    border-radius: 0.25rem;
+    scroll-snap-type: x mandatory;
+
+    > * {
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      width: 100%;
+      flex-shrink: 0;
+
+      span {
+        font-family: var(--title-font);
+        font-size: 2rem;
+        font-weight: 600;
       }
     }
   }
