@@ -3,6 +3,38 @@
 
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
+    import { onMount } from "svelte"
+
+    let infosWidth
+    let infosEl
+    let infosChildren = []
+    let dotsContainer
+
+    onMount(
+        () => {
+            if (infosWidth < 692) {
+                infosChildren = [...infosEl.children]
+                infosChildren.pop()
+                let dot = document.createElement("div")
+                dot.classList.add("dot")
+            }
+        }
+    )
+
+    function infosScroll () {
+        if (infosWidth < 692) {
+            console.log(Math.round(infosEl.scrollLeft / infosEl.children[0].offsetWidth))
+
+            if (Math.round(infosEl.scrollLeft / infosEl.children[0].offsetWidth) === 0) {
+                dotsContainer.children[0].style.backgroundColor = "var(--primary-color)"
+                dotsContainer.children[1].style.backgroundColor = null
+            } else {
+                dotsContainer.children[0].style.backgroundColor = null
+                dotsContainer.children[1].style.backgroundColor = "var(--primary-color)"
+
+            }
+        }
+    }
 </script>
 
 <svelte:head>
@@ -31,21 +63,28 @@
 </section>
 <!-- -->
 <section class="infos">
-  <div class="where">
-    <span>Où ?</span>
-    <p>
-      Nos produits sont disponibles sur une sélections de marchés du sud-ouest de la France.
-    </p>
-    <Btn>Voir les marchés</Btn>
+  <div bind:offsetWidth={infosWidth} bind:this={infosEl} class="scroll-container" on:scroll={infosScroll}>
+    <div class="where">
+      <span>Où ?</span>
+      <p>
+        Nos produits sont disponibles sur une sélections de marchés du sud-ouest de la France.
+      </p>
+      <Btn>Voir les marchés</Btn>
+    </div>
+    <div class="when">
+      <span>Quand ?</span>
+      <p>
+        Les horaires de récupération des produits change en fonction des marchés.
+      </p>
+      <Btn>
+        Voir les horaires
+      </Btn>
+    </div>
   </div>
-  <div class="when">
-    <span>Quand ?</span>
-    <p>
-      Les horaires de récupération des produits change en fonction des marchés.
-    </p>
-    <Btn>
-      Voir les horaires
-    </Btn>
+  <div bind:this={dotsContainer} class="dots-container">
+    {#each infosChildren as i}
+      <div class="dot active"></div>
+    {/each}
   </div>
 </section>
 <!-- -->
@@ -87,30 +126,39 @@
   }
 
   .infos {
-    background-color: #D4CAC4;
-    border: dashed 1px var(--black);
-    overflow: scroll;
-    width: 90%;
-    margin: 0 auto 4rem auto;
-    padding: 1rem 2rem;
-    display: flex;
-    gap: 2rem;
-    border-radius: 0.25rem;
-    scroll-snap-type: x mandatory;
+    position: relative;
 
-    > * {
-      scroll-snap-align: center;
+    .scroll-container {
+      background-color: #D4CAC4;
+      border: dashed 1px var(--black);
+      width: 90%;
+      margin: 0 auto 4rem auto;
+      padding: 1rem 2rem 2rem 2rem;
       display: flex;
-      flex-direction: column;
       gap: 2rem;
-      align-items: center;
-      width: 100%;
-      flex-shrink: 0;
+      border-radius: 0.25rem;
+      max-width: 64rem;
+      @media (max-width: 768px) {
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        > * {
+          width: 100%;
+          flex-shrink: 0;
+        }
+      }
 
-      span {
-        font-family: var(--title-font);
-        font-size: 2rem;
-        font-weight: 600;
+      > * {
+        scroll-snap-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+
+        span {
+          font-family: var(--title-font);
+          font-size: 2rem;
+          font-weight: 600;
+        }
       }
     }
   }
@@ -122,14 +170,46 @@
     align-items: center;
     width: 90%;
     margin: 4rem auto;
+    max-width: 64rem;
+    @media (min-width: 768px) {
+      flex-direction: row;
+      gap: 2rem;
+      h2 {
+        line-height: 1;
+      }
+    }
+    @media (min-width: 1440px) {
+      gap: 4rem;
+    }
 
     img {
       width: 100%;
+      max-width: 32rem;
       border-radius: 0.25rem;
     }
   }
 
+  .dots-container {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--black);
+  }
+
   .products {
+    max-width: 64rem;
+    margin: auto;
+
     h2 {
       font-size: 4rem;
       text-align: center;

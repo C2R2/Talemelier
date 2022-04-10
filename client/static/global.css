@@ -9,6 +9,7 @@
 
 ::selection{
   background: var(--primary-color);
+  color: var(--black);
 }
 
 html, body, div, span, applet, object, iframe,
@@ -38,6 +39,11 @@ time, mark, audio, video {
 @media (max-width: 768px) {
   html, body {
     font-size: 14px;
+  }
+}
+@media (min-width: 1440px) {
+  html, body {
+    font-size: 18px;
   }
 }
 
@@ -114,6 +120,16 @@ h1 {
 h2 {
   font-family: var(--title-font);
   font-size: 2rem;
+}
+@media (min-width: 768px) {
+  h2 {
+    font-size: 3rem;
+  }
+}
+@media (min-width: 1440px) {
+  h1 {
+    font-size: 5rem;
+  }
 }
 
 h3 {
