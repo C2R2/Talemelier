@@ -3,7 +3,6 @@
 </svelte:head>
 
 <script>
-
     import AuthForm from "$lib/AuthForm.svelte"
 </script>
 
@@ -31,8 +30,8 @@
     align-self: flex-start;
   }
 
-a{
-  margin-top: 1rem;
-}
+  a {
+    margin-top: 1rem;
+  }
 
 </style>
