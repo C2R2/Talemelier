@@ -14,8 +14,6 @@ module.exports = async (request, response, next) => {
         // pass the the user down to the endpoints here
         request.user = user
 
-        console.log(user)
-
         if (user.userRole === "admin") {
             // pass down functionality to the endpoint
             next()
