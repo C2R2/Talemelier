@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken")
 // require database connection
 const dbConnect = require("./db/dbConnect")
 const User = require("./db/userModel")
+const Product = require("./db/productModel")
 const auth = require("./auth")
 const port = process.env.PORT || 3000
 
@@ -88,10 +89,9 @@ app.post("/login", (request, response) => {
                             message: "Passwords does not match", error
                         })
                     }
-
                     //   create JWT token
                     const token = jwt.sign({
-                        userId: user._id, userEmail: user.email
+                        userId: user._id, userEmail: user.email, userRole: user.role
                     }, "RANDOM-TOKEN", { expiresIn: "24h" })
 
                     //   return success response
@@ -123,6 +123,13 @@ app.get("/free-endpoint", (request, response) => {
 app.get("/users", auth, (request, response) => {
 
     User.find()
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+app.get("/products", (request, response) => {
+
+    Product.find()
         .then(result => response.status(200).json(result))
         .catch(err => response.status(500).json(err))
 })

@@ -14,11 +14,11 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "email": "user",
-  "password": "user"
+  "email": "admin",
+  "password": "admin"
 }
 
 ### get all users
 
 GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsImlhdCI6MTY0OTMyNzI2OCwiZXhwIjoxNjQ5NDEzNjY4fQ.pjyi-MArjcXFqOOTv4tQrNGngK2TTiMz5XXDjiH9l-U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTA3Mzk1NDIsImV4cCI6MTY1MDgyNTk0Mn0.OWLzKD7QPiS1F3INRZ2Ah3fHJi8hU5tyZjN7CfW5bxw

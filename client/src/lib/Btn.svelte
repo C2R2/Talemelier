@@ -38,6 +38,14 @@
     border-radius: 0.25rem;
     background-color: var(--primary-color);
     height: min-content;
+    transition: all 0.2s ease-in-out;
+  }
+  *:hover{
+    filter: brightness(1.05);
+    transform: scale(1.05);
+  }
+  *:active{
+    transform: scale(0.95);
   }
 
   .outline {

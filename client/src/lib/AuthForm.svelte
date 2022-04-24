@@ -22,7 +22,7 @@
             })
         }).then(async res => {
                 if (res.status === 200) {
-                    Cookies.set("token", res.headers.get("Authorization"), { secure: true })
+                    Cookies.set("token", (await res.json()).token , { secure: true })
                     window.location = "/"
                 } else if (res.status === 404) {
                     console.error(await res.json())
@@ -72,7 +72,7 @@
 </script>
 
 <form method="post" on:submit|preventDefault={login ? handleLogin : handleRegister}>
-  <h2>{login ? "Se connecter à son" : "Créer un"} compte</h2>
+  <h3>{login ? "Se connecter à son" : "Créer un"} compte</h3>
   <div class="input-container">
     <input bind:value={email} placeholder="Mail" required type="text">
     <div class="password">
@@ -120,7 +120,7 @@
     max-width: 512px;
   }
 
-  h2 {
+  h3 {
     width: 100%;
     padding: 0.5rem 0;
     text-align: center;
