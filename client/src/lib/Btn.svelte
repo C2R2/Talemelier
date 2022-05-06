@@ -4,6 +4,7 @@
     export let width = undefined
     export let fontSize = undefined
     export let outline = undefined
+    export let children = ""
 </script>
 
 {#if href}
@@ -14,6 +15,7 @@
      class:outline
   >
     <slot/>
+    {children}
   </a>
 {:else}
   <button style:font-size={fontSize}
@@ -23,6 +25,7 @@
           class:outline
   >
     <slot/>
+    {children}
   </button>
 {/if}
 
