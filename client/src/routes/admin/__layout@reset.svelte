@@ -42,7 +42,7 @@
     display: grid;
     width: 100vw;
     height: 100vh;
-    grid-template-columns: 25% 1fr;
+    grid-template-columns: 15% 1fr;
   }
 
   .sidebar {

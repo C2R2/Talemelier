@@ -34,6 +34,7 @@ time, mark, audio, video {
   color: var(--black);
   text-decoration: none;
   appearance: none;
+  background: transparent;
 }
 
 @media (max-width: 768px) {
@@ -74,6 +75,9 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+button{
+  cursor: pointer;
 }
 
 input {
