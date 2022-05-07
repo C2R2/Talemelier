@@ -41,7 +41,7 @@ app.post("/register", (request, response) => {
             bcrypt.hash(request.body.password, 12).then((hashedPassword) => {
                 // create a new user instance and collect the data
                 const user = new User({
-                    email: request.body.email, password: hashedPassword
+                    email: request.body.email, password: hashedPassword, role: "user"
                 })
 
                 // save the new user
@@ -121,8 +121,13 @@ app.get("/free-endpoint", (request, response) => {
 
 // authentication endpoint
 app.get("/users", auth, (request, response) => {
-
     User.find()
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+app.get("/users/:id", auth, (request, response) => {
+    User.findById(request.params.id)
         .then(result => response.status(200).json(result))
         .catch(err => response.status(500).json(err))
 })

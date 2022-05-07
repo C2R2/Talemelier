@@ -20,5 +20,20 @@ Content-Type: application/json
 
 ### get all users
 
-GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTA3Mzk1NDIsImV4cCI6MTY1MDgyNTk0Mn0.OWLzKD7QPiS1F3INRZ2Ah3fHJi8hU5tyZjN7CfW5bxw
+GET http://localhost:3000/users/624ebc98195e1f70c5675a13
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE4ODEzMzcsImV4cCI6MTY1MTk2NzczN30.3dUi3dSPx6YqrMhPAGOhKtur26E2bhs2dFBtEyjP8eg
+
+###
+
+POST https://talemelier.herokuapp.com/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+###
+
+GET https://talemelier.herokuapp.com/users/6262f27bc0b918fa7cb53fc3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE5NDg5MjIsImV4cCI6MTY1MjAzNTMyMn0.bYinfnt7ZiOFLj-bm6EWWSP6XRQTSOHaEHAWikzYDFk
