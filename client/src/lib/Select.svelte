@@ -1,23 +1,31 @@
 <script>
     export let allsize = false
     export let id = undefined
+    export let options = []
+    export let value = undefined
+    export let onChange = () => {}
 </script>
 
 <div class="select" class:allsize>
-  <select id={id}>
+  <select id={id} value={value} on:change={onChange}>
     <slot/>
+    {#if options.length > 0}
+      {#each options as option}
+        <option value={option.value}>{option.label}</option>
+      {/each}
+    {/if}
   </select>
 </div>
 
 <style lang="scss">
   select {
-    font-weight: 600;
     padding: 1rem 1.5rem 1rem 1rem;
     background: transparent;
     appearance: none;
     border: 1px solid var(--black);
     border-radius: 0.25rem;
     width: min-content;
+    font: inherit;
   }
 
   .select {

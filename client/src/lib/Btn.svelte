@@ -5,6 +5,7 @@
     export let fontSize = undefined
     export let outline = undefined
     export let children = ""
+    export let small = false
 </script>
 
 {#if href}
@@ -13,9 +14,10 @@
      href={href}
      class={$$props.class}
      class:outline
+     class:small
   >
     <slot/>
-    {children}
+    {@html children}
   </a>
 {:else}
   <button style:font-size={fontSize}
@@ -23,9 +25,10 @@
           on:click={onClick}
           class={$$props.class}
           class:outline
+          class:small
   >
     <slot/>
-    {children}
+    {@html children}
   </button>
 {/if}
 
@@ -55,5 +58,9 @@
     padding: 0.5rem 1rem;
     border: 1px solid var(--second-black);
     background-color: var(--background-color);
+  }
+
+  .small{
+    padding: 0.5rem 1rem;
   }
 </style>

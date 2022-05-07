@@ -20,6 +20,7 @@
   <p>Chargement...</p>
 {:then user}
   <p>{user.email}</p>
+  <p>{user.password}</p>
 {:catch error}
   <p>{error}</p>
 {/await}
