@@ -14,8 +14,7 @@
      href={href}
      class={$$props.class}
      class:outline
-     class:small
-  >
+     class:small>
     <slot/>
     {@html children}
   </a>
@@ -25,8 +24,7 @@
           on:click={onClick}
           class={$$props.class}
           class:outline
-          class:small
-  >
+          class:small>
     <slot/>
     {@html children}
   </button>
