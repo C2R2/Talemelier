@@ -20,8 +20,8 @@ Content-Type: application/json
 
 ### get all users
 
-GET http://localhost:3000/users/624ebc98195e1f70c5675a13
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE4ODEzMzcsImV4cCI6MTY1MTk2NzczN30.3dUi3dSPx6YqrMhPAGOhKtur26E2bhs2dFBtEyjP8eg
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTIwMDg4OTQsImV4cCI6MTY1MjA5NTI5NH0.uJlV2OmlhHkNQRFQPV2ML_lUKwp5I0LKSViAdlrqnDk
 
 ###
 

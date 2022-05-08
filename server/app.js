@@ -132,6 +132,12 @@ app.get("/users/:id", auth, (request, response) => {
         .catch(err => response.status(500).json(err))
 })
 
+app.post("/users/:id/delete", auth, (request, response) => {
+    User.findByIdAndDelete(request.params.id)
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
 app.get("/products", (request, response) => {
 
     Product.find()
