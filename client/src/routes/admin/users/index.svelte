@@ -26,6 +26,18 @@
         })
     }
 
+    async function handleChange (event, _id) {
+        return await fetch(`https://talemelier.herokuapp.com/users/${_id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + Cookies.get("token")
+            },
+            body: JSON.stringify({
+                role: event.target.value
+            })
+        })
+    }
 
 </script>
 
@@ -55,7 +67,7 @@
         component: Select,
         props: row =>( {
             value: row.role,
-            onChange: (event) => { console.log(event.target.value) },
+            onChange: (event) => handleChange(event, row._id).then((res)=> res.status > 300 && alert("Erreur lors de la modification de l'utilisateur") ).catch(()=>alert("Erreur lors de la modification de l'utilisateur")),
             options: [{
                 value: "admin",
                 label: "Administrateur"
