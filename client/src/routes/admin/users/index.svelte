@@ -16,6 +16,16 @@
         }
     }).then(response => response.json())
 
+    async function handleDelete (id) {
+       return await fetch(`https://talemelier.herokuapp.com/users/${id}/delete`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + Cookies.get("token")
+            }
+        }).then(response => response.json())
+    }
+
 
 </script>
 
@@ -67,7 +77,7 @@
       render: [{
           component: Btn,
         props: row => ({
-          onClick: () => console.log("delete", row._id),
+          onClick: () => { handleDelete(row._id) },
           children: deleteIcon,
           small: true,
           })}]
