@@ -147,6 +147,14 @@ app.put("/users/:id", auth, (request, response) => {
         .catch(err => response.status(500).json(err))
 })
 
+// add product
+app.post("/products", auth, (request, response) => {
+    const product = new Product(request.body)
+    product.save()
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
 // get all products
 app.get("/products", (request, response) => {
     Product.find()
@@ -172,6 +180,42 @@ app.delete("/products/:id", auth, (request, response) => {
 //edit product
 app.put("/products/:id", auth, (request, response) => {
     Product.findByIdAndUpdate(request.params.id, request.body)
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+// add order
+app.post("/orders", (request, response) => {
+    const order = new Order(request.body)
+    order.save()
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+// get all orders
+app.get("/orders", auth, (request, response) => {
+    Order.find()
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+// get one order
+app.get("/orders/:id", auth, (request, response) => {
+    Order.findById(request.params.id)
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+// delete order
+app.delete("/orders/:id", auth, (request, response) => {
+    Order.findByIdAndDelete(request.params.id)
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+//edit order
+app.put("/orders/:id", auth, (request, response) => {
+    Order.findByIdAndUpdate(request.params.id, request.body)
         .then(result => response.status(200).json(result))
         .catch(err => response.status(500).json(err))
 })
