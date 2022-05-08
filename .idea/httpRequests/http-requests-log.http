@@ -1,0 +1,494 @@
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "email": "user",
+  "password": "user"
+}
+
+<> 2022-05-08T134404.201.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTIwMDg4OTQsImV4cCI6MTY1MjA5NTI5NH0.uJlV2OmlhHkNQRFQPV2ML_lUKwp5I0LKSViAdlrqnDk
+
+<> 2022-05-08T134356.200.json
+
+###
+
+DELETE http://localhost:3000/users/6277acdde6358232d1444adf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTIwMDg4OTQsImV4cCI6MTY1MjA5NTI5NH0.uJlV2OmlhHkNQRFQPV2ML_lUKwp5I0LKSViAdlrqnDk
+
+<> 2022-05-08T134342.200.json
+
+###
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "email": "user",
+  "password": "user"
+}
+
+<> 2022-05-08T134325.201.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTIwMDg4OTQsImV4cCI6MTY1MjA5NTI5NH0.uJlV2OmlhHkNQRFQPV2ML_lUKwp5I0LKSViAdlrqnDk
+
+<> 2022-05-08T133740.200.json
+
+###
+
+POST http://localhost:3000/users/6277aa97ec8a2d7d9d3640d1/delete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTIwMDg4OTQsImV4cCI6MTY1MjA5NTI5NH0.uJlV2OmlhHkNQRFQPV2ML_lUKwp5I0LKSViAdlrqnDk
+
+<> 2022-05-08T133725.200.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTIwMDg4OTQsImV4cCI6MTY1MjA5NTI5NH0.uJlV2OmlhHkNQRFQPV2ML_lUKwp5I0LKSViAdlrqnDk
+
+<> 2022-05-08T133419.200.json
+
+###
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "email": "user",
+  "password": "user"
+}
+
+<> 2022-05-08T133343.201.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTIwMDg4OTQsImV4cCI6MTY1MjA5NTI5NH0.uJlV2OmlhHkNQRFQPV2ML_lUKwp5I0LKSViAdlrqnDk
+
+<> 2022-05-08T132149.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-05-08T132134.200.json
+
+###
+
+GET http://localhost:3000/users/624ebc98195e1f70c5675a13
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE4ODEzMzcsImV4cCI6MTY1MTk2NzczN30.3dUi3dSPx6YqrMhPAGOhKtur26E2bhs2dFBtEyjP8eg
+
+<> 2022-05-08T132130.401.json
+
+###
+
+GET http://localhost:3000/users/624ebc98195e1f70c5675a13
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE4ODEzMzcsImV4cCI6MTY1MTk2NzczN30.3dUi3dSPx6YqrMhPAGOhKtur26E2bhs2dFBtEyjP8eg
+
+<> 2022-05-08T132101.404.html
+
+###
+
+GET https://talemelier.herokuapp.com/users/6262f27bc0b918fa7cb53fc3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE5NDg5MjIsImV4cCI6MTY1MjAzNTMyMn0.bYinfnt7ZiOFLj-bm6EWWSP6XRQTSOHaEHAWikzYDFk
+
+<> 2022-05-07T230050.200.json
+
+###
+
+GET https://talemelier.herokuapp.com/users/6262f27bc0b918fa7cb53fc3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE5NDg5MjIsImV4cCI6MTY1MjAzNTMyMn0.bYinfnt7ZiOFLj-bm6EWWSP6XRQTSOHaEHAWikzYDFk
+
+<> 2022-05-07T204253.404.html
+
+###
+
+GET https://talemelier.herokuapp.com/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE5NDg5MjIsImV4cCI6MTY1MjAzNTMyMn0.bYinfnt7ZiOFLj-bm6EWWSP6XRQTSOHaEHAWikzYDFk
+
+<> 2022-05-07T204246.200.json
+
+###
+
+GET https://talemelier.herokuapp.com/users/624ebc98195e1f70c5675a13
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE5NDg5MjIsImV4cCI6MTY1MjAzNTMyMn0.bYinfnt7ZiOFLj-bm6EWWSP6XRQTSOHaEHAWikzYDFk
+
+<> 2022-05-07T204226.404.html
+
+###
+
+POST https://talemelier.herokuapp.com/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-05-07T204202.200.json
+
+###
+
+GET https://talemelier.herokuapp.com/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-05-07T204119.404.html
+
+###
+
+GET http://localhost:3000/users/624ebc98195e1f70c5675a13
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTE4ODEzMzcsImV4cCI6MTY1MTk2NzczN30.3dUi3dSPx6YqrMhPAGOhKtur26E2bhs2dFBtEyjP8eg
+
+<> 2022-05-07T015559.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-05-07T015537.200.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTA3Mzk1NDIsImV4cCI6MTY1MDgyNTk0Mn0.OWLzKD7QPiS1F3INRZ2Ah3fHJi8hU5tyZjN7CfW5bxw
+
+<> 2022-04-23T204619.200.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTA3Mzk1NDIsImV4cCI6MTY1MDgyNTk0Mn0.OWLzKD7QPiS1F3INRZ2Ah3fHJi8hU5tyZjN7CfW5bxw
+
+<> 2022-04-23T204551.401.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-23T204542.200.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjYyZjI3YmMwYjkxOGZhN2NiNTNmYzMiLCJ1c2VyRW1haWwiOiJjbGllbnQiLCJpYXQiOjE2NTA3Mzk1MjIsImV4cCI6MTY1MDgyNTkyMn0.Zt4mYoERtpqtrytetgnzoJAHgLXXA2ekXGV9IyKUAVY
+
+<> 2022-04-23T204531.401.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "client",
+  "password": "client"
+}
+
+<> 2022-04-23T204522.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "client",
+  "password": "client"
+}
+
+<> 2022-04-23T204438.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-23T204418.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-23T204414.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-23T204314.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-23T204300.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-23T204211.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-23T204116.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T205053.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204938.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204919.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204816.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204802.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204720.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204619.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204504.200.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsImlhdCI6MTY1MDY1MzAzNSwiZXhwIjoxNjUwNzM5NDM1fQ.DWxbBiNstrqWXXaNCO75WJbv24mXHRRIcBybWLwZaIw
+
+<> 2022-04-22T204405.401.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204355.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204315.200.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsImlhdCI6MTY1MDY1Mjk0NCwiZXhwIjoxNjUwNzM5MzQ0fQ.3fYPR-HhXZZ2ezv9u_q_mvO9DjHrHoq6wNYgxmO6shQ
+
+<> 2022-04-22T204245.401.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsImlhdCI6MTY1MDY1Mjk0NCwiZXhwIjoxNjUwNzM5MzQ0fQ.3fYPR-HhXZZ2ezv9u_q_mvO9DjHrHoq6wNYgxmO6shQ
+
+<> 2022-04-22T204236.401.json
+
+###
+
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsImlhdCI6MTY1MDY1Mjk0NCwiZXhwIjoxNjUwNzM5MzQ0fQ.3fYPR-HhXZZ2ezv9u_q_mvO9DjHrHoq6wNYgxmO6shQ
+
+<> 2022-04-22T204234.401.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204224.200.json
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "admin",
+  "password": "admin"
+}
+
+<> 2022-04-22T204209.200.json
+
