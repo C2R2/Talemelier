@@ -45,9 +45,9 @@
     label: "Rôle",
     render: [{
         component: Select,
-        props: {
-            value: (row)=> row.role,
-            onChange: ( event) => { console.log(event.target.value) },
+        props: row =>( {
+            value: row.role,
+            onChange: (event) => { console.log(event.target.value) },
             options: [{
                 value: "admin",
                 label: "Administrateur"
@@ -60,17 +60,17 @@
                 value: "user",
                 label: "Utilisateur"
             }],
-            },
+            }),
     }]
   }, {
       label: "Supprimer",
       render: [{
           component: Btn,
-        props: {
-          onClick: () => console.log("delete"),
+        props: row => ({
+          onClick: () => console.log("delete", row._id),
           children: deleteIcon,
           small: true,
-          }}]
+          })}]
   }]}/>
 {:catch error}
   <p>Erreur : {error}</p>
