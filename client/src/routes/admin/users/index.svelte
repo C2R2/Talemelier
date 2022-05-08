@@ -45,13 +45,15 @@
   <title>Utilisateurs - Talemelier</title>
 </svelte:head>
 
-<h1>Utilisateurs</h1>
+<h1>Liste des utilisateurs</h1>
 
 {#await usersPromise}
-  Chargement ...
+  Chargement...
 {:then users}
-  <h2>Liste des utilisateurs</h2>
-  <Grid data={users} columns={[{
+  <span class="count">{users.length} utilisateurs</span>
+  <Grid data={users}
+        filteredFields={["_id", "email", "role"]}
+        columns={[{
     name: "_id",
     label: "ID",
   }, {

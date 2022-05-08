@@ -1,9 +1,9 @@
 <script>
-    export let href = undefined
+    export let href = ""
     export let onClick = () => {}
-    export let width = undefined
-    export let fontSize = undefined
-    export let outline = undefined
+    export let width = ""
+    export let fontSize = ""
+    export let outline = false
     export let children = ""
     export let small = false
 </script>
@@ -14,7 +14,8 @@
      href={href}
      class={$$props.class}
      class:outline
-     class:small>
+     class:small
+  >
     <slot/>
     {@html children}
   </a>
@@ -24,7 +25,8 @@
           on:click={onClick}
           class={$$props.class}
           class:outline
-          class:small>
+          class:small
+  >
     <slot/>
     {@html children}
   </button>

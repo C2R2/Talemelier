@@ -1,25 +1,38 @@
 <script>
-    export let columns
+    export let columns = []
     export let data = []
-
-    export let searchTerm = ''
+    export let filteredFields = []
+    export let searchTerm = ""
 
     let filteredData = data
+
+    function handleInputSearch () {
+        filteredData = data.filter((row) => (
+            filteredFields.some((field) => (
+                row[field].toLowerCase().includes(searchTerm.toLowerCase())
+            ))
+        ))
+    }
 </script>
 
 
 <div class="grid-container">
   <div class="search">
-    <input type="text" placeholder="Search" bind:value={searchTerm} on:input={()=> filteredData = data.filter((row)=> row.email.includes( searchTerm)) } />
+    <input bind:value={searchTerm}
+           on:input={handleInputSearch}
+           placeholder="Search"
+           type="text"
+    />
   </div>
   <div class="table">
 
     {#each columns as column}
-      <div class="column">
+      <div class="column sortable" on:click={()=> {
+          filteredData = filteredData.sort((a, b) => (a[column] > b[column]) ? 1 : -1)
+      }}>
         {column.label}
       </div>
     {/each}
-
     {#each filteredData as row}
       <div class="row">
         {#each columns as column}
@@ -30,7 +43,7 @@
              </span>
             {/each}
           {:else }
-            <span title={row[column.name]}>{row[column.name] ? row[column.name] : ""}</span>
+            <span title={row[column.name]}>{@html row[column.name] ? row[column.name] : ""}</span>
           {/if}
         {/each}
       </div>
@@ -41,13 +54,12 @@
 
 <style lang="scss">
   .grid-container {
-    overflow: auto;
     width: 100%;
   }
 
   .table {
     display: grid;
-
+    overflow: auto;
   }
 
   .column {
@@ -55,6 +67,24 @@
     grid-row: 1;
     padding: 1rem;
     border-bottom: 1px solid rgb(81, 81, 81);
+    cursor: pointer;
+    position: relative;
+
+  }
+
+  .sortable:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-top-color: rgb(81, 81, 81);
+
   }
 
   .row {
