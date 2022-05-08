@@ -42,14 +42,12 @@
   <Grid data={users} columns={[{
     name: "_id",
     label: "ID",
-    width: "100px"
   }, {
     name: "email",
     label: "Email",
   }, {
     name: "password",
     label: "Mot de passe",
-    width: "200px",
   }, {
     name: "role",
     label: "Rôle",

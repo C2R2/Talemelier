@@ -138,6 +138,13 @@ app.delete("/users/:id", auth, (request, response) => {
         .catch(err => response.status(500).json(err))
 })
 
+//edit user
+app.put("/users/:id", auth, (request, response) => {
+    User.findByIdAndUpdate(request.params.id, request.body)
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
 app.get("/products", (request, response) => {
 
     Product.find()

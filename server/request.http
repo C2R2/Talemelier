@@ -23,6 +23,7 @@ Content-Type: application/json
 GET http://localhost:3000/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjRlYmM5ODE5NWUxZjcwYzU2NzVhMTMiLCJ1c2VyRW1haWwiOiJhZG1pbiIsInVzZXJSb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTIwMDg4OTQsImV4cCI6MTY1MjA5NTI5NH0.uJlV2OmlhHkNQRFQPV2ML_lUKwp5I0LKSViAdlrqnDk
 
+
 ###
 
 POST https://talemelier.herokuapp.com/login
