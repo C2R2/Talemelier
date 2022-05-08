@@ -1,10 +1,17 @@
 <script>
     export let columns
-    export let data
+    export let data = []
 
+    export let searchTerm = ''
+
+    let filteredData = data
 </script>
 
+
 <div class="grid-container">
+  <div class="search">
+    <input type="text" placeholder="Search" bind:value={searchTerm} on:input={()=> filteredData = data.filter((row)=> row.email.includes( searchTerm)) } />
+  </div>
   <div class="table">
 
     {#each columns as column}
@@ -13,7 +20,7 @@
       </div>
     {/each}
 
-    {#each data as row}
+    {#each filteredData as row}
       <div class="row">
         {#each columns as column}
           {#if column.render}

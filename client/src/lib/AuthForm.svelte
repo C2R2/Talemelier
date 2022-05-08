@@ -74,9 +74,9 @@
 <form method="post" on:submit|preventDefault={login ? handleLogin : handleRegister}>
   <h3>{login ? "Se connecter à son" : "Créer un"} compte</h3>
   <div class="input-container">
-    <input bind:value={email} placeholder="Mail" required type="text">
+    <input bind:value={email} placeholder="Email" required type="text" autocomplete="email">
     <div class="password">
-      <input on:input={(e)=>{password = e.target.value}} placeholder="Mot de passe" required
+      <input on:input={(e)=>{password = e.target.value}} placeholder="Mot de passe" required autocomplete="current-password"
              type={passwordHidden}
              value={password}/>
       <svg fill="none" height="24"

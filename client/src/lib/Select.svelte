@@ -7,7 +7,7 @@
 </script>
 
 <div class="select" class:allsize>
-  <select id={id} value={value} on:change={onChange}>
+  <select id={id} bind:value={value} on:change={onChange}>
     <slot/>
     {#if options.length > 0}
       {#each options as option}
