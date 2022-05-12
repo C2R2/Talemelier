@@ -3,6 +3,7 @@
     export let data = []
     export let filteredFields = []
     export let searchTerm = ""
+    export let title = ""
 
     let filteredData = data
 
@@ -15,17 +16,18 @@
     }
 </script>
 
-
 <div class="grid-container">
+<span class="count">
+  {filteredData.length} {filteredData.length > 1 ? title.toLowerCase() : title.toLowerCase().slice(0, -1)}
+</span>
   <div class="search">
     <input bind:value={searchTerm}
            on:input={handleInputSearch}
            placeholder="Search"
-           type="text"
+           type="search"
     />
   </div>
   <div class="table">
-
     {#each columns as column}
       <div class="column sortable" on:click={()=> {
           filteredData = filteredData.sort((a, b) => (a[column] > b[column]) ? 1 : -1)
@@ -48,13 +50,14 @@
         {/each}
       </div>
     {/each}
-
   </div>
 </div>
 
 <style lang="scss">
   .grid-container {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .table {
@@ -69,7 +72,6 @@
     border-bottom: 1px solid rgb(81, 81, 81);
     cursor: pointer;
     position: relative;
-
   }
 
   .sortable:after {
@@ -84,7 +86,6 @@
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
     border-top-color: rgb(81, 81, 81);
-
   }
 
   .row {

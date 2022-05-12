@@ -21,10 +21,10 @@
 {#await productsPromise}
   <h1>Chargement...</h1>
 {:then products}
-  <span>{products.length} produits</span>
   <Grid
       data={products}
       filteredFields={["name", "price"]}
+      title="Produits"
       columns={[
           { name: "_id", label: "id" },
           { name: "title", label: "Titre" },
