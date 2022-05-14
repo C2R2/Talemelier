@@ -39,11 +39,11 @@
       <div class="row">
         {#each columns as column}
           {#if column.render}
+             <span class="actions-column">
             {#each column.render as element}
-             <span style="padding: 0; display: flex; align-items: center; justify-content: space-around">
                <svelte:component this={element.component} {...element.props(row)}/>
-             </span>
             {/each}
+             </span>
           {:else }
             <span title={row[column.name]}>{@html row[column.name] ? row[column.name] : ""}</span>
           {/if}
@@ -98,5 +98,13 @@
       text-overflow: ellipsis;
       padding: 1rem;
     }
+  }
+
+  .actions-column {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around
   }
 </style>
