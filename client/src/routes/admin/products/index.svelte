@@ -49,13 +49,13 @@
                     component: Btn,
                   props: row => ({
                     children: editIcon,
+                    onClick: () => window.location = `/admin/products/${row._id}`,
                     small: true,
                     })},{
                    component: Btn,
               props: row => ({
                 children: deleteIcon,
                 onClick: () => { confirm("Supprimer le produits ?") && handleDelete( row._id).then(()=>products = products.filter((user)=> user._id !== row._id)) },
-
                 small: true,
                 })}]}
           ]}
