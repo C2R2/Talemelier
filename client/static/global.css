@@ -7,7 +7,7 @@
   --body-font: "Acumin", sans-serif;
 }
 
-::selection{
+::selection {
   background: var(--primary-color);
   color: var(--black);
 }
@@ -42,6 +42,7 @@ time, mark, audio, video {
     font-size: 14px;
   }
 }
+
 @media (min-width: 1440px) {
   html, body {
     font-size: 16px;
@@ -76,7 +77,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-button{
+
+button {
   cursor: pointer;
 }
 
@@ -125,11 +127,13 @@ h2 {
   font-family: var(--title-font);
   font-size: 2rem;
 }
+
 @media (min-width: 768px) {
   h2 {
     font-size: 3rem;
   }
 }
+
 @media (min-width: 1440px) {
   h1 {
     font-size: 5rem;
@@ -146,3 +150,10 @@ p {
   line-height: 130%;
 }
 
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+}

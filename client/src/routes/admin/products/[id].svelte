@@ -1,6 +1,7 @@
 <script>
     import { page } from "$app/stores"
     import Cookies from "js-cookie"
+    import Tiptap from "$lib/Tiptap.svelte"
 
     const productID = $page.params.id
 
@@ -11,6 +12,8 @@
             "Authorization": "Bearer " + Cookies.get("token")
         }
     }).then(response => response.json())
+
+
 </script>
 
 
@@ -23,6 +26,8 @@
   <p>{product.description}</p>
   <p>{product.price}</p>
   <p>{product.ref}</p>
+  <Tiptap></Tiptap>
+
 {:catch error}
   <p>{error}</p>
 {/await}
