@@ -1,8 +1,7 @@
 <script>
     import { page } from "$app/stores"
     import Cookies from "js-cookie"
-    import Tiptap from "$lib/Tiptap.svelte"
-    import Btn from "$lib/Btn.svelte"
+    import ProductForm from "$lib/ProductForm.svelte"
 
     const productID = $page.params.id
     let product
@@ -37,30 +36,10 @@
   <p>Product: {productID}</p>
 
   {#if product}
-    <form on:submit|preventDefault={handleSubmit}>
-      <label class="field">
-        <span>Titre</span>
-        <input bind:value={product.title}/>
-      </label>
-      <div class="field">
-        <span>Description</span>
-        <Tiptap bind:value={product.description}/>
-      </div>
-      <label class="field">
-        <span>Prix</span>
-        <input type="number" step="0.1" bind:value={product.price}/>
-      </label>
-      <label class="field">
-        <span>Référence</span>
-        <input bind:value={product.ref}/>
-      </label>
-      <Btn small type="submit">{submit ? "Chargement" : "Éditer"}</Btn>
-    </form>
+    <ProductForm product={product} onSubmit={handleSubmit}/>
   {:else}
     <p>Chargement...</p>
   {/if}
-
-
 </div>
 
 

@@ -34,6 +34,7 @@
 {#await productsPromise}
   <h1>Chargement...</h1>
 {:then products}
+  <Btn href="/admin/products/add" small>Ajouter un produit</Btn>
   <Grid
       data={products}
       filteredFields={["title", "price", "description", "ref" ]}
