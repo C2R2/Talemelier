@@ -18,9 +18,11 @@
 
 {#await userPromise }
   <p>Chargement...</p>
-{:then user}
-  <p>{user.email}</p>
-  <p>{user.password}</p>
+{:then product}
+  <p>{product.title}</p>
+  <p>{product.description}</p>
+  <p>{product.price}</p>
+  <p>{product.ref}</p>
 {:catch error}
   <p>{error}</p>
 {/await}
