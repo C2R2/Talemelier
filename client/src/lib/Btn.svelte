@@ -6,6 +6,7 @@
     export let outline = false
     export let children = ""
     export let small = false
+    export let type = "button"
 </script>
 
 {#if href}
@@ -26,6 +27,7 @@
           class={$$props.class}
           class:outline
           class:small
+          {type}
   >
     <slot/>
     {@html children}

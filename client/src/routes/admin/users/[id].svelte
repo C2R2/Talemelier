@@ -4,7 +4,7 @@
 
     const userID = $page.params.id
 
-    const userPromise = fetch("https://talemelier.herokuapp.com/users/" + userID, {
+    const usersPromise = fetch("https://talemelier.herokuapp.com/users/" + userID, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -16,7 +16,7 @@
 
 <p>User: {userID}</p>
 
-{#await userPromise }
+{#await usersPromise }
   <p>Chargement...</p>
 {:then user}
   <p>{user.email}</p>

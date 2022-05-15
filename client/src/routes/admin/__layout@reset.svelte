@@ -29,6 +29,7 @@
       <Btn width="100%" href="/admin/users">Utilisateurs</Btn>
     </div>
     <div class="content">
+      <Btn onClick={()=>  window.history.back() } small>← Retour</Btn>
       <slot/>
     </div>
   </div>

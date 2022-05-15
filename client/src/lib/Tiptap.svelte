@@ -1,8 +1,10 @@
 <script>
-    import { onMount, onDestroy } from 'svelte'
-    import { Editor } from '@tiptap/core'
-    import StarterKit from '@tiptap/starter-kit'
+    import { onMount, onDestroy } from "svelte"
+    import { Editor } from "@tiptap/core"
+    import StarterKit from "@tiptap/starter-kit"
+    import Btn from "$lib/Btn.svelte"
 
+    export let value
     let element
     let editor
 
@@ -10,13 +12,12 @@
         editor = new Editor({
             element: element,
             extensions: [
-                StarterKit,
+                StarterKit
             ],
-            content: '<p>Hello World! 🌍️ </p>',
-            onTransaction: () => {
-                // force re-render so `editor.isActive` works as expected
-                editor = editor
-            },
+            content: value,
+            onUpdate: () => {
+                value = editor.getHTML()
+            }
         })
     })
 
@@ -27,29 +28,42 @@
     })
 </script>
 
-{#if editor}
-  <button
-      on:click={() => editor.chain().focus().toggleHeading({ level: 1}).run()}
-      class:active={editor.isActive('heading', { level: 1 })}
-  >
-    H1
-  </button>
-  <button
-      on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-      class:active={editor.isActive('heading', { level: 2 })}
-  >
-    H2
-  </button>
-  <button on:click={() => editor.chain().focus().setParagraph().run()} class:active={editor.isActive('paragraph')}>
-    P
-  </button>
-{/if}
+<div class="editor">
+  {#if editor}
+    <div>
+      <Btn small onClick={() => editor.chain().focus().toggleBold().run()}>
+        Bold
+      </Btn>
+      <Btn small onClick={() => editor.chain().focus().toggleItalic().run()}>
+        Italic
+      </Btn>
+    </div>
+  {/if}
 
-<div bind:this={element}></div>
+  <div bind:this={element} class="tiptap"></div>
+</div>
 
-<style>
-  button.active {
-    background: black;
-    color: white;
+<style lang="scss">
+  .tiptap {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--black);
+    border-radius: 0.25rem;
+    transition: transform 0.1s ease-in-out;
+    box-sizing: border-box;
+    background: white;
+
+    &:focus-within {
+      outline: 1px solid var(--black);
+    }
+
+    :global( > div:focus-visible) {
+      outline: 0;
+    }
+  }
+
+  .editor {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 </style>
