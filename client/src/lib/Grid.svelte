@@ -10,7 +10,7 @@
     function handleInputSearch () {
         filteredData = data.filter((row) => (
             filteredFields.some((field) => (
-                row[field].toLowerCase().includes(searchTerm.toLowerCase())
+                row[field].toString().toLowerCase().includes(searchTerm.toLowerCase())
             ))
         ))
     }

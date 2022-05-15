@@ -36,7 +36,7 @@
 {:then products}
   <Grid
       data={products}
-      filteredFields={["name", "price"]}
+      filteredFields={["title", "price", "description", "ref" ]}
       title="Produits"
       columns={[
           { name: "_id", label: "id" },
