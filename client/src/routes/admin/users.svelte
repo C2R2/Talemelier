@@ -50,9 +50,9 @@
 {#await usersPromise}
   Chargement...
 {:then users}
-  <span class="count">{users.length} utilisateurs</span>
   <Grid data={users}
         filteredFields={["_id", "email", "role"]}
+        title="Utilisateurs"
         columns={[{
     name: "_id",
     label: "ID",
@@ -97,6 +97,3 @@
 {:catch error}
   <p>Erreur : {error}</p>
 {/await}
-
-<style>
-</style>

@@ -3,29 +3,31 @@
     export let data = []
     export let filteredFields = []
     export let searchTerm = ""
+    export let title = ""
 
     let filteredData = data
 
     function handleInputSearch () {
         filteredData = data.filter((row) => (
             filteredFields.some((field) => (
-                row[field].toLowerCase().includes(searchTerm.toLowerCase())
+                row[field].toString().toLowerCase().includes(searchTerm.toLowerCase())
             ))
         ))
     }
 </script>
 
-
 <div class="grid-container">
+<span class="count">
+  {filteredData.length} {filteredData.length > 1 ? title.toLowerCase() : title.toLowerCase().slice(0, -1)}
+</span>
   <div class="search">
     <input bind:value={searchTerm}
            on:input={handleInputSearch}
            placeholder="Search"
-           type="text"
+           type="search"
     />
   </div>
   <div class="table">
-
     {#each columns as column}
       <div class="column sortable" on:click={()=> {
           filteredData = filteredData.sort((a, b) => (a[column] > b[column]) ? 1 : -1)
@@ -37,24 +39,25 @@
       <div class="row">
         {#each columns as column}
           {#if column.render}
+             <span class="actions-column">
             {#each column.render as element}
-             <span style="padding: 0; display: flex; align-items: center; justify-content: space-around">
                <svelte:component this={element.component} {...element.props(row)}/>
-             </span>
             {/each}
+             </span>
           {:else }
             <span title={row[column.name]}>{@html row[column.name] ? row[column.name] : ""}</span>
           {/if}
         {/each}
       </div>
     {/each}
-
   </div>
 </div>
 
 <style lang="scss">
   .grid-container {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .table {
@@ -69,7 +72,6 @@
     border-bottom: 1px solid rgb(81, 81, 81);
     cursor: pointer;
     position: relative;
-
   }
 
   .sortable:after {
@@ -84,7 +86,6 @@
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
     border-top-color: rgb(81, 81, 81);
-
   }
 
   .row {
@@ -97,5 +98,13 @@
       text-overflow: ellipsis;
       padding: 1rem;
     }
+  }
+
+  .actions-column {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around
   }
 </style>
