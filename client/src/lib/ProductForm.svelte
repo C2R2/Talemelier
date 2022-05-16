@@ -28,7 +28,7 @@
     <span>Image* (1Mo max)</span>
     {#if product.image}
       <div class="img-container">
-        <img src={product.image} alt="Image du produit"/>
+        <img src={product.image} alt=""/>
         <Btn small onClick={() => product.image = null}>Changer l'image</Btn>
       </div>
     {:else}
