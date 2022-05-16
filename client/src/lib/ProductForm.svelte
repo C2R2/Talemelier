@@ -24,7 +24,7 @@
     <span>Référence*</span>
     <input bind:value={product.ref} required/>
   </label>
-  <Btn small type="submit">{submit ? "Chargement" : "Éditer un produit"}</Btn>
+  <Btn small type="submit">{submit ? "Chargement" : "Valider un produit"}</Btn>
 </form>
 
 

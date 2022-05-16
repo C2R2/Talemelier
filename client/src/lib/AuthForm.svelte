@@ -99,7 +99,7 @@
     {#if error}
       <span>{error}</span>
     {/if}
-    <Btn width="50%">{pending ? "Chargement..." : login ? "Me connecter" : "M'inscrire"}</Btn>
+    <Btn type="submit" width="50%">{pending ? "Chargement..." : login ? "Me connecter" : "M'inscrire"}</Btn>
   </div>
   {#if login}
     <a href="forget" class="forget">
