@@ -5,9 +5,36 @@
     let submit = false
     export let product = {}
     export let onSubmit = () => {}
+    let imageElement = null
+
+    function handleImageChange () {
+        const file = imageElement.files[0]
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            if (e.target.result.length < 1000000) {
+                product.image = e.target.result
+            } else {
+                imageElement.value = ""
+                alert("L'image est trop lourde (1Mo max)")
+            }
+        }
+        reader.readAsDataURL(file)
+    }
+
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
+  <label class="field">
+    <span>Image* (1Mo max)</span>
+    {#if product.image}
+      <div class="img-container">
+        <img src={product.image} alt="Image du produit"/>
+        <Btn small onClick={() => product.image = null}>Changer l'image</Btn>
+      </div>
+    {:else}
+      <input accept="image/*" bind:this={imageElement} on:change={handleImageChange} required type="file"/>
+    {/if}
+  </label>
   <label class="field">
     <span>Titre*</span>
     <input bind:value={product.title} required/>
@@ -29,6 +56,13 @@
 
 
 <style lang="scss">
+  .img-container{
+    display: flex;
+  }
+  img {
+    width: 12rem;
+  }
+
   .products-container {
     display: flex;
     flex-direction: column;
