@@ -2,7 +2,7 @@
     import Tiptap from "$lib/Tiptap.svelte"
     import Btn from "$lib/Btn.svelte"
 
-    let submit = false
+    export let submit = false
     export let product = {}
     export let onSubmit = () => {}
     let imageElement = null
@@ -20,7 +20,6 @@
         }
         reader.readAsDataURL(file)
     }
-
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
@@ -49,16 +48,17 @@
   </label>
   <label class="field">
     <span>Référence*</span>
-    <input bind:value={product.ref} required/>
+    <input bind:value={product.ref} on:input={()=>product.ref = product.ref.toUpperCase()} required/>
   </label>
   <Btn small type="submit">{submit ? "Chargement" : "Valider un produit"}</Btn>
 </form>
 
 
 <style lang="scss">
-  .img-container{
+  .img-container {
     display: flex;
   }
+
   img {
     width: 12rem;
   }

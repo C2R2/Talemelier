@@ -15,12 +15,12 @@
                 "Authorization": "Bearer " + Cookies.get("token")
             },
             body: JSON.stringify(product)
-        }).then(() => {}).catch(error => {
+        }).then(() => {window.location = "/admin/products"}).catch(error => {
             console.error(error)
             submit = false
         })
     }
-//TODO internal server error (productModel.js)
+
 </script>
 
-<ProductForm onSubmit={handleSubmit} product={product}/>
+<ProductForm {submit} onSubmit={handleSubmit} product={product}/>
