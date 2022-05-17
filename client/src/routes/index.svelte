@@ -9,6 +9,7 @@
     let infosEl
     let infosChildren = []
     let dotsContainer
+    let products
 
     onMount(
         () => {
@@ -35,6 +36,8 @@
             }
         }
     }
+
+    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => {products = res})
 </script>
 
 <svelte:head>
@@ -91,9 +94,14 @@
 <section class="products">
   <h2>Nos produits</h2>
   <ProductCardCarrousel>
-    <ProductCard/>
-    <ProductCard/>
-    <ProductCard/>
+    {#if products}
+      {#each products as product}
+        <ProductCard title={product.title} image={product.image} description={product.description}
+                     price={product.price}/>
+      {/each}
+    {:else}
+      <div class="loader"></div>
+    {/if}
   </ProductCardCarrousel>
   <div class="more">
     <Btn href="products" width="100%">
