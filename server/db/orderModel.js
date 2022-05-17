@@ -9,7 +9,6 @@ const OrderSchema = new mongoose.Schema({
     }, place: {
         type: String, unique: false, required: [true, "Please provide a place!"]
     }
-
 })
 
 // export UserSchema

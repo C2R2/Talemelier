@@ -38,7 +38,7 @@
   {#key products}
     <Grid
         data={products}
-        filteredFields={["title", "price", "description", "ref" ]}
+        filteredFields={["_id", "title", "price", "description", "ref" ]}
         title="Produits"
         columns={[
           { label: "Image", render: [{
