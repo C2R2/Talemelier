@@ -24,7 +24,8 @@
         })
     }
 </script>
-`
+<Btn href="/admin/products/add" small>Ajouter un produit</Btn>
+
 <svelte:head>
   <title>Produits - Talemelier</title>
 </svelte:head>
@@ -34,13 +35,20 @@
 {#await productsPromise}
   <h1>Chargement...</h1>
 {:then products}
-  <Btn href="/admin/products/add" small>Ajouter un produit</Btn>
   {#key products}
     <Grid
         data={products}
         filteredFields={["title", "price", "description", "ref" ]}
         title="Produits"
         columns={[
+          { label: "Image", render: [{
+              element: "img",
+              props: row => ({
+                width: "100",
+                src: row.image,
+                alt: row.title,
+              })
+          }]},
           { name: "_id", label: "id" },
           { name: "title", label: "Titre" },
           { name: "description", label: "Description"},
