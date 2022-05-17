@@ -1,21 +1,19 @@
 <script>
     import Btn from "$lib/Btn.svelte"
 
-    export let title
-    export let description
-    export let price
-    export let image
+    export let product
+
 </script>
 
 <a href="/products/baguette">
   <figure class="product-card">
-    <img alt="du pain" src={image}/>
+    <img alt="du pain" src={product.image}/>
     <figcaption>
-      <span class="title">{title}</span>
-      <p>{@html description}</p>
-      <span class="price">{price} €</span>
+      <span class="title">{product.title}</span>
+      <p>{@html product.description}</p>
+      <span class="price">{product.price} €</span>
       <div class="cta">
-        <Btn width="100%">Voir le produit</Btn>
+        <Btn href={`/products/${product._id}`} width="100%">Voir le produit</Btn>
       </div>
     </figcaption>
   </figure>

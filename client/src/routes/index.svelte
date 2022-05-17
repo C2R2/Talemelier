@@ -96,8 +96,7 @@
   <ProductCardCarrousel>
     {#if products}
       {#each products as product}
-        <ProductCard title={product.title} image={product.image} description={product.description}
-                     price={product.price}/>
+        <ProductCard {product}/>
       {/each}
     {:else}
       <div class="loader"></div>

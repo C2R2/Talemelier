@@ -8,36 +8,45 @@
 
     const productId = $page.params.id
 
+    let products
+    let product
+
+    fetch("https://talemelier.herokuapp.com/products/" + productId).then(res => res.json()).then(res => product = res)
+    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => products = res)
 </script>
 
 <svelte:head>
-  <title>{productId}</title>
+  <title>{product ? product.title : "Chargement..."}</title>
 </svelte:head>
-
 <section class="product">
-  <h1>{productId}</h1>
-  <img alt="du pain" src="/img/product_placeholder.webp"/>
-  <div class="infos">
-    <span class="title">{productId}</span>
-    <span class="price">Prix : <b>1,10 €</b></span>
-    <div class="quantity">
-      Quantité :
-      <QuantityControl/>
+  {#if product}
+    <h1>{product.title}</h1>
+    <img alt="du pain" src={product.image}/>
+    <div class="infos">
+      <span class="title">{product.title}</span>
+      <span class="price">Prix : <b>{product.price} €</b></span>
+      <div class="quantity">
+        Quantité :
+        <QuantityControl/>
+      </div>
+      {@html product.description}
     </div>
-    <span>Ingrédients :</span>
-    <p class="ingredients">
-      Farine, <b>oeuf</b>, beurre, <b>lait</b>, sel, levure, huile d'olive
-    </p>
-  </div>
-  <Btn href={Cookies.get('token') ? '/cart' : "/register"}>Ajouter au panier</Btn>
+    <Btn href={Cookies.get('token') ? '/cart' : "/register"}>Ajouter au panier</Btn>
+  {:else}
+    <p>Chargement...</p>
+  {/if}
 </section>
 
 <section class="other">
   <h2>Autres produits</h2>
   <ProductCardCarrousel>
-    <ProductCard/>
-    <ProductCard/>
-    <ProductCard/>
+    {#if products}
+      {#each products as product}
+        <ProductCard {product}/>
+      {/each}
+    {:else}
+      <div class="loader"></div>
+    {/if}
   </ProductCardCarrousel>
 </section>
 
@@ -79,11 +88,6 @@
     align-items: center;
     gap: 1rem;
   }
-
-  .ingredients {
-    color: #323232;
-  }
-
 
   .other {
     display: flex;

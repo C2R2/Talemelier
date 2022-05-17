@@ -3,6 +3,10 @@
     import Btn from "$lib/Btn.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
+
+    let products
+
+    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => {products = res})
 </script>
 
 <svelte:head>
@@ -50,9 +54,14 @@
 <section class="other">
   <h2>Autres produits</h2>
   <ProductCardCarrousel>
-    <ProductCard/>
-    <ProductCard/>
-    <ProductCard/>
+    {#if products}
+      {#each products as product}
+        <ProductCard title={product.title} image={product.image} description={product.description}
+                     price={product.price}/>
+      {/each}
+    {:else}
+      <div class="loader"></div>
+    {/if}
   </ProductCardCarrousel>
 </section>
 
