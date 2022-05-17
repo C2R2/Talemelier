@@ -1,16 +1,19 @@
 <script>
     import Btn from "$lib/Btn.svelte"
+
+    export let product
+
 </script>
 
 <a href="/products/baguette">
   <figure class="product-card">
-    <img alt="du pain" src="/img/product_placeholder.webp"/>
+    <img alt="du pain" src={product.image}/>
     <figcaption>
-      <span class="title">Product Name</span>
-      <p>Product description</p>
-      <span class="price">1,50 €</span>
+      <span class="title">{product.title}</span>
+      <p>{@html product.description}</p>
+      <span class="price">{product.price} €</span>
       <div class="cta">
-        <Btn width="100%">Voir le produit</Btn>
+        <Btn href={`/products/${product._id}`} width="100%">Voir le produit</Btn>
       </div>
     </figcaption>
   </figure>
@@ -20,6 +23,10 @@
   a {
     min-width: 24rem;
     max-width: 30rem;
+    @media (min-width: 768px) {
+      min-width: 18rem;
+      max-width: 24rem;
+    }
   }
 
   figure {
@@ -45,6 +52,11 @@
 
   p {
     grid-area: description;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .price {

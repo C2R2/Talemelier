@@ -2,6 +2,10 @@
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import Select from "$lib/Select.svelte"
+
+    let products
+
+    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => {products = res})
 </script>
 
 <svelte:head>
@@ -19,9 +23,13 @@
 <section class="best-seller">
   <h2>Meilleures ventes</h2>
   <ProductCardCarrousel>
-    <ProductCard/>
-    <ProductCard/>
-    <ProductCard/>
+    {#if products}
+      {#each products as product}
+        <ProductCard {product}/>
+      {/each}
+    {:else}
+      <div class="loader"></div>
+    {/if}
   </ProductCardCarrousel>
 </section>
 <!-- -->
@@ -44,9 +52,13 @@
   </Select>
 
   <div class="products">
-    <ProductCard/>
-    <ProductCard/>
-    <ProductCard/>
+    {#if products}
+      {#each products as product}
+        <ProductCard {product}/>
+      {/each}
+    {:else}
+      <div class="loader"></div>
+    {/if}
   </div>
 
   <div class="pagination">
