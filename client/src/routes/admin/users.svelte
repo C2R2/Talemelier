@@ -50,10 +50,11 @@
 {#await usersPromise}
   Chargement...
 {:then users}
-  <Grid data={users}
-        filteredFields={["_id", "email", "role"]}
-        title="Utilisateurs"
-        columns={[{
+  {#key users}
+    <Grid data={users}
+          filteredFields={["_id", "email", "role"]}
+          title="Utilisateurs"
+          columns={[{
     name: "_id",
     label: "ID",
   }, {
@@ -94,6 +95,7 @@
           small: true,
           })}]
   }]}/>
+  {/key}
 {:catch error}
   <p>Erreur : {error}</p>
 {/await}

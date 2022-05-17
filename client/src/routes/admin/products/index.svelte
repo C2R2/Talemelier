@@ -15,7 +15,7 @@
     }).then(response => response.json())
 
     async function handleDelete (id) {
-        return await fetch(`https://talemelier.herokuapp.com/users/${id}`, {
+        return await fetch(`https://talemelier.herokuapp.com/products/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -24,7 +24,8 @@
         })
     }
 </script>
-`
+<Btn href="/admin/products/add" small>Ajouter un produit</Btn>
+
 <svelte:head>
   <title>Produits - Talemelier</title>
 </svelte:head>
@@ -34,12 +35,20 @@
 {#await productsPromise}
   <h1>Chargement...</h1>
 {:then products}
-  <Btn href="/admin/products/add" small>Ajouter un produit</Btn>
-  <Grid
-      data={products}
-      filteredFields={["title", "price", "description", "ref" ]}
-      title="Produits"
-      columns={[
+  {#key products}
+    <Grid
+        data={products}
+        filteredFields={["title", "price", "description", "ref" ]}
+        title="Produits"
+        columns={[
+          { label: "Image", render: [{
+              element: "img",
+              props: row => ({
+                width: "100",
+                src: row.image,
+                alt: row.title,
+              })
+          }]},
           { name: "_id", label: "id" },
           { name: "title", label: "Titre" },
           { name: "description", label: "Description"},
@@ -56,11 +65,12 @@
                    component: Btn,
               props: row => ({
                 children: deleteIcon,
-                onClick: () => { confirm("Supprimer le produits ?") && handleDelete( row._id).then(()=>products = products.filter((user)=> user._id !== row._id)) },
+                onClick: () => { confirm("Supprimer le produits ?") && handleDelete(row._id).then(() => products = products.filter((product)=> product._id !== row._id)) },
                 small: true,
                 })}]}
           ]}
-  />
+    />
+  {/key}
 {:catch error}
   <h1>Erreur</h1>
   <p>{error.message}</p>

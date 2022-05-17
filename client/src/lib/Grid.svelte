@@ -41,7 +41,11 @@
           {#if column.render}
              <span class="actions-column">
             {#each column.render as element}
-               <svelte:component this={element.component} {...element.props(row)}/>
+              {#if element.component}
+                <svelte:component this={element.component} {...element.props(row)}/>
+              {:else}
+                <svelte:element this={element.element} {...element.props(row)}/>
+              {/if}
             {/each}
              </span>
           {:else }
@@ -96,15 +100,15 @@
       border-bottom: 1px solid rgb(81, 81, 81);
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: 1rem;
+      padding: 0.5rem;
     }
   }
 
   .actions-column {
-    padding: 0;
+    padding: 0!important;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-around
+    flex-direction: column;
+    justify-content: space-evenly;
   }
 </style>
