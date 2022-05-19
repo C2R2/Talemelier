@@ -10,6 +10,7 @@
 
     let products
     let product
+    let quantity = 1
 
     fetch("https://talemelier.herokuapp.com/products/" + productId).then(res => res.json()).then(res => product = res)
     fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => products = res)
@@ -27,7 +28,7 @@
       <span class="price">Prix : <b>{product.price} €</b></span>
       <div class="quantity">
         Quantité :
-        <QuantityControl/>
+        <QuantityControl productQuantity={quantity}/>
       </div>
       {@html product.description}
     </div>
@@ -98,6 +99,5 @@
       width: 90%;
       margin: 0 auto;
     }
-
   }
 </style>

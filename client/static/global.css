@@ -37,11 +37,11 @@ time, mark, audio, video {
   background: transparent;
 }
 
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   html, body {
     font-size: 14px;
   }
-}
+}*/
 
 @media (min-width: 1440px) {
   html, body {
@@ -125,12 +125,11 @@ h1 {
 
 h2 {
   font-family: var(--title-font);
-  font-size: 2rem;
+    font-size: 3rem;
 }
 
 @media (min-width: 768px) {
   h2 {
-    font-size: 3rem;
   }
 }
 

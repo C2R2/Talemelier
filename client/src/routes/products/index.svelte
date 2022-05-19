@@ -101,12 +101,13 @@
     width: 90%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
 
     .products {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
       align-items: center;
     }
   }

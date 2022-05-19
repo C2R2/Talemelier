@@ -11,16 +11,18 @@
     let dotsContainer
     let products
 
-    onMount(
-        () => {
-            if (infosWidth < 692) {
-                infosChildren = [...infosEl.children]
-                infosChildren.pop()
-                let dot = document.createElement("div")
-                dot.classList.add("dot")
-            }
+    onMount(() => {
+        if (infosWidth < 692) {
+            infosChildren = [...infosEl.children]
+            infosChildren.pop()
+            let dot = document.createElement("div")
+            dot.classList.add("dot")
         }
-    )
+        setTimeout(() => {
+            dotsContainer.children[0].style.backgroundColor = "var(--primary-color)"
+        }, 1)
+    })
+
 
     function infosScroll () {
         if (infosWidth < 692) {
@@ -49,7 +51,7 @@
     <h1>L'Atelier du Talemelier</h1>
     <h2>Artisan Boulanger</h2>
   </div>
-  <Btn class="cta" href="products" width="20rem">
+  <Btn class="cta" href="products" width="90%">
     Découvrir les produits
   </Btn>
 </section>
@@ -72,14 +74,14 @@
       <p>
         Nos produits sont disponibles sur une sélections de marchés du sud-ouest de la France.
       </p>
-      <Btn>Voir les marchés</Btn>
+      <Btn href="/infos#where">Voir les marchés</Btn>
     </div>
     <div class="when">
       <span>Quand ?</span>
       <p>
         Les horaires de récupération des produits change en fonction des marchés.
       </p>
-      <Btn>
+      <Btn href="/infos#hours">
         Voir les horaires
       </Btn>
     </div>
@@ -117,7 +119,7 @@
     background-size: cover;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
 
@@ -128,6 +130,20 @@
 
       > * {
         color: white;
+      }
+    }
+
+    @media (max-width: 425px) {
+      h1 {
+        font-size: 4rem;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+    }
+    @media (min-width: 425px) {
+      :global(.cta) {
+        max-width: 20rem;
       }
     }
   }
@@ -207,9 +223,9 @@
   }
 
   .dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
+    width: 2rem;
+    height: 0.25rem;
+    border-radius: 4px;
     background-color: var(--black);
   }
 
