@@ -42,7 +42,6 @@
   {/if}
 </div>
 
-
 <style lang="scss">
   .products-container {
     display: flex;

@@ -21,8 +21,8 @@
 
 <style lang="scss">
   a {
-    min-width: 24rem;
-    max-width: 30rem;
+    min-width: 18rem;
+    max-width: 20rem;
     @media (min-width: 768px) {
       min-width: 18rem;
       max-width: 24rem;
@@ -48,6 +48,7 @@
     grid-area: title;
     font-size: 1.25rem;
     font-weight: 600;
+    white-space: nowrap;
   }
 
   p {

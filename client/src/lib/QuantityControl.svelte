@@ -1,7 +1,7 @@
 <script>
     import Btn from "$lib/Btn.svelte"
 
-    let productQuantity = 1
+    export let productQuantity
 
     function addProduct () {
         if (productQuantity < 99) {
@@ -14,6 +14,7 @@
             productQuantity--
         }
     }
+
 </script>
 
 <div class="quantity-control">
