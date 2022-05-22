@@ -5,7 +5,7 @@
 
 </script>
 
-<a href="/products/baguette">
+<a href={`/products/${product._id}`}>
   <figure class="product-card">
     <img alt="du pain" src={product.image}/>
     <figcaption>
@@ -13,7 +13,7 @@
       <p>{@html product.description}</p>
       <span class="price">{product.price} €</span>
       <div class="cta">
-        <Btn href={`/products/${product._id}`} width="100%">Voir le produit</Btn>
+        <Btn width="100%">Voir le produit</Btn>
       </div>
     </figcaption>
   </figure>
