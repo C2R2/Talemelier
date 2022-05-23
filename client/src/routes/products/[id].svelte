@@ -5,20 +5,41 @@
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import QuantityControl from "$lib/QuantityControl.svelte"
+    import { cart, products } from "../../stores.js"
 
-    const productId = $page.params.id
+    $: productId = $page.params.id
 
-    let products
-    let product
+    $: product = $products.find((p) => p._id === productId)
     let quantity = 1
 
-    fetch("https://talemelier.herokuapp.com/products/" + productId).then(res => res.json()).then(res => product = res)
-    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => products = res)
+
+    function handleSubmit () {
+        // check if product exists in cart store
+        if ($cart.find((p) => p._id === productId)) {
+            // if product exists, update quantity
+            cart.update((products) => {
+                let product = products.find((p) => p._id === productId)
+                product.quantity += quantity
+                return products
+            })
+        } else {
+            // if product doesn't exist, add product to cart store
+            cart.update((products) => {
+                products.push({
+                    _id: productId,
+                    quantity: quantity
+                })
+                return products
+            })
+        }
+        window.location = "/cart"
+    }
 </script>
 
 <svelte:head>
   <title>{product ? product.title : "Chargement..."}</title>
 </svelte:head>
+
 <section class="product">
   {#if product}
     <h1>{product.title}</h1>
@@ -28,11 +49,15 @@
       <span class="price">Prix : <b>{product.price} €</b></span>
       <div class="quantity">
         Quantité :
-        <QuantityControl productQuantity={quantity}/>
+        <QuantityControl bind:productQuantity={quantity}/>
       </div>
       {@html product.description}
     </div>
-    <Btn href={Cookies.get('token') ? '/cart' : "/register"}>Ajouter au panier</Btn>
+    {#if Cookies.get("token")}
+      <Btn onClick={handleSubmit}>Ajouter au panier</Btn>
+    {:else}
+      <Btn href="/login">Connectez-vous pour ajouter au panier</Btn>
+    {/if}
   {:else}
     <p>Chargement...</p>
   {/if}
@@ -41,8 +66,8 @@
 <section class="other">
   <h2>Autres produits</h2>
   <ProductCardCarrousel>
-    {#if products}
-      {#each products as product}
+    {#if $products}
+      {#each $products as product}
         <ProductCard {product}/>
       {/each}
     {:else}
