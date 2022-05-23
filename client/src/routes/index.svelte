@@ -1,15 +1,14 @@
 <script>
     import Btn from "$lib/Btn.svelte"
-
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import { onMount } from "svelte"
+    import { products } from "../stores.js"
 
     let infosWidth
     let infosEl
     let infosChildren = []
     let dotsContainer
-    let products
 
     onMount(() => {
         if (infosWidth < 692) {
@@ -22,7 +21,6 @@
             dotsContainer.children[0].style.backgroundColor = "var(--primary-color)"
         }, 1)
     })
-
 
     function infosScroll () {
         if (infosWidth < 692) {
@@ -39,7 +37,6 @@
         }
     }
 
-    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => {products = res})
 </script>
 
 <svelte:head>
@@ -96,8 +93,8 @@
 <section class="products">
   <h2>Nos produits</h2>
   <ProductCardCarrousel>
-    {#if products}
-      {#each products as product}
+    {#if $products}
+      {#each $products as product}
         <ProductCard {product}/>
       {/each}
     {:else}

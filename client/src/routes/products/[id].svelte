@@ -5,41 +5,34 @@
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import QuantityControl from "$lib/QuantityControl.svelte"
-    import { onMount } from "svelte"
+    import { cart, products } from "../../stores.js"
 
-    const productId = $page.params.id
+    $: productId = $page.params.id
 
-    let products
-    let product
+    $: product = $products.find((p) => p._id === productId)
     let quantity = 1
 
-    fetch("https://talemelier.herokuapp.com/products/" + productId).then(res => res.json()).then(res => product = res)
-    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => products = res)
-
-    onMount(() => {
-        console.log(localStorage.getItem("cart"))
-    })
 
     function handleSubmit () {
-        if (Cookies.get("token")) {
-            //send product to local storage
-            let cart = JSON.parse(localStorage.getItem("cart")) || []
-            let productExists = cart.find(p => p._id === product._id)
-            if (productExists) {
-                productExists.quantity += quantity
-            } else {
-                cart.push({
-                    _id: product._id,
-                    name: product.title,
-                    price: product.price,
+        // check if product exists in cart store
+        if ($cart.find((p) => p._id === productId)) {
+            // if product exists, update quantity
+            cart.update((products) => {
+                let product = products.find((p) => p._id === productId)
+                product.quantity += quantity
+                return products
+            })
+        } else {
+            // if product doesn't exist, add product to cart store
+            cart.update((products) => {
+                products.push({
+                    _id: productId,
                     quantity: quantity
                 })
-            }
-            localStorage.setItem("cart", JSON.stringify(cart))
-            window.location = "/cart"
-        } else {
-            window.location = "/login"
+                return products
+            })
         }
+        window.location = "/cart"
     }
 </script>
 
@@ -60,7 +53,11 @@
       </div>
       {@html product.description}
     </div>
-    <Btn onClick={handleSubmit}>Ajouter au panier</Btn>
+    {#if Cookies.get("token")}
+      <Btn onClick={handleSubmit}>Ajouter au panier</Btn>
+    {:else}
+      <Btn href="/login">Connectez-vous pour ajouter au panier</Btn>
+    {/if}
   {:else}
     <p>Chargement...</p>
   {/if}
@@ -69,8 +66,8 @@
 <section class="other">
   <h2>Autres produits</h2>
   <ProductCardCarrousel>
-    {#if products}
-      {#each products as product}
+    {#if $products}
+      {#each $products as product}
         <ProductCard {product}/>
       {/each}
     {:else}

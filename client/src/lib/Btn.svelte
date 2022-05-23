@@ -7,6 +7,7 @@
     export let children = ""
     export let small = false
     export let type = "button"
+    export let disabled = false
 </script>
 
 {#if href}
@@ -16,6 +17,7 @@
      class={$$props.class}
      class:outline
      class:small
+      class:disabled
   >
     <slot/>
     {@html children}
@@ -27,6 +29,7 @@
           class={$$props.class}
           class:outline
           class:small
+          class:disabled
           {type}
   >
     <slot/>
@@ -53,7 +56,7 @@
     transform: scale(1.05);
   }
   *:active{
-    transform: scale(0.95);
+    transform: scale(0.99);
   }
 
   .outline {
@@ -64,5 +67,12 @@
 
   .small{
     padding: 0.5rem 1rem;
+  }
+
+  .disabled{
+    pointer-events: none;
+    opacity: 0.5;
+
+
   }
 </style>

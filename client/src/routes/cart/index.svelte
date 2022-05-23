@@ -3,10 +3,13 @@
     import Btn from "$lib/Btn.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
+    import { cart, products } from "../../stores.js"
 
-    let products
+    const cartList = $cart.map(cartItem => ({
+        ...$products.find(product => product._id === cartItem._id),
+        quantity: cartItem.quantity
+    }))
 
-    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => {products = res})
 </script>
 
 <svelte:head>
@@ -17,30 +20,18 @@
   <h1>Récapitulatif</h1>
 
   <ul>
-    <li>
-      <img alt="du pain" src="/img/product_placeholder.webp">
-      <span>Pain</span>
-      <div class="price">
-        <QuantityControl/>
-        Prix unitaire: 1.00€
-      </div>
-    </li>
-    <li>
-      <img alt="du pain" src="/img/product_placeholder.webp">
-      <span>Pain</span>
-      <div class="price">
-        <QuantityControl/>
-        Prix unitaire: 1.00€
-      </div>
-    </li>
-    <li>
-      <img alt="du pain" src="/img/product_placeholder.webp">
-      <span>Pain</span>
-      <div class="price">
-        <QuantityControl/>
-        Prix unitaire: 1.00€
-      </div>
-    </li>
+    {#each cartList as cartItem}
+      <li>
+        <img alt="du pain" src={cartItem.image}>
+        <span>{cartItem.title}</span>
+        <div class="price">
+          <QuantityControl bind:productQuantity={cartItem.quantity}/>
+          Prix unitaire: 1€
+        </div>
+      </li>
+    {:else}
+      <li>Panier vide</li>
+    {/each}
     <div class="bottom">
       <hr>
       <div class="total">
@@ -54,10 +45,9 @@
 <section class="other">
   <h2>Autres produits</h2>
   <ProductCardCarrousel>
-    {#if products}
-      {#each products as product}
-        <ProductCard title={product.title} image={product.image} description={product.description}
-                     price={product.price}/>
+    {#if $products}
+      {#each $products as product}
+        <ProductCard {product}/>
       {/each}
     {:else}
       <div class="loader"></div>
