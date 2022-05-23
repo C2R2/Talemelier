@@ -18,7 +18,7 @@
 </script>
 
 <div class="quantity-control">
-  <Btn onClick={() => removeProduct()} outline>-</Btn>
+  <Btn small onClick={() => removeProduct()} outline>-</Btn>
   <input bind:value={productQuantity} max="99" maxlength="2" min="1"
          on:keypress={(e)=> {
             e.key === '-' ? e.preventDefault() : null
@@ -26,7 +26,7 @@
          }}
          required
          type="number"/>
-  <Btn onClick={() => addProduct()} outline>+</Btn>
+  <Btn small onClick={() => addProduct()} outline>+</Btn>
 </div>
 
 <style lang="scss">

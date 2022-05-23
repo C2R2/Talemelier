@@ -5,6 +5,7 @@
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import QuantityControl from "$lib/QuantityControl.svelte"
+    import { onMount } from "svelte"
 
     const productId = $page.params.id
 
@@ -14,11 +15,38 @@
 
     fetch("https://talemelier.herokuapp.com/products/" + productId).then(res => res.json()).then(res => product = res)
     fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => products = res)
+
+    onMount(() => {
+        console.log(localStorage.getItem("cart"))
+    })
+
+    function handleSubmit () {
+        if (Cookies.get("token")) {
+            //send product to local storage
+            let cart = JSON.parse(localStorage.getItem("cart")) || []
+            let productExists = cart.find(p => p._id === product._id)
+            if (productExists) {
+                productExists.quantity += quantity
+            } else {
+                cart.push({
+                    _id: product._id,
+                    name: product.title,
+                    price: product.price,
+                    quantity: quantity
+                })
+            }
+            localStorage.setItem("cart", JSON.stringify(cart))
+            window.location = "/cart"
+        } else {
+            window.location = "/login"
+        }
+    }
 </script>
 
 <svelte:head>
   <title>{product ? product.title : "Chargement..."}</title>
 </svelte:head>
+
 <section class="product">
   {#if product}
     <h1>{product.title}</h1>
@@ -28,11 +56,11 @@
       <span class="price">Prix : <b>{product.price} €</b></span>
       <div class="quantity">
         Quantité :
-        <QuantityControl productQuantity={quantity}/>
+        <QuantityControl bind:productQuantity={quantity}/>
       </div>
       {@html product.description}
     </div>
-    <Btn href={Cookies.get('token') ? '/cart' : "/register"}>Ajouter au panier</Btn>
+    <Btn onClick={handleSubmit}>Ajouter au panier</Btn>
   {:else}
     <p>Chargement...</p>
   {/if}
