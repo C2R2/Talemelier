@@ -10,6 +10,8 @@
         quantity: cartItem.quantity
     }))
 
+    $: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
+
 </script>
 
 <svelte:head>
@@ -22,11 +24,11 @@
   <ul>
     {#each cartList as cartItem}
       <li>
-        <img alt="du pain" src={cartItem.image}>
+        <img alt={cartItem.title} src={cartItem.image}>
         <span>{cartItem.title}</span>
         <div class="price">
           <QuantityControl bind:productQuantity={cartItem.quantity}/>
-          Prix unitaire: 1€
+          Prix unitaire: {cartItem.price}€
         </div>
       </li>
     {:else}
@@ -35,7 +37,7 @@
     <div class="bottom">
       <hr>
       <div class="total">
-        Total: <b>1.00€</b>
+        Total: <b>{totalPrice}€</b>
       </div>
     </div>
   </ul>
