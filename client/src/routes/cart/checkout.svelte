@@ -1,8 +1,9 @@
 <script>
     import Btn from "$lib/Btn.svelte"
-    import Modal from "$lib/ProductCard/Modal.svelte"
+    import Modal from "$lib/Modal.svelte"
 
     let success = false
+
 </script>
 
 <svelte:head>

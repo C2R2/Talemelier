@@ -3,14 +3,16 @@
     import Btn from "$lib/Btn.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
-    import { cart, products } from "../../stores.js"
+    import { cart, collectData, products } from "../../stores.js"
     import Select from "$lib/Select.svelte"
 
+    let placeSelect = $collectData.place
+    let daySelect = $collectData.day
+    let hourSelect = $collectData.hour
     let cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
         quantity: cartItem.quantity
     }))
-
     $: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
 
     function handleDelete (_id) {
@@ -23,8 +25,16 @@
             _id: item._id,
             quantity: item.quantity
         })))
+
+        collectData.set({
+            place: placeSelect,
+            day: daySelect,
+            hour: hourSelect
+        })
+
         window.location.href = "/cart/checkout"
     }
+
 
 </script>
 
@@ -68,16 +78,16 @@
   </ul>
   <div class="collect">
     <h2>Lieu et horaire de collecte</h2>
-    <div class="input-container">
+    <form class="input-container">
       <label for="place">Lieu de retrait :</label>
-      <Select allsize id="place">
+      <Select allsize bind:value={placeSelect} id="place">
         <option>Auch</option>
         <option>Villeneuve sur Lot</option>
         <option>Agen</option>
       </Select>
       <label for="when">Jour et heure :</label>
       <div>
-        <Select allsize id="when">
+        <Select allsize bind:value={daySelect} id="when">
           <option>Lundi</option>
           <option>Mardi</option>
           <option>Mercredi</option>
@@ -86,7 +96,7 @@
           <option>Samedi</option>
           <option>Dimanche</option>
         </Select>
-        <Select allsize>
+        <Select allsize bind:value={hourSelect}>
           <option>8h</option>
           <option>9h</option>
           <option>10h</option>
@@ -95,7 +105,7 @@
           <option>13h</option>
         </Select>
       </div>
-    </div>
+    </form>
   </div>
   <Btn disabled={!$cart.length} onClick={handleSubmit}>Valider la commande</Btn>
 </section>
@@ -190,7 +200,7 @@
   }
 
   .collect {
-    margin-top: 2rem ;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;

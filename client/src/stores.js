@@ -5,6 +5,7 @@ export const cart = writable((browser && sessionStorage.cart && JSON.parse(sessi
 export const products = writable((browser && sessionStorage.products && JSON.parse(sessionStorage.products)) || [], (set) => {
     fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => {set(res)})
 })
+export const collectData = writable((browser && sessionStorage.collectData && JSON.parse(sessionStorage.collectData)) || [])
 
 if (browser) {
     cart.subscribe((value) => {
@@ -12,5 +13,8 @@ if (browser) {
     })
     products.subscribe((value) => {
         sessionStorage.products = JSON.stringify(value)
+    })
+    collectData.subscribe((value) => {
+        sessionStorage.collectData = JSON.stringify(value)
     })
 }
