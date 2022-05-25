@@ -5,7 +5,7 @@
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import { cart, products } from "../../stores.js"
 
-    $: cartList = $cart.map(cartItem => ({
+    let cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
         quantity: cartItem.quantity
     }))
@@ -14,6 +14,19 @@
 
     function handleDelete (_id) {
         cart.update(cartItem => cartItem.filter(item => item._id !== _id))
+        cartList = cartList.filter(item => item._id !== _id)
+    }
+
+    function handleSubmit(){
+        // pass just _id and quantity fields to cart
+
+
+
+        cart.set(cartList.map(item => ({
+            _id: item._id,
+            quantity: item.quantity
+        })))
+        window.location.href = "/cart/2"
     }
 
 </script>
@@ -28,7 +41,9 @@
   <ul>
     {#each cartList as cartItem}
       <li>
-        <img alt={cartItem.title} src={cartItem.image}>
+        <a href={"/products/" + cartItem._id}>
+          <img alt={cartItem.title} src={cartItem.image}>
+        </a>
         <span>{cartItem.title}</span>
         <div class="left">
           <div class="price">
@@ -54,7 +69,7 @@
       </div>
     </div>
   </ul>
-  <Btn href="/cart/2">Valider la commande</Btn>
+  <Btn onClick={handleSubmit}>Valider la commande</Btn>
 </section>
 
 <section class="other">
