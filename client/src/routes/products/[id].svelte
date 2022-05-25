@@ -6,19 +6,20 @@
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import QuantityControl from "$lib/QuantityControl.svelte"
     import { cart, products } from "../../stores.js"
+    import slugify from "$functions/slugify.js"
 
     $: productId = $page.params.id
 
-    $: product = $products.find((p) => p._id === productId)
+    $: product = $products.find((p) => slugify(p.title) === productId)
     let quantity = 1
 
 
     function handleSubmit () {
         // check if product exists in cart store
-        if ($cart.find((p) => p._id === productId)) {
+        if ($cart.find((p) => p._id === product._id)) {
             // if product exists, update quantity
             cart.update((products) => {
-                let product = products.find((p) => p._id === productId)
+                let product = products.find((p) => p._id === product._id)
                 product.quantity += quantity
                 return products
             })
@@ -26,7 +27,7 @@
             // if product doesn't exist, add product to cart store
             cart.update((products) => {
                 products.push({
-                    _id: productId,
+                    _id: product._id,
                     quantity: quantity
                 })
                 return products

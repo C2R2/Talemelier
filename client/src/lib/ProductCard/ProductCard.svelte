@@ -1,11 +1,13 @@
 <script>
     import Btn from "$lib/Btn.svelte"
+    import slugify from "$functions/slugify.js"
+
 
     export let product
 
 </script>
 
-<a href={`/products/${product._id}`}>
+<a href={`/products/${slugify(product.title)}`}>
   <figure class="product-card">
     <img alt="du pain" src={product.image}/>
     <figcaption>

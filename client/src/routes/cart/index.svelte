@@ -3,12 +3,38 @@
     import Btn from "$lib/Btn.svelte"
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
-    import { cart, products } from "../../stores.js"
+    import { cart, collectData, products } from "../../stores.js"
+    import Select from "$lib/Select.svelte"
 
-    const cartList = $cart.map(cartItem => ({
+    let placeSelect = $collectData.place
+    let daySelect = $collectData.day
+    let hourSelect = $collectData.hour
+    let cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
         quantity: cartItem.quantity
     }))
+    $: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
+
+    function handleDelete (_id) {
+        cart.update(cartItem => cartItem.filter(item => item._id !== _id))
+        cartList = cartList.filter(item => item._id !== _id)
+    }
+
+    function handleSubmit () {
+        cart.set(cartList.map(item => ({
+            _id: item._id,
+            quantity: item.quantity
+        })))
+
+        collectData.set({
+            place: placeSelect,
+            day: daySelect,
+            hour: hourSelect
+        })
+
+        window.location.href = "/cart/checkout"
+    }
+
 
 </script>
 
@@ -22,11 +48,22 @@
   <ul>
     {#each cartList as cartItem}
       <li>
-        <img alt="du pain" src={cartItem.image}>
+        <a href={"/products/" + cartItem._id}>
+          <img alt={cartItem.title} src={cartItem.image}>
+        </a>
         <span>{cartItem.title}</span>
-        <div class="price">
-          <QuantityControl bind:productQuantity={cartItem.quantity}/>
-          Prix unitaire: 1€
+        <div class="left">
+          <div class="price">
+            <QuantityControl bind:productQuantity={cartItem.quantity}/>
+            Prix unitaire: {cartItem.price}€
+          </div>
+          <Btn small onClick={()=>handleDelete(cartItem._id)}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </Btn>
         </div>
       </li>
     {:else}
@@ -35,11 +72,42 @@
     <div class="bottom">
       <hr>
       <div class="total">
-        Total: <b>1.00€</b>
+        Total: <b>{totalPrice}€</b>
       </div>
     </div>
   </ul>
-  <Btn href="/cart/2">Valider la commande</Btn>
+  <div class="collect">
+    <h2>Lieu et horaire de collecte</h2>
+    <form class="input-container">
+      <label for="place">Lieu de retrait :</label>
+      <Select allsize bind:value={placeSelect} id="place">
+        <option>Auch</option>
+        <option>Villeneuve sur Lot</option>
+        <option>Agen</option>
+      </Select>
+      <label for="when">Jour et heure :</label>
+      <div>
+        <Select allsize bind:value={daySelect} id="when">
+          <option>Lundi</option>
+          <option>Mardi</option>
+          <option>Mercredi</option>
+          <option>Jeudi</option>
+          <option>Vendredi</option>
+          <option>Samedi</option>
+          <option>Dimanche</option>
+        </Select>
+        <Select allsize bind:value={hourSelect}>
+          <option>8h</option>
+          <option>9h</option>
+          <option>10h</option>
+          <option>11h</option>
+          <option>12h</option>
+          <option>13h</option>
+        </Select>
+      </div>
+    </form>
+  </div>
+  <Btn disabled={!$cart.length} onClick={handleSubmit}>Valider la commande</Btn>
 </section>
 
 <section class="other">
@@ -78,6 +146,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .left {
+    display: flex;
+    gap: 1rem;
   }
 
   .price {
@@ -124,7 +197,32 @@
       width: 90%;
       margin: 0 auto;
     }
-
   }
+
+  .collect {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #D4CAC4;
+    gap: 1rem;
+    padding: 2rem 1.5rem;
+    border-radius: 0.25rem;
+
+    div {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+  label {
+    font-weight: 600;
+  }
+
 
 </style>
