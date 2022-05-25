@@ -5,12 +5,16 @@
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import { cart, products } from "../../stores.js"
 
-    const cartList = $cart.map(cartItem => ({
+    $: cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
         quantity: cartItem.quantity
     }))
 
     $: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
+
+    function handleDelete (_id) {
+        cart.update(cartItem => cartItem.filter(item => item._id !== _id))
+    }
 
 </script>
 
@@ -26,9 +30,18 @@
       <li>
         <img alt={cartItem.title} src={cartItem.image}>
         <span>{cartItem.title}</span>
-        <div class="price">
-          <QuantityControl bind:productQuantity={cartItem.quantity}/>
-          Prix unitaire: {cartItem.price}€
+        <div class="left">
+          <div class="price">
+            <QuantityControl bind:productQuantity={cartItem.quantity}/>
+            Prix unitaire: {cartItem.price}€
+          </div>
+          <Btn small onClick={()=>handleDelete(cartItem._id)}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </Btn>
         </div>
       </li>
     {:else}
@@ -80,6 +93,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .left {
+    display: flex;
+    gap: 1rem;
   }
 
   .price {
