@@ -4,6 +4,7 @@
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import { cart, products } from "../../stores.js"
+    import Select from "$lib/Select.svelte"
 
     let cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
@@ -22,7 +23,7 @@
             _id: item._id,
             quantity: item.quantity
         })))
-        window.location.href = "/cart/2"
+        window.location.href = "/cart/checkout"
     }
 
 </script>
@@ -65,6 +66,37 @@
       </div>
     </div>
   </ul>
+  <div class="collect">
+    <h2>Lieu et horaire de collecte</h2>
+    <div class="input-container">
+      <label for="place">Lieu de retrait :</label>
+      <Select allsize id="place">
+        <option>Auch</option>
+        <option>Villeneuve sur Lot</option>
+        <option>Agen</option>
+      </Select>
+      <label for="when">Jour et heure :</label>
+      <div>
+        <Select allsize id="when">
+          <option>Lundi</option>
+          <option>Mardi</option>
+          <option>Mercredi</option>
+          <option>Jeudi</option>
+          <option>Vendredi</option>
+          <option>Samedi</option>
+          <option>Dimanche</option>
+        </Select>
+        <Select allsize>
+          <option>8h</option>
+          <option>9h</option>
+          <option>10h</option>
+          <option>11h</option>
+          <option>12h</option>
+          <option>13h</option>
+        </Select>
+      </div>
+    </div>
+  </div>
   <Btn disabled={!$cart.length} onClick={handleSubmit}>Valider la commande</Btn>
 </section>
 
@@ -155,7 +187,32 @@
       width: 90%;
       margin: 0 auto;
     }
-
   }
+
+  .collect {
+    margin-top: 2rem ;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #D4CAC4;
+    gap: 1rem;
+    padding: 2rem 1.5rem;
+    border-radius: 0.25rem;
+
+    div {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+  label {
+    font-weight: 600;
+  }
+
 
 </style>
