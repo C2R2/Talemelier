@@ -17,11 +17,7 @@
         cartList = cartList.filter(item => item._id !== _id)
     }
 
-    function handleSubmit(){
-        // pass just _id and quantity fields to cart
-
-
-
+    function handleSubmit () {
         cart.set(cartList.map(item => ({
             _id: item._id,
             quantity: item.quantity
@@ -69,7 +65,7 @@
       </div>
     </div>
   </ul>
-  <Btn onClick={handleSubmit}>Valider la commande</Btn>
+  <Btn disabled={!$cart.length} onClick={handleSubmit}>Valider la commande</Btn>
 </section>
 
 <section class="other">
