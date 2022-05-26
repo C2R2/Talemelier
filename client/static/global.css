@@ -128,11 +128,6 @@ h2 {
     font-size: 3rem;
 }
 
-@media (min-width: 768px) {
-  h2 {
-  }
-}
-
 @media (min-width: 1440px) {
   h1 {
     font-size: 5rem;

@@ -17,7 +17,7 @@
      class={$$props.class}
      class:outline
      class:small
-      class:disabled
+     class:disabled
   >
     <slot/>
     {@html children}
@@ -42,21 +42,22 @@
     font-weight: 600;
     display: inline-block;
     min-width: min-content;
+    height: min-content;
     padding: 1rem;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
     text-align: center;
     white-space: nowrap;
     border-radius: 0.25rem;
     background-color: var(--primary-color);
-    height: min-content;
-    transition: all 0.2s ease-in-out;
   }
-  *:hover{
-    filter: brightness(1.05);
-    transform: scale(1.05);
+
+  *:hover {
+    transform: translateY(-0.1rem);
   }
-  *:active{
-    transform: scale(0.99);
+
+  *:active {
+    transform: translateY(0.1rem);
   }
 
   .outline {
@@ -65,14 +66,12 @@
     background-color: var(--background-color);
   }
 
-  .small{
+  .small {
     padding: 0.5rem 1rem;
   }
 
-  .disabled{
+  .disabled {
     pointer-events: none;
     opacity: 0.5;
-
-
   }
 </style>

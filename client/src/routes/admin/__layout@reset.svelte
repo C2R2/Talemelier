@@ -24,6 +24,7 @@
   <div class="admin-panel">
     <div class="sidebar">
       <a href="/"><img src="/logo.svg" alt="Talemelier"/></a>
+      <Btn width="100%" href="/admin/markets">Marchés</Btn>
       <Btn width="100%" href="/admin/orders">Commandes</Btn>
       <Btn width="100%" href="/admin/products">Produits</Btn>
       <Btn width="100%" href="/admin/users">Utilisateurs</Btn>
