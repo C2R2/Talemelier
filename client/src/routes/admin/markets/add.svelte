@@ -1,6 +1,6 @@
 <script>
     import Cookies from "js-cookie"
-    import ProductForm from "$lib/admin/ProductForm.svelte"
+    import MarketForm from "$lib/admin/MarketForm.svelte"
 
     let submit = false
 
@@ -8,7 +8,7 @@
 
     function handleSubmit () {
         submit = true
-        fetch("https://talemelier.herokuapp.com/products", {
+        fetch("https://talemelier.herokuapp.com/markets", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,4 +23,4 @@
 
 </script>
 
-<ProductForm {submit} onSubmit={handleSubmit} product={product}/>
+<MarketForm {submit} onSubmit={handleSubmit} product={product}/>

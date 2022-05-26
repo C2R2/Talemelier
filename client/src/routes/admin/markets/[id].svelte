@@ -2,6 +2,7 @@
     import { page } from "$app/stores"
     import Cookies from "js-cookie"
     import ProductForm from "$lib/admin/ProductForm.svelte"
+    import MarketForm from "$lib/admin/MarketForm.svelte"
 
     const productID = $page.params.id
     let product
@@ -36,7 +37,7 @@
   <p>Product: {productID}</p>
 
   {#if product}
-    <ProductForm product={product} onSubmit={handleSubmit}/>
+    <MarketForm product={product} onSubmit={handleSubmit}/>
   {:else}
     <p>Chargement...</p>
   {/if}

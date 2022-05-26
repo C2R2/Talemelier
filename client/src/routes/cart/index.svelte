@@ -88,6 +88,7 @@
       <label for="when">Jour et heure :</label>
       <div>
         <Select allsize bind:value={daySelect} id="when">
+          <!-- TODO: connect options with the cms-->
           <option>Lundi</option>
           <option>Mardi</option>
           <option>Mercredi</option>

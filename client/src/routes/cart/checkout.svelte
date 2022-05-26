@@ -4,6 +4,8 @@
 
     let success = false
 
+    //TODO: recover data from sessionStorage
+
 </script>
 
 <svelte:head>

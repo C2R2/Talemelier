@@ -15,7 +15,7 @@
     }).then(response => response.json())
 
     async function handleDelete (id) {
-        return await fetch(`https://talemelier.herokuapp.com/products/${id}`, {
+        return await fetch(`https://talemelier.herokuapp.com/markets/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -24,13 +24,13 @@
         })
     }
 </script>
-<Btn href="/admin/products/add" small>Ajouter un produit</Btn>
+<Btn href="/admin/markets/add" small>Ajouter un marché</Btn>
 
 <svelte:head>
   <title>Produits - Talemelier</title>
 </svelte:head>
 
-<h1>Liste des produits</h1>
+<h1>Liste des marchés</h1>
 
 {#await productsPromise}
   <h1>Chargement...</h1>
@@ -41,31 +41,22 @@
         filteredFields={["_id", "title", "price", "description", "ref" ]}
         title="Produits"
         columns={[
-          { label: "Image", render: [{
-              element: "img",
-              props: row => ({
-                width: "100",
-                src: row.image,
-                alt: row.title,
-              })
-          }]},
           { name: "_id", label: "id" },
-          { name: "title", label: "Titre" },
-          { name: "description", label: "Description"},
-          { name: "price", label: "Prix" },
-          { name: "ref", label: "Référence" },
+          { name: "place", label: "Lieu" },
+          { name: "days", label: "Jours"},
+          { name: "hours", label: "Heures" },
           { label: "Actions",
            render: [{
                     component: Btn,
                   props: row => ({
                     children: editIcon,
-                    href: `/admin/products/${row._id}`,
+                    href: `/admin/markets/${row._id}`,
                     small: true,
                     })},{
                    component: Btn,
               props: row => ({
                 children: deleteIcon,
-                onClick: () => { confirm("Supprimer le produit ?") && handleDelete(row._id).then(() => products = products.filter((product)=> product._id !== row._id)) },
+                onClick: () => { confirm("Supprimer le marché ?") && handleDelete(row._id).then(() => products = products.filter((product)=> product._id !== row._id)) },
                 small: true,
                 })}]}
           ]}
