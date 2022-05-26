@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken")
 const dbConnect = require("./db/dbConnect")
 const User = require("./db/userModel")
 const Product = require("./db/productModel")
+const Order = require("./db/orderModel")
+const Market = require("./db/marketModel")
 const auth = require("./auth")
 const port = process.env.PORT || 3000
 
@@ -221,6 +223,41 @@ app.put("/orders/:id", auth, (request, response) => {
         .catch(err => response.status(500).json(err))
 })
 
+//add market
+app.post("/markets", auth, (request, response) => {
+    const market = new Market(request.body)
+    market.save()
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+// get all markets
+app.get("/markets", (request, response) => {
+    Market.find()
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+// get one market
+app.get("/markets/:id", (request, response) => {
+    Market.findById(request.params.id)
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+// delete market
+app.delete("/markets/:id", auth, (request, response) => {
+    Market.findByIdAndDelete(request.params.id)
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
+
+// edit market
+app.put("/markets/:id", auth, (request, response) => {
+    Market.findByIdAndUpdate(request.params.id, request.body)
+        .then(result => response.status(200).json(result))
+        .catch(err => response.status(500).json(err))
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
