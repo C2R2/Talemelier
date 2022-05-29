@@ -6,6 +6,7 @@
     import { cart, collectData, products } from "../../stores.js"
     import Select from "$lib/Select.svelte"
 
+    let markets = []
     let placeSelect = $collectData.place
     let daySelect = $collectData.day
     let hourSelect = $collectData.hour
@@ -31,10 +32,17 @@
             day: daySelect,
             hour: hourSelect
         })
-
         window.location.href = "/cart/checkout"
     }
 
+    fetch("https://talemelier.herokuapp.com/markets", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json()).then(res => markets = res)
+
+    $:console.log(markets)
 
 </script>
 
@@ -80,30 +88,27 @@
     <h2>Lieu et horaire de collecte</h2>
     <form class="input-container">
       <label for="place">Lieu de retrait :</label>
+          <!-- TODO: placeSeclect default value -->
       <Select allsize bind:value={placeSelect} id="place">
-        <option>Auch</option>
-        <option>Villeneuve sur Lot</option>
-        <option>Agen</option>
+        {#each markets as market}
+          <option value={market.place}>{market.place}</option>
+        {/each}
       </Select>
       <label for="when">Jour et heure :</label>
       <div>
         <Select allsize bind:value={daySelect} id="when">
-          <!-- TODO: connect options with the cms-->
-          <option>Lundi</option>
-          <option>Mardi</option>
-          <option>Mercredi</option>
-          <option>Jeudi</option>
-          <option>Vendredi</option>
-          <option>Samedi</option>
-          <option>Dimanche</option>
+          {#if placeSelect}
+            {#each markets.find(market => market.place === placeSelect).days as day}
+              <option value={day}>{day}</option>
+            {/each}
+          {/if}
         </Select>
         <Select allsize bind:value={hourSelect}>
-          <option>8h</option>
-          <option>9h</option>
-          <option>10h</option>
-          <option>11h</option>
-          <option>12h</option>
-          <option>13h</option>
+          {#if placeSelect}
+            {#each markets.find(market => market.place === placeSelect).hours as hour}
+              <option value={hour}>{hour}</option>
+            {/each}
+          {/if}
         </Select>
       </div>
     </form>
