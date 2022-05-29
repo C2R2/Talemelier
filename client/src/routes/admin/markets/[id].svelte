@@ -1,31 +1,30 @@
 <script>
     import { page } from "$app/stores"
     import Cookies from "js-cookie"
-    import ProductForm from "$lib/admin/ProductForm.svelte"
     import MarketForm from "$lib/admin/MarketForm.svelte"
 
-    const productID = $page.params.id
-    let product
+    const marketID = $page.params.id
+    let market
     let submit = false
 
-    fetch("https://talemelier.herokuapp.com/products/" + productID, {
+    fetch("https://talemelier.herokuapp.com/markets/" + marketID, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + Cookies.get("token")
         }
-    }).then(response => response.json()).then(data => product = data)
+    }).then(response => response.json()).then(data => market = data)
 
     function handleSubmit () {
         submit = true
-        fetch("https://talemelier.herokuapp.com/products/" + productID, {
+        fetch("https://talemelier.herokuapp.com/markets/" + marketID, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + Cookies.get("token")
             },
-            body: JSON.stringify(product)
-        }).then(() => window.location = "/admin/products").catch(error => {
+            body: JSON.stringify(market)
+        }).then(() => window.location = "/admin/markets").catch(error => {
             console.error(error)
             submit = false
         })
@@ -34,10 +33,10 @@
 </script>
 
 <div class="products-container">
-  <p>Product: {productID}</p>
+  <p>Marché: {marketID}</p>
 
-  {#if product}
-    <MarketForm product={product} onSubmit={handleSubmit}/>
+  {#if market}
+    <MarketForm market={market} onSubmit={handleSubmit}/>
   {:else}
     <p>Chargement...</p>
   {/if}

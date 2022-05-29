@@ -102,9 +102,9 @@
 <style>
   .multiselect {
     position: relative;
-    background-color: white;
-    border-radius: 0.25rem;
     border: 1px solid var(--black);
+    border-radius: 0.25rem;
+    background-color: white;
   }
 
   .tokens {
@@ -229,7 +229,7 @@
 
   li.selected {
     color: var(--black);
-    background-color:var(--background-color);
+    background-color: var(--background-color);
   }
 
   li.selected:nth-child(even) {
@@ -280,7 +280,7 @@
     </div>
   </div>
 
-  <select bind:this={slot} class="hidden" multiple required={required}>
+  <select bind:this={slot} class="hidden" multiple>
     <slot></slot>
   </select>
 

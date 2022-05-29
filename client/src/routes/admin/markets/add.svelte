@@ -4,7 +4,7 @@
 
     let submit = false
 
-    let product = {}
+    let market = {}
 
     function handleSubmit () {
         submit = true
@@ -14,13 +14,16 @@
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + Cookies.get("token")
             },
-            body: JSON.stringify(product)
-        }).then(() => {window.location = "/admin/products"}).catch(error => {
+            body: JSON.stringify(market)
+        }).then(() => {window.location = "/admin/markets"}).catch(error => {
             console.error(error)
             submit = false
         })
     }
-
 </script>
 
-<MarketForm {submit} onSubmit={handleSubmit} product={product}/>
+<svelte:head>
+  <title>Ajouter un marché - Talemelier</title>
+</svelte:head>
+
+<MarketForm market={market} onSubmit={handleSubmit} {submit}/>

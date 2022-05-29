@@ -23,4 +23,8 @@
 
 </script>
 
+<svelte:head>
+  <title>Ajouter un produit - Talemelier</title>
+</svelte:head>
+
 <ProductForm {submit} onSubmit={handleSubmit} product={product}/>
