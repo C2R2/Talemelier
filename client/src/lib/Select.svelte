@@ -4,11 +4,10 @@
     export let options = []
     export let value = ""
     export let onChange = () => {}
-    export let multiple = false
 </script>
 
 <div class="select" class:allsize>
-  <select {id} bind:value={value} multiple on:change={onChange}>
+  <select {id} bind:value={value} on:change={onChange}>
     <slot/>
     {#if options.length > 0}
       {#each options as option}
