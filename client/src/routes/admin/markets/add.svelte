@@ -15,16 +15,15 @@
                 "Authorization": "Bearer " + Cookies.get("token")
             },
             body: JSON.stringify(market)
-        }).then(() => {window.location = "/admin/products"}).catch(error => {
+        }).then(() => {window.location = "/admin/markets"}).catch(error => {
             console.error(error)
             submit = false
         })
     }
-
 </script>
 
 <svelte:head>
   <title>Ajouter un marché - Talemelier</title>
 </svelte:head>
 
-<MarketForm {submit} onSubmit={handleSubmit} market={market}/>
+<MarketForm market={market} onSubmit={handleSubmit} {submit}/>

@@ -33,7 +33,7 @@
 </script>
 
 <div class="products-container">
-  <p>Product: {productID}</p>
+  <p>Produit: {productID}</p>
 
   {#if product}
     <ProductForm product={product} onSubmit={handleSubmit}/>
