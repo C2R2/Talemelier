@@ -23,7 +23,7 @@
         }).then(async res => {
                 if (res.status === 200) {
                     Cookies.set("token", (await res.json()).token , { secure: true })
-                    window.location = "/"
+                    history.back()
                 } else if (res.status === 404) {
                     console.error(await res.json())
                     error = "L'utilisateur n'existe pas"

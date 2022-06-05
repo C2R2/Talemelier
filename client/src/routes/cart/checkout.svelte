@@ -1,11 +1,27 @@
 <script>
     import Btn from "$lib/Btn.svelte"
     import Modal from "$lib/Modal.svelte"
+    import { cart, collectData, products } from "../../stores.js"
 
     let success = false
 
-    //TODO: recover data from sessionStorage
+    let cartList = $cart.map(cartItem => ({
+        ...$products.find(product => product._id === cartItem._id),
+        quantity: cartItem.quantity
+    }))
+    const priceFormatter = new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2
+    })
+    const hoursFormatter = new Intl.DateTimeFormat('fr-FR', {
+        hour: 'numeric',
+        minute: 'numeric',
+    })
+    $: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
+    console.log($collectData)
 
+    console.log(hoursFormatter.format(1000))
 </script>
 
 <svelte:head>
@@ -30,18 +46,15 @@
       3 articles
     </span>
     <ul>
-      <li>
-        Baguette <b class="price">3,20€</b>
-      </li>
-      <li>
-        Baguette <b class="price">3,20€</b>
-      </li>
-      <li>
-        Baguette <b class="price">3,20€</b>
-      </li>
+      {#each cartList as cartItem}
+        <li>
+          <img src={cartItem.image} alt={cartItem.title}>
+          {cartItem.title} <b class="price">{priceFormatter.format(cartItem.price)} x {cartItem.quantity}</b>
+        </li>
+      {/each}
     </ul>
     <span class="footer">
-      Total: <b class="price">3,20€</b>
+      Total: <b class="price">{priceFormatter.format(totalPrice)}</b>
     </span>
   </div>
 </section>
@@ -54,12 +67,13 @@
   </div>
   <div>
     <span class="title">Lieu de récupération</span>
-    <p>Marché d'Auch - Centre ville Auch 32000</p>
+    <p>{$collectData.place}</p>
   </div>
   <div>
     <span class="title">Date de récupération</span>
     <p>
-      Lundi 12 janvier 2022 à 12h00
+      {$collectData.day} à {$collectData.hour}00
+      Lundi 12 janvier 2022
     </p>
   </div>
   <Btn onClick={()=>success = true}>Valider</Btn>
@@ -108,6 +122,13 @@
     justify-content: space-between;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--black);
+    align-items: center;
+  }
+  img{
+    width: 6rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
   }
 
   .footer {
