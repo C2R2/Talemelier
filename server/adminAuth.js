@@ -8,10 +8,10 @@ module.exports = async (request, response, next) => {
         //check if the token matches the supposed origin
         const decodedToken = await jwt.verify(token, "RANDOM-TOKEN")
 
-        // retrieve the user details of the logged in user
+        // retrieve the user details of the logged-in user
         const user = await decodedToken
 
-        // pass the the user down to the endpoints here
+        // pass the user down to the endpoints here
         request.user = user
 
         if (user.userRole === "admin") {

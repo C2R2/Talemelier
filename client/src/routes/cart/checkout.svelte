@@ -7,6 +7,7 @@
 
     let success = false
     let nextDate = null
+    let userInfos = {}
 
     let cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
@@ -49,7 +50,15 @@
         nextDate = nextDate.charAt(0).toUpperCase() + nextDate.slice(1)
     })
 
-    console.log(Cookies.get("token"))
+    fetch("https://talemelier.herokuapp.com/user", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + Cookies.get("token")
+        }
+    }).then(res => res.json()).then(res => {
+        userInfos = res
+    })
 
 
 </script>
@@ -73,7 +82,7 @@
 
   <div class="article-container">
     <span class="header">
-      3 articles
+      {cartList.length} articles
     </span>
     <ul>
       {#each cartList as cartItem}
@@ -90,10 +99,29 @@
 </section>
 
 <section class="client">
-  <div>
-    <span>Nom Prénom</span>
-    <span>adresse@mail.fr</span>
-    <span>07 84 56 38 19</span>
+  <div class="user-infos">
+    {#if userInfos.firstName}
+      <span>{userInfos.firstName} {userInfos.lastName}</span>
+    {:else}
+      <div class="inputs-container">
+        <label>
+          <span class="title">Prénom et nom</span>
+          <div>
+            <input type="text" placeholder="Prénom">
+            <input type="text" placeholder="Nom">
+          </div>
+        </label>
+      </div>
+    {/if}
+    <span>{userInfos.email}</span>
+    {#if userInfos.phone}
+      <span>{userInfos.phone}</span>
+    {:else}
+      <label>
+        <span class="title">Téléphone</span>
+        <input required type="tel" maxlength="10" placeholder="Téléphone">
+      </label>
+    {/if}
   </div>
   <div>
     <span class="title">Lieu de récupération</span>
@@ -138,6 +166,21 @@
     span {
       font-weight: 600;
     }
+  }
+
+  input {
+    width: 12rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .inputs-container {
+    display: flex;
+    gap: 1rem;
   }
 
   ul {

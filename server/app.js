@@ -10,8 +10,9 @@ const User = require("./db/userModel");
 const Product = require("./db/productModel");
 const Order = require("./db/orderModel");
 const Market = require("./db/marketModel");
-const auth = require("./auth");
-const port = process.env.PORT || 3000;
+const adminAuth = require("./adminAuth");
+const userAuth = require("./userAuth");
+const port = process.env.PORT || 3001;
 
 // execute database connection
 dbConnect();
@@ -147,35 +148,42 @@ app.get("/free-endpoint", (request, response) => {
 });
 
 // get all users
-app.get("/users", auth, (request, response) => {
+app.get("/users", adminAuth, (request, response) => {
   User.find()
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 // get one user
-app.get("/users/:id", auth, (request, response) => {
+app.get("/users/:id", adminAuth, (request, response) => {
   User.findById(request.params.id)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 // delete user
-app.delete("/users/:id", auth, (request, response) => {
+app.delete("/users/:id", adminAuth, (request, response) => {
   User.findByIdAndDelete(request.params.id)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 //edit user
-app.put("/users/:id", auth, (request, response) => {
+app.put("/users/:id", adminAuth, (request, response) => {
   User.findByIdAndUpdate(request.params.id, request.body)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
+// get user infos by token
+app.get("/user", userAuth, (request, response) => {
+  User.findById(request.user.userId)
+    .then((result) => response.status(200).json(result))
+    .catch((err) => response.status(500).json(err));
+});
+
 // add product
-app.post("/products", auth, (request, response) => {
+app.post("/products", adminAuth, (request, response) => {
   const product = new Product(request.body);
   product
     .save()
@@ -198,14 +206,14 @@ app.get("/products/:id", (request, response) => {
 });
 
 // delete product
-app.delete("/products/:id", auth, (request, response) => {
+app.delete("/products/:id", adminAuth, (request, response) => {
   Product.findByIdAndDelete(request.params.id)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 //edit product
-app.put("/products/:id", auth, (request, response) => {
+app.put("/products/:id", adminAuth, (request, response) => {
   Product.findByIdAndUpdate(request.params.id, request.body)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
@@ -221,35 +229,35 @@ app.post("/orders", (request, response) => {
 });
 
 // get all orders
-app.get("/orders", auth, (request, response) => {
+app.get("/orders", adminAuth, (request, response) => {
   Order.find()
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 // get one order
-app.get("/orders/:id", auth, (request, response) => {
+app.get("/orders/:id", adminAuth, (request, response) => {
   Order.findById(request.params.id)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 // delete order
-app.delete("/orders/:id", auth, (request, response) => {
+app.delete("/orders/:id", adminAuth, (request, response) => {
   Order.findByIdAndDelete(request.params.id)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 //edit order
-app.put("/orders/:id", auth, (request, response) => {
+app.put("/orders/:id", adminAuth, (request, response) => {
   Order.findByIdAndUpdate(request.params.id, request.body)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 //add market
-app.post("/markets", auth, (request, response) => {
+app.post("/markets", adminAuth, (request, response) => {
   const market = new Market(request.body);
   market
     .save()
@@ -272,14 +280,14 @@ app.get("/markets/:id", (request, response) => {
 });
 
 // delete market
-app.delete("/markets/:id", auth, (request, response) => {
+app.delete("/markets/:id", adminAuth, (request, response) => {
   Market.findByIdAndDelete(request.params.id)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
 });
 
 // edit market
-app.put("/markets/:id", auth, (request, response) => {
+app.put("/markets/:id", adminAuth, (request, response) => {
   Market.findByIdAndUpdate(request.params.id, request.body)
     .then((result) => response.status(200).json(result))
     .catch((err) => response.status(500).json(err));
