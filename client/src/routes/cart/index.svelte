@@ -103,22 +103,24 @@
         {/each}
       </Select>
       <label for="when">Jour et heure :</label>
-      <div>
-        <Select allsize bind:value={daySelect} id="when">
-          {#if markets.find(market => market.place === placeSelect)}
-            {#each markets.find(market => market.place === placeSelect).days as day}
-              <option selected={day === daySelect} value={day}>{day}</option>
-            {/each}
-          {/if}
-        </Select>
-        <Select allsize bind:value={hourSelect}>
-          {#if markets.find(market => market.place === placeSelect)}
-            {#each markets.find(market => market.place === placeSelect).hours as hour}
-              <option selected={hour === hourSelect} value={hour}>{hour}</option>
-            {/each}
-          {/if}
-        </Select>
-      </div>
+      {#key placeSelect}
+        <div>
+          <Select allsize bind:value={daySelect} id="when">
+            {#if markets.find(market => market.place === placeSelect)}
+              {#each markets.find(market => market.place === placeSelect).days as day}
+                <option selected={day === daySelect} value={day}>{day}</option>
+              {/each}
+            {/if}
+          </Select>
+          <Select allsize bind:value={hourSelect}>
+            {#if markets.find(market => market.place === placeSelect)}
+              {#each markets.find(market => market.place === placeSelect).hours as hour}
+                <option selected={hour === hourSelect} value={hour}>{hour}</option>
+              {/each}
+            {/if}
+          </Select>
+        </div>
+      {/key}
     </form>
   </div>
   <Btn disabled={!$cart.length} onClick={handleSubmit}>Valider la commande</Btn>

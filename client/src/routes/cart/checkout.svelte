@@ -2,26 +2,56 @@
     import Btn from "$lib/Btn.svelte"
     import Modal from "$lib/Modal.svelte"
     import { cart, collectData, products } from "../../stores.js"
+    import { onMount } from "svelte"
+    import Cookies from "js-cookie"
 
     let success = false
+    let nextDate = null
 
     let cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
         quantity: cartItem.quantity
     }))
-    const priceFormatter = new Intl.NumberFormat('fr-FR', {
-        style: 'currency',
-        currency: 'EUR',
+    const priceFormatter = new Intl.NumberFormat("fr-FR", {
+        style: "currency",
+        currency: "EUR",
         minimumFractionDigits: 2
     })
-    const hoursFormatter = new Intl.DateTimeFormat('fr-FR', {
-        hour: 'numeric',
-        minute: 'numeric',
-    })
     $: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
-    console.log($collectData)
 
-    console.log(hoursFormatter.format(1000))
+    onMount(() => {
+        const parseDay = () => {
+            switch ($collectData.day) {
+                case "Lundi":
+                    return 1
+                case "Mardi":
+                    return 2
+                case "Mercredi":
+                    return 3
+                case "Jeudi":
+                    return 4
+                case "Vendredi":
+                    return 5
+                case "Samedi":
+                    return 6
+                case "Dimanche":
+                    return 7
+            }
+        }
+        const date = new Date()
+        date.setDate(date.getDate() + (parseDay() + 7 - date.getDay()) % 7)
+
+        nextDate = new Intl.DateTimeFormat("fr-FR", {
+            weekday: "long",
+            day: "numeric",
+            month: "long"
+        }).format(date)
+        nextDate = nextDate.charAt(0).toUpperCase() + nextDate.slice(1)
+    })
+
+    console.log(Cookies.get("token"))
+
+
 </script>
 
 <svelte:head>
@@ -72,8 +102,7 @@
   <div>
     <span class="title">Date de récupération</span>
     <p>
-      {$collectData.day} à {$collectData.hour}00
-      Lundi 12 janvier 2022
+      {nextDate} à {$collectData.hour}00
     </p>
   </div>
   <Btn onClick={()=>success = true}>Valider</Btn>
@@ -124,7 +153,8 @@
     border-bottom: 1px solid var(--black);
     align-items: center;
   }
-  img{
+
+  img {
     width: 6rem;
     height: 3rem;
     border-radius: 0.5rem;
