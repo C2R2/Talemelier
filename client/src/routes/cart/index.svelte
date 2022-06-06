@@ -7,6 +7,11 @@
     import Select from "$lib/Select.svelte"
 
     let markets = []
+    const formatter = new Intl.NumberFormat("fr-FR", {
+        style: "currency",
+        currency: "EUR",
+        minimumFractionDigits: 2
+    })
     let placeSelect = $collectData.place
     let daySelect = $collectData.day
     let hourSelect = $collectData.hour
@@ -26,7 +31,6 @@
             _id: item._id,
             quantity: item.quantity
         })))
-
         collectData.set({
             place: placeSelect,
             day: daySelect,
@@ -40,9 +44,14 @@
         headers: {
             "Content-Type": "application/json"
         }
-    }).then(res => res.json()).then(res => markets = res)
-
-    $:console.log(markets)
+    }).then(res => res.json()).then(res => {
+        markets = res
+        if (!placeSelect || !daySelect || !hourSelect) {
+            placeSelect = res[0].place
+            daySelect = res[0].days[0]
+            hourSelect = res[0].hours[0]
+        }
+    })
 
 </script>
 
@@ -63,7 +72,7 @@
         <div class="left">
           <div class="price">
             <QuantityControl bind:productQuantity={cartItem.quantity}/>
-            Prix unitaire: {cartItem.price}€
+            Prix unitaire: {formatter.format(cartItem.price)}
           </div>
           <Btn small onClick={()=>handleDelete(cartItem._id)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -80,7 +89,7 @@
     <div class="bottom">
       <hr>
       <div class="total">
-        Total: <b>{totalPrice}€</b>
+        Total: <b>{formatter.format(totalPrice)}</b>
       </div>
     </div>
   </ul>
@@ -88,29 +97,30 @@
     <h2>Lieu et horaire de collecte</h2>
     <form class="input-container">
       <label for="place">Lieu de retrait :</label>
-          <!-- TODO: placeSeclect default value -->
       <Select allsize bind:value={placeSelect} id="place">
         {#each markets as market}
-          <option value={market.place}>{market.place}</option>
+          <option selected={market.place === placeSelect} value={market.place}>{market.place}</option>
         {/each}
       </Select>
       <label for="when">Jour et heure :</label>
-      <div>
-        <Select allsize bind:value={daySelect} id="when">
-          {#if placeSelect}
-            {#each markets.find(market => market.place === placeSelect).days as day}
-              <option value={day}>{day}</option>
-            {/each}
-          {/if}
-        </Select>
-        <Select allsize bind:value={hourSelect}>
-          {#if placeSelect}
-            {#each markets.find(market => market.place === placeSelect).hours as hour}
-              <option value={hour}>{hour}</option>
-            {/each}
-          {/if}
-        </Select>
-      </div>
+      {#key placeSelect}
+        <div>
+          <Select allsize bind:value={daySelect} id="when">
+            {#if markets.find(market => market.place === placeSelect)}
+              {#each markets.find(market => market.place === placeSelect).days as day}
+                <option selected={day === daySelect} value={day}>{day}</option>
+              {/each}
+            {/if}
+          </Select>
+          <Select allsize bind:value={hourSelect}>
+            {#if markets.find(market => market.place === placeSelect)}
+              {#each markets.find(market => market.place === placeSelect).hours as hour}
+                <option selected={hour === hourSelect} value={hour}>{hour}</option>
+              {/each}
+            {/if}
+          </Select>
+        </div>
+      {/key}
     </form>
   </div>
   <Btn disabled={!$cart.length} onClick={handleSubmit}>Valider la commande</Btn>

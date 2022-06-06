@@ -13,7 +13,7 @@
                 "Authorization": "Bearer " + Cookies.get("token")
             }
         }).then(res => {
-            res.status !== 200 ? document.location = "/login" : null
+            res.status !== 200 && (document.location = "/login")
             loaded = true
         })
     })

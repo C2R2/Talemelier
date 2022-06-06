@@ -29,7 +29,6 @@
             submit = false
         })
     }
-
 </script>
 
 <div class="products-container">
