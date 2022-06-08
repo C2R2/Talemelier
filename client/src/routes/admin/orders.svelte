@@ -20,27 +20,17 @@
 </script>
 
 <h1>Liste des commandes</h1>
-{#if orders}
+{#if orders.length > 0}
   <Grid
       data={orders}
-      filteredFields={["_id", "title", "price", "description", "ref"]}
+      filteredFields={["_id"]}
       title="Commandes"
       columns={[
-    {
-        label: "Image", render: [{
-            element: "img",
-            props: row => ({
-                width: "100",
-                src: row.image,
-                alt: row.title,
-            })
-        }]
-    },
     { name: "_id", label: "id" },
-    { name: "title", label: "Titre" },
-    { name: "description", label: "Description" },
-    { name: "price", label: "Prix" },
-    { name: "ref", label: "Référence" },
+    { name: "user", label: "Utilisateur" },
+    { name: "place", label: "Lieu" },
+    { name: "date", label: "Date" },
+    { name: "cart", label: "Panier" },
     // {
     //     label: "Actions",
     //     render: [{

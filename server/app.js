@@ -182,6 +182,12 @@ app.get("/user", userAuth, (request, response) => {
     .catch((err) => response.status(500).json(err));
 });
 
+app.put("/user", userAuth, (request, response) => {
+  User.findByIdAndUpdate(request.user.userId, request.body)
+    .then((result) => response.status(200).json(result))
+    .catch((err) => response.status(500).json(err));
+});
+
 // add product
 app.post("/products", adminAuth, (request, response) => {
   const product = new Product(request.body);
