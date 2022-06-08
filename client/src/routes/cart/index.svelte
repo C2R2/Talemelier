@@ -60,39 +60,40 @@
 </svelte:head>
 
 <section class="cart">
-  <h1>Récapitulatif</h1>
-
-  <ul>
-    {#each cartList as cartItem}
-      <li>
-        <a href={"/products/" + cartItem._id}>
-          <img alt={cartItem.title} src={cartItem.image}>
-        </a>
-        <span>{cartItem.title}</span>
-        <div class="left">
-          <div class="price">
-            <QuantityControl bind:productQuantity={cartItem.quantity}/>
-            Prix unitaire: {formatter.format(cartItem.price)}
+  <div class="cart__recap">
+    <h1>Récapitulatif</h1>
+    <ul>
+      {#each cartList as cartItem}
+        <li>
+          <a href={"/products/" + cartItem._id}>
+            <img alt={cartItem.title} src={cartItem.image}>
+          </a>
+          <span>{cartItem.title}</span>
+          <div class="left">
+            <div class="price">
+              <QuantityControl bind:productQuantity={cartItem.quantity}/>
+              Prix unitaire: {formatter.format(cartItem.price)}
+            </div>
+            <Btn small onClick={()=>handleDelete(cartItem._id)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </Btn>
           </div>
-          <Btn small onClick={()=>handleDelete(cartItem._id)}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="3 6 5 6 21 6"></polyline>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            </svg>
-          </Btn>
+        </li>
+      {:else}
+        <li>Panier vide</li>
+      {/each}
+      <div class="bottom">
+        <hr>
+        <div class="total">
+          Total: <b>{formatter.format(totalPrice)}</b>
         </div>
-      </li>
-    {:else}
-      <li>Panier vide</li>
-    {/each}
-    <div class="bottom">
-      <hr>
-      <div class="total">
-        Total: <b>{formatter.format(totalPrice)}</b>
       </div>
-    </div>
-  </ul>
+    </ul>
+  </div>
   <div class="collect">
     <h2>Lieu et horaire de collecte</h2>
     <form class="input-container">
@@ -122,8 +123,8 @@
         </div>
       {/key}
     </form>
+    <Btn disabled={!$cart.length} onClick={handleSubmit} small>Valider la commande</Btn>
   </div>
-  <Btn disabled={!$cart.length} onClick={handleSubmit}>Valider la commande</Btn>
 </section>
 
 <section class="other">
@@ -145,8 +146,24 @@
     margin: 6rem auto 4rem auto;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
+    @media (min-width: 1100px) {
+      flex-direction: row;
+      > * {
+        flex: 1;
+      }
+    }
+  }
 
+  .cart__recap{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 400;
   }
 
   ul {
@@ -166,7 +183,7 @@
 
   .left {
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
   }
 
   .price {
@@ -216,7 +233,6 @@
   }
 
   .collect {
-    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;

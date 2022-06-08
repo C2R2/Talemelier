@@ -13,7 +13,6 @@
     $: product = $products.find((p) => slugify(p.title) === productId)
     let quantity = 1
 
-
     function handleSubmit () {
         // check if product exists in cart store
         if ($cart.find((p) => p._id === product._id)) {
@@ -43,22 +42,26 @@
 
 <section class="product">
   {#if product}
-    <h1>{product.title}</h1>
-    <img alt="du pain" src={product.image}/>
-    <div class="infos">
-      <span class="title">{product.title}</span>
-      <span class="price">Prix : <b>{product.price} €</b></span>
-      <div class="quantity">
-        Quantité :
-        <QuantityControl bind:productQuantity={quantity}/>
-      </div>
-      {@html product.description}
+    <div class="product__left">
+      <h1>{product.title}</h1>
+      <img alt="du pain" src={product.image}/>
     </div>
-    {#if Cookies.get("token")}
-      <Btn onClick={handleSubmit}>Ajouter au panier</Btn>
-    {:else}
-      <Btn href="/login">Connectez-vous pour ajouter au panier</Btn>
-    {/if}
+    <div class="product__right">
+      <div class="infos">
+        <span class="title">{product.title}</span>
+        <span class="price">Prix : <b>{product.price} €</b></span>
+        <div class="quantity">
+          Quantité :
+          <QuantityControl bind:productQuantity={quantity}/>
+        </div>
+        {@html product.description}
+      </div>
+      {#if Cookies.get("token")}
+        <Btn small onClick={handleSubmit}>Ajouter au panier</Btn>
+      {:else}
+        <Btn small href="/login">Connectez-vous pour ajouter au panier</Btn>
+      {/if}
+    </div>
   {:else}
     <p>Chargement...</p>
   {/if}
@@ -89,7 +92,22 @@
     width: 90%;
     margin: 6rem auto;
     gap: 2rem;
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      flex: 1;
+      justify-content: flex-end;
+      @media (min-width: 768px) {
+        gap: 1rem;
+      }
+    }
   }
+
 
   img {
     display: flex;
@@ -99,6 +117,9 @@
     border-radius: 0.25rem;
     object-fit: cover;
     gap: 1rem;
+    @media (min-width: 768px) {
+      height: auto;
+    }
   }
 
   .infos {

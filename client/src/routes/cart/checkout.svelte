@@ -155,31 +155,38 @@
 </section>
 
 <form class="client" on:submit={handleSubmit}>
-  <div class="user-infos">
-    <span class="title">Pour mettre à jour les informations, veuillez vous rendre sur la page <a href="/account" class="underline">"Mon compte"</a>.</span>
-    {#if userInfos.firstName}
+  <span class="title">Pour mettre à jour les informations, veuillez vous rendre sur la page <a class="underline" href="/account">"Mon compte"</a>.</span>
+  {#if userInfos.firstName}
+    <div>
+      <span class="title">Prénom et nom</span>
       <span>{userInfos.firstName} {userInfos.lastName}</span>
-    {:else}
-      <div class="inputs-container">
-        <span id="name" class="title">Prénom et nom</span>
-        <label for="name">
-          <input bind:value={firstName} type="text" required placeholder="Prénom">
-          <input bind:value={lastName} type="text" required placeholder="Nom">
-        </label>
-      </div>
-    {/if}
+    </div>
+  {:else}
+    <div class="inputs-container">
+      <span id="name" class="title">Prénom et nom</span>
+      <label for="name">
+        <input bind:value={firstName} type="text" required placeholder="Prénom">
+        <input bind:value={lastName} type="text" required placeholder="Nom">
+      </label>
+    </div>
+  {/if}
+  <div>
+    <span class="title">Email</span>
     <span>{userInfos.email}</span>
-    {#if userInfos.tel}
-      <span>{userInfos.tel}</span>
-    {:else}
-      <div class="inputs-container">
-        <span id="tel" class="title">Téléphone</span>
-        <label for="tel">
-          <input required bind:value={tel} pattern={`[0-9]{10}`} type="tel" maxlength="10" placeholder="0600000000">
-        </label>
-      </div>
-    {/if}
   </div>
+  {#if userInfos.tel}
+    <div>
+      <span class="title">Téléphone</span>
+      <span>{userInfos.tel}</span>
+    </div>
+  {:else}
+    <div class="inputs-container">
+      <span id="tel" class="title">Téléphone</span>
+      <label for="tel">
+        <input required bind:value={tel} pattern={`[0-9]{10}`} type="tel" maxlength="10" placeholder="0600000000">
+      </label>
+    </div>
+  {/if}
   <div>
     <span class="title">Lieu de récupération</span>
     <p>{$collectData.place}</p>
@@ -190,7 +197,7 @@
       {nextDate} à {$collectData.hour}00
     </p>
   </div>
-  <Btn type="submit">{submit ? "Chargement..." : "Valider"}</Btn>
+  <Btn small type="submit">{submit ? "Chargement..." : "Valider"}</Btn>
 </form>
 
 <style lang="scss">
@@ -277,10 +284,10 @@
     gap: 1.5rem;
     width: 90%;
 
-    > * {
+    > div {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
     .title {
