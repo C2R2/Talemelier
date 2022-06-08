@@ -22,7 +22,7 @@
           <path d="M16 10a4 4 0 01-8 0"></path>
         </svg>
       </a>
-      <a class="account" href="/login">
+      <a class="account" href="/account">
         Mon compte
         <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
              stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +43,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
