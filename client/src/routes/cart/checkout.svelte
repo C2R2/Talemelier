@@ -44,7 +44,12 @@
             }
         }
         const date = new Date()
+
         date.setDate(date.getDate() + (parseDay() + 7 - date.getDay()) % 7)
+        // TODO: check if date is in the future
+        if (date <= new Date()) {
+            date.setDate(date.getDate() + 7)
+        }
 
         nextDate = new Intl.DateTimeFormat("fr-FR", {
             weekday: "long",
@@ -105,6 +110,7 @@
         }).then(res => {
             success = res.ok
             cart.set([])
+            //TODO: send email to user
         }).catch(err => {
             console.error(err)
             success = false
