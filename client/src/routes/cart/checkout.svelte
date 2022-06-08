@@ -8,6 +8,9 @@
     let success = false
     let nextDate = null
     let userInfos = {}
+    let firstName = ""
+    let lastName = ""
+    let tel = ""
 
     let cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
@@ -60,6 +63,40 @@
         userInfos = res
     })
 
+    function handleSubmit (e) {
+        e.preventDefault()
+        const order = {
+            cart: cartList.map(item => ({
+                _id: item._id,
+                quantity: item.quantity
+            })),
+            place: $collectData.place,
+            date: nextDate,
+            user: userInfos._id
+        }
+
+        // fetch("https://talemelier.herokuapp.com/orders", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(order)
+        // }).then(res => success = res.ok)
+
+        fetch("https://talemelier.herokuapp.com/user", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + Cookies.get("token")
+            },
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                tel
+            })
+        })
+    }
+
 
 </script>
 
@@ -82,7 +119,7 @@
 
   <div class="article-container">
     <span class="header">
-      {cartList.length} articles
+      {cartList.length} article{cartList.length > 1 ? "s" : ""}
     </span>
     <ul>
       {#each cartList as cartItem}
@@ -98,29 +135,29 @@
   </div>
 </section>
 
-<section class="client">
+<form class="client" on:submit={handleSubmit}>
   <div class="user-infos">
     {#if userInfos.firstName}
       <span>{userInfos.firstName} {userInfos.lastName}</span>
     {:else}
       <div class="inputs-container">
-        <label>
-          <span class="title">Prénom et nom</span>
-          <div>
-            <input type="text" placeholder="Prénom">
-            <input type="text" placeholder="Nom">
-          </div>
+        <span id="name" class="title">Prénom et nom</span>
+        <label for="name">
+          <input bind:value={firstName} type="text" required placeholder="Prénom">
+          <input bind:value={lastName} type="text" required placeholder="Nom">
         </label>
       </div>
     {/if}
     <span>{userInfos.email}</span>
-    {#if userInfos.phone}
-      <span>{userInfos.phone}</span>
+    {#if userInfos.tel}
+      <span>{userInfos.tel}</span>
     {:else}
-      <label>
-        <span class="title">Téléphone</span>
-        <input required type="tel" maxlength="10" placeholder="Téléphone">
-      </label>
+      <div class="inputs-container">
+        <span id="tel" class="title">Téléphone</span>
+        <label for="tel">
+          <input required bind:value={tel} type="tel" maxlength="10" placeholder="Téléphone">
+        </label>
+      </div>
     {/if}
   </div>
   <div>
@@ -133,8 +170,8 @@
       {nextDate} à {$collectData.hour}00
     </p>
   </div>
-  <Btn onClick={()=>success = true}>Valider</Btn>
-</section>
+  <Btn type="submit">Valider</Btn>
+</form>
 
 <style lang="scss">
   .modal {
@@ -174,13 +211,13 @@
 
   label {
     display: flex;
-    flex-direction: column;
     gap: 0.5rem;
   }
 
   .inputs-container {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   ul {
