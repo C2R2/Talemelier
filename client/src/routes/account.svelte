@@ -20,7 +20,7 @@
             userInfos = data
         })
 
-    $:console.log(userInfos)
+    $:console.log(userInfos.tel)
 
     function handleSubmit (e) {
         e.preventDefault()
