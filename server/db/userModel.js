@@ -34,7 +34,6 @@ const UserSchema = new mongoose.Schema({
   tel: {
     type: Number,
     unique: false,
-    trim: true,
   },
 });
 

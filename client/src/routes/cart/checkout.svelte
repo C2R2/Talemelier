@@ -46,7 +46,6 @@
         const date = new Date()
 
         date.setDate(date.getDate() + (parseDay() + 7 - date.getDay()) % 7)
-        // TODO: check if date is in the future
         if (date <= new Date()) {
             date.setDate(date.getDate() + 7)
         }
@@ -157,6 +156,7 @@
 
 <form class="client" on:submit={handleSubmit}>
   <div class="user-infos">
+    <span class="title">Pour mettre à jour les informations, veuillez vous rendre sur la page <a href="/account" class="underline">"Mon compte"</a>.</span>
     {#if userInfos.firstName}
       <span>{userInfos.firstName} {userInfos.lastName}</span>
     {:else}
@@ -175,7 +175,7 @@
       <div class="inputs-container">
         <span id="tel" class="title">Téléphone</span>
         <label for="tel">
-          <input required bind:value={tel} type="tel" maxlength="10" placeholder="Téléphone">
+          <input required bind:value={tel} pattern={`[0-9]{10}`} type="tel" maxlength="10" placeholder="0600000000">
         </label>
       </div>
     {/if}

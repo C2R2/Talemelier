@@ -13,7 +13,6 @@
     </svg>
   {/if}
   <slot/>
-
 </div>
 
 <style lang="scss">
@@ -31,6 +30,7 @@
     right: 0;
     height: min-content;
     padding: 2rem;
+    box-shadow: 0 0.25rem 5rem rgba(0, 0, 0, 0.1);
   }
 
   svg {
