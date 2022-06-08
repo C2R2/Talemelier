@@ -32,7 +32,8 @@ const UserSchema = new mongoose.Schema({
     trim: true,
   },
   tel: {
-    type: Number,
+    type: String,
+    trim: true,
     unique: false,
   },
 });
