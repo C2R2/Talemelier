@@ -133,72 +133,73 @@
   </Modal>
 {/if}
 
-<section class="confirm">
-  <h1>Validation</h1>
-
-  <div class="article-container">
+<main>
+  <section class="confirm">
+    <h1>Validation</h1>
+    <div class="article-container">
     <span class="header">
       {cartList.length} article{cartList.length > 1 ? "s" : ""}
     </span>
-    <ul>
-      {#each cartList as cartItem}
-        <li>
-          <img src={cartItem.image} alt={cartItem.title}>
-          {cartItem.title} <b class="price">{priceFormatter.format(cartItem.price)} x {cartItem.quantity}</b>
-        </li>
-      {/each}
-    </ul>
-    <span class="footer">
+      <ul>
+        {#each cartList as cartItem}
+          <li>
+            <img src={cartItem.image} alt={cartItem.title}>
+            {cartItem.title} <b class="price">{priceFormatter.format(cartItem.price)} x {cartItem.quantity}</b>
+          </li>
+        {/each}
+      </ul>
+      <span class="footer">
       Total: <b class="price">{priceFormatter.format(totalPrice)}</b>
     </span>
-  </div>
-</section>
+    </div>
+  </section>
 
-<form class="client" on:submit={handleSubmit}>
-  <span class="title">Pour mettre à jour les informations, veuillez vous rendre sur la page <a class="underline" href="/account">"Mon compte"</a>.</span>
-  {#if userInfos.firstName}
+  <form class="client" on:submit={handleSubmit}>
+    <span class="title">Pour mettre à jour les informations, veuillez vous rendre sur la page <a class="underline" href="/account">"Mon compte"</a>.</span>
+    {#if userInfos.firstName}
+      <div>
+        <span class="title">Prénom et nom</span>
+        <input value={userInfos.firstName + " " + userInfos.lastName } disabled type="text" required placeholder="Prénom">
+      </div>
+    {:else}
+      <div class="inputs-container">
+        <span id="name" class="title">Prénom et nom</span>
+        <label for="name">
+          <input bind:value={firstName} type="text" required placeholder="Prénom">
+          <input bind:value={lastName} type="text" required placeholder="Nom">
+        </label>
+      </div>
+    {/if}
     <div>
-      <span class="title">Prénom et nom</span>
-      <span>{userInfos.firstName} {userInfos.lastName}</span>
+      <span class="title">Email</span>
+      <input value={userInfos.email } disabled type="text" required placeholder="Prénom">
     </div>
-  {:else}
-    <div class="inputs-container">
-      <span id="name" class="title">Prénom et nom</span>
-      <label for="name">
-        <input bind:value={firstName} type="text" required placeholder="Prénom">
-        <input bind:value={lastName} type="text" required placeholder="Nom">
-      </label>
-    </div>
-  {/if}
-  <div>
-    <span class="title">Email</span>
-    <span>{userInfos.email}</span>
-  </div>
-  {#if userInfos.tel}
+    {#if userInfos.tel}
+      <div>
+        <span class="title">Téléphone</span>
+        <input value={userInfos.tel} disabled type="tel" required placeholder="0600000000">
+      </div>
+    {:else}
+      <div class="inputs-container">
+        <span id="tel" class="title">Téléphone</span>
+        <label for="tel">
+          <input required bind:value={tel} pattern={`[0-9]{10}`} type="tel" maxlength="10" placeholder="0600000000">
+        </label>
+      </div>
+    {/if}
     <div>
-      <span class="title">Téléphone</span>
-      <span>{userInfos.tel}</span>
+      <span class="title">Lieu de récupération</span>
+      <p>{$collectData.place}</p>
     </div>
-  {:else}
-    <div class="inputs-container">
-      <span id="tel" class="title">Téléphone</span>
-      <label for="tel">
-        <input required bind:value={tel} pattern={`[0-9]{10}`} type="tel" maxlength="10" placeholder="0600000000">
-      </label>
+    <div>
+      <span class="title">Date de récupération</span>
+      <p>
+        {nextDate} à {$collectData.hour}00
+      </p>
     </div>
-  {/if}
-  <div>
-    <span class="title">Lieu de récupération</span>
-    <p>{$collectData.place}</p>
-  </div>
-  <div>
-    <span class="title">Date de récupération</span>
-    <p>
-      {nextDate} à {$collectData.hour}00
-    </p>
-  </div>
-  <Btn small type="submit">{submit ? "Chargement..." : "Valider"}</Btn>
-</form>
+    <Btn small type="submit">{submit ? "Chargement..." : "Valider"}</Btn>
+  </form>
+</main>
 
 <style lang="scss">
   .modal {
@@ -212,9 +213,23 @@
     }
   }
 
-  .confirm {
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     margin: 6rem auto 2rem auto;
     width: 90%;
+
+    > * {
+      flex: 1;
+    }
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+  }
+
+  .confirm {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -278,11 +293,9 @@
   }
 
   .client {
-    margin: auto;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: 90%;
 
     > div {
       display: flex;
