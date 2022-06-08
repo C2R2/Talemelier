@@ -6,6 +6,7 @@
     import Cookies from "js-cookie"
 
     let success = false
+    let submit = false
     let nextDate = null
     let userInfos = {}
     let firstName = ""
@@ -65,35 +66,48 @@
 
     function handleSubmit (e) {
         e.preventDefault()
+        submit = true
         const order = {
-            cart: cartList.map(item => ({
-                _id: item._id,
-                quantity: item.quantity
-            })),
+            cart: $cart,
             place: $collectData.place,
             date: nextDate,
             user: userInfos._id
         }
 
-        // fetch("https://talemelier.herokuapp.com/orders", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(order)
-        // }).then(res => success = res.ok)
-
-        fetch("https://talemelier.herokuapp.com/user", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + Cookies.get("token")
-            },
-            body: JSON.stringify({
-                firstName,
-                lastName,
-                tel
+        if (firstName || lastName || tel) {
+            fetch("https://talemelier.herokuapp.com/user", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + Cookies.get("token")
+                },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    tel
+                })
+            }).then(res => {
+                cart.set([])
+                success = res.ok
             })
+                .catch(err => {
+                    console.error(err)
+                    submit = false
+                })
+        }
+
+        fetch("https://talemelier.herokuapp.com/orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(order)
+        }).then(res => {
+            success = res.ok
+            cart.set([])
+        }).catch(err => {
+            console.error(err)
+            success = false
         })
     }
 
@@ -170,7 +184,7 @@
       {nextDate} à {$collectData.hour}00
     </p>
   </div>
-  <Btn type="submit">Valider</Btn>
+  <Btn type="submit">{submit ? "Chargement..." : "Valider"}</Btn>
 </form>
 
 <style lang="scss">

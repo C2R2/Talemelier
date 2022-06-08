@@ -85,7 +85,16 @@
             }],
             }),
     }]
-  }, {
+    }, {
+        name: "tel",
+        label: "Téléphone",
+    }, {
+        name: "firstName",
+        label: "Prénom",
+    }, {
+        name: "lastName",
+        label: "Nom",
+    }, {
       label: "Supprimer",
       render: [{
           component: Btn,
