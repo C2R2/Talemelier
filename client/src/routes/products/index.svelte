@@ -36,7 +36,7 @@
 <section class="all-products">
   <h2>Tous nos produits</h2>
   <Select>
-    <option>Trier</option>
+    <option selected>Trier</option>
     <option>
       A-Z
     </option>

@@ -1,13 +1,21 @@
 <script>
+    import { onMount } from "svelte"
+
     export let allsize = false
     export let id = ""
     export let options = []
     export let value = ""
     export let onChange = () => {}
+
+    let selectEl
+
+    onMount(() => {
+        selectEl.firstChild.selected = true
+    })
 </script>
 
 <div class="select" class:allsize>
-  <select {id} bind:value={value} on:change={onChange}>
+  <select bind:this={selectEl} bind:value={value} {id} on:change={onChange}>
     <slot/>
     {#if options.length > 0}
       {#each options as option}
