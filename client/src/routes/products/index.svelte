@@ -104,11 +104,19 @@
     gap: 2rem;
 
     .products {
-      display: flex;
       gap: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-items: center;
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @media (min-width: 1440px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
   }
 
@@ -116,6 +124,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    align-self: center;
+    gap: 2rem;
+
+    @media (max-width: 425px) {
+      gap: 1rem;
+    }
 
     > * {
       cursor: pointer;
