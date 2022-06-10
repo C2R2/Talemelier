@@ -128,7 +128,7 @@
     <div class="modal">
       <h1>Merci !</h1>
       <p>Votre commande a bien été validée. Vous aller bientôt recevoir une confirmation de votre commande par mail.</p>
-      <Btn href="/">Retour à l'accueil</Btn>
+      <Btn small href="/">Retour à l'accueil</Btn>
     </div>
   </Modal>
 {/if}
