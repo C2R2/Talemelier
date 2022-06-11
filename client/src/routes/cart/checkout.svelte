@@ -6,12 +6,15 @@
     import Cookies from "js-cookie"
 
     let success = false
+    let redirect = false
     let submit = false
     let nextDate = null
     let userInfos = {}
     let firstName = ""
     let lastName = ""
     let tel = ""
+
+    $: redirect && (location.href = "/login")
 
     let cartList = $cart.map(cartItem => ({
         ...$products.find(product => product._id === cartItem._id),
@@ -64,7 +67,13 @@
             "Content-Type": "application/json",
             "Authorization": "Bearer " + Cookies.get("token")
         }
-    }).then(res => res.json()).then(res => {
+    }).then(res => {
+        if (res.status === 200) {
+            return res.json()
+        } else {
+            redirect = true
+        }
+    }).then(res => {
         userInfos = res
     })
 
@@ -172,7 +181,7 @@
     {/if}
     <div>
       <span class="title">Email</span>
-      <input value={userInfos.email } disabled type="text" required placeholder="Prénom">
+      <input disabled placeholder="Prénom" required type="text" value={userInfos.email }>
     </div>
     {#if userInfos.tel}
       <div>

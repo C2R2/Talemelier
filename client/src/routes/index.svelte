@@ -18,13 +18,15 @@
             dot.classList.add("dot")
         }
         setTimeout(() => {
-            dotsContainer.children[0].style.backgroundColor = "var(--primary-color)"
+            if (dotsContainer.children[0]) {
+                dotsContainer.children[0].style.backgroundColor = "var(--primary-color)"
+            }
         }, 1)
     })
 
     function infosScroll () {
         if (infosWidth < 692) {
-            console.log(Math.round(infosEl.scrollLeft / infosEl.children[0].offsetWidth))
+            // console.log(Math.round(infosEl.scrollLeft / infosEl.children[0].offsetWidth))
 
             if (Math.round(infosEl.scrollLeft / infosEl.children[0].offsetWidth) === 0) {
                 dotsContainer.children[0].style.backgroundColor = "var(--primary-color)"

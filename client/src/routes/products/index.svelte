@@ -1,11 +1,50 @@
 <script>
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
-    import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import Select from "$lib/Select.svelte"
+    import { products } from "../../stores.js"
 
-    let products
+    let filterTerm = ""
+    let searchTerm = ""
+    let filteredProducts = $products
 
-    fetch("https://talemelier.herokuapp.com/products").then(res => res.json()).then(res => {products = res})
+    $:console.log(filteredProducts)
+
+    function handleSearch (event) {
+        searchTerm = event.target.value
+        filteredProducts = $products.filter(product => {
+            return product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                product.ref.toLowerCase().includes(searchTerm.toLowerCase())
+        })
+    }
+
+    function handleFilter (event) {
+        filterTerm = event.target.value.trim()
+        switch (filterTerm) {
+            case "A-Z":
+                filteredProducts = filteredProducts.sort((a, b) => {
+                    return a.title.localeCompare(b.title)
+                })
+                break
+            case "Z-A":
+                filteredProducts = filteredProducts.sort((a, b) => {
+                    return b.title.localeCompare(a.title)
+                })
+                break
+            case "Prix croissant":
+                filteredProducts = filteredProducts.sort((a, b) => {
+                    return a.price - b.price
+                })
+                break
+            case "Prix décroissant":
+                filteredProducts = filteredProducts.sort((a, b) => {
+                    return b.price - a.price
+                })
+                break
+        }
+    }
+
+
 </script>
 
 <svelte:head>
@@ -20,40 +59,30 @@
   </p>
 </section>
 <!-- -->
-<section class="best-seller">
-  <h2>Meilleures ventes</h2>
-  <ProductCardCarrousel>
-    {#if products}
-      {#each products as product}
-        <ProductCard {product}/>
-      {/each}
-    {:else}
-      <div class="loader"></div>
-    {/if}
-  </ProductCardCarrousel>
-</section>
-<!-- -->
 <section class="all-products">
   <h2>Tous nos produits</h2>
-  <Select>
-    <option selected>Trier</option>
-    <option>
-      A-Z
-    </option>
-    <option>
-      Z-A
-    </option>
-    <option>
-      Prix croissant
-    </option>
-    <option>
-      Prix décroissant
-    </option>
-  </Select>
+  <div class="filters">
+    <Select onChange={handleFilter}>
+      <option selected>Trier</option>
+      <option>
+        A-Z
+      </option>
+      <option>
+        Z-A
+      </option>
+      <option>
+        Prix croissant
+      </option>
+      <option>
+        Prix décroissant
+      </option>
+    </Select>
+    <input on:input={handleSearch} placeholder="Rechercher un produit" type="search">
+  </div>
 
   <div class="products">
-    {#if products}
-      {#each products as product}
+    {#if filteredProducts.length > 0}
+      {#each filteredProducts as product}
         <ProductCard {product}/>
       {/each}
     {:else}
@@ -85,23 +114,22 @@
     background-color: #D4CAC4;
   }
 
-  .best-seller {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    h2 {
-      width: 90%;
-      margin: 0 auto;
-    }
-  }
-
   .all-products {
     margin: 2rem auto;
     width: 90%;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+
+      input {
+        background: transparent;
+        width: 16rem;
+      }
+    }
 
     .products {
       gap: 2rem;
