@@ -3,7 +3,7 @@
     import Select from "$lib/Select.svelte"
     import { products } from "../../stores.js"
 
-    let productsLimit = 1
+    let productsLimit = 10
     let totalPages = Math.ceil($products.length / productsLimit)
     let currentPage = 1
     let filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
@@ -111,7 +111,7 @@
   </div>
 
   <div class="pagination">
-    <span class="left">←</span>
+    <span class="left" on:click={()=>{ currentPage > 1 && currentPage--}}>←</span>
     {#each Array(totalPages) as _, index}
       <span class:current={index +1 === currentPage} on:click={(event) => {
          event.target.classList.add("current")
@@ -119,7 +119,7 @@
         filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
       }}>{index + 1}</span>
     {/each}
-    <span class="right">→</span>
+    <span class="right" on:click={()=>{ currentPage < totalPages && currentPage++}}>→</span>
   </div>
 </section>
 
