@@ -3,11 +3,12 @@
     import Select from "$lib/Select.svelte"
     import { products } from "../../stores.js"
 
+    let productsLimit = 10
+    let totalPages = Math.ceil($products.length / productsLimit)
+    let currentPage = 1
+    let filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
     let filterTerm = ""
     let searchTerm = ""
-    let filteredProducts = $products
-
-    $:console.log(filteredProducts)
 
     function handleSearch (event) {
         searchTerm = event.target.value
@@ -16,32 +17,47 @@
                 product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 product.ref.toLowerCase().includes(searchTerm.toLowerCase())
         })
+        totalPages = Math.ceil(filteredProducts.length / productsLimit)
+        currentPage = 1
+        filteredProducts = filteredProducts.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
     }
 
     function handleFilter (event) {
         filterTerm = event.target.value.trim()
         switch (filterTerm) {
             case "A-Z":
-                filteredProducts = filteredProducts.sort((a, b) => {
+                filteredProducts = $products.sort((a, b) => {
                     return a.title.localeCompare(b.title)
                 })
                 break
             case "Z-A":
-                filteredProducts = filteredProducts.sort((a, b) => {
+                filteredProducts = $products.sort((a, b) => {
                     return b.title.localeCompare(a.title)
                 })
                 break
             case "Prix croissant":
-                filteredProducts = filteredProducts.sort((a, b) => {
+                filteredProducts = $products.sort((a, b) => {
                     return a.price - b.price
                 })
                 break
             case "Prix décroissant":
-                filteredProducts = filteredProducts.sort((a, b) => {
+                filteredProducts = $products.sort((a, b) => {
                     return b.price - a.price
                 })
                 break
         }
+
+        if (searchTerm) {
+            filteredProducts = filteredProducts.filter(product => {
+                return product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    product.ref.toLowerCase().includes(searchTerm.toLowerCase())
+            })
+        }
+
+        totalPages = Math.ceil(filteredProducts.length / productsLimit)
+        currentPage = 1
+        filteredProducts = filteredProducts.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
     }
 
 
@@ -86,16 +102,24 @@
         <ProductCard {product}/>
       {/each}
     {:else}
-      <div class="loader"></div>
+      {#if searchTerm.length > 0 || filterTerm.length > 0}
+        <p>Aucun produit ne correspond à votre recherche</p>
+      {:else}
+        <div class="loader"></div>
+      {/if}
     {/if}
   </div>
 
   <div class="pagination">
-    <span class="left">←</span>
-    <span class="current">1</span>
-    <span>2</span>
-    <span>3</span>
-    <span class="right">→</span>
+    <span class="left" on:click={()=>{ currentPage > 1 && currentPage--}}>←</span>
+    {#each Array(totalPages) as _, index}
+      <span class:current={index +1 === currentPage} on:click={(event) => {
+         event.target.classList.add("current")
+        currentPage = index + 1
+        filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
+      }}>{index + 1}</span>
+    {/each}
+    <span class="right" on:click={()=>{ currentPage < totalPages && currentPage++}}>→</span>
   </div>
 </section>
 

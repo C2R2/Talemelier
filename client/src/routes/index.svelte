@@ -4,6 +4,7 @@
     import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
     import { onMount } from "svelte"
     import { products } from "../stores.js"
+    import shuffle from "$functions/shuffle.js"
 
     let infosWidth
     let infosEl
@@ -96,7 +97,7 @@
   <h2>Nos produits</h2>
   <ProductCardCarrousel>
     {#if $products}
-      {#each $products as product}
+      {#each shuffle($products) as product}
         <ProductCard {product}/>
       {/each}
     {:else}

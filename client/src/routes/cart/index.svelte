@@ -5,6 +5,7 @@
     import ProductCard from "$lib/ProductCard/ProductCard.svelte"
     import { cart, collectData, products } from "../../stores.js"
     import Select from "$lib/Select.svelte"
+    import shuffle from "$functions/shuffle.js"
 
     let markets = []
     const formatter = new Intl.NumberFormat("fr-FR", {
@@ -131,7 +132,7 @@
   <h2>Autres produits</h2>
   <ProductCardCarrousel>
     {#if $products}
-      {#each $products as product}
+      {#each shuffle($products) as product}
         <ProductCard {product}/>
       {/each}
     {:else}

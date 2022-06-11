@@ -1,12 +1,19 @@
 <script>
     import Cookies from "js-cookie"
     import Btn from "$lib/Btn.svelte"
+    import { onMount } from "svelte"
+
+    export let connected = false
+
+    if (Cookies.get("token")) {
+        connected = true
+    }
 </script>
 
 <header>
   <a class="header-left" href="/"><img alt="logo Talemelier" src="/logo.svg"/></a>
   <div class="header-right">
-    {#if Cookies.get('token')}
+    {#if connected}
       <Btn outline onClick={() => {
     Cookies.remove('token')
     window.location.reload()

@@ -1,6 +1,7 @@
 <script>
     import Btn from "$lib/Btn.svelte"
     import Cookies from "js-cookie"
+    import Header from "$lib/Header.svelte"
 
     export let login = false
     let email
@@ -23,7 +24,9 @@
         }).then(async res => {
                 if (res.status === 200) {
                     Cookies.set("token", (await res.json()).token , { secure: true })
-                    history.back()
+                    // history.back()
+                    //FIXME: redirect to previous page
+                    location.href = "/"
                 } else if (res.status === 404) {
                     console.error(await res.json())
                     error = "L'utilisateur n'existe pas"

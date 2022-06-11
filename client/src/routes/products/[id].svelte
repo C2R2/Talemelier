@@ -7,6 +7,7 @@
     import QuantityControl from "$lib/QuantityControl.svelte"
     import { cart, products } from "../../stores.js"
     import slugify from "$functions/slugify.js"
+    import shuffle from "$functions/shuffle.js"
 
     $: productId = $page.params.id
 
@@ -71,7 +72,7 @@
   <h2>Autres produits</h2>
   <ProductCardCarrousel>
     {#if $products}
-      {#each $products as product}
+      {#each shuffle($products) as product}
         <ProductCard {product}/>
       {/each}
     {:else}
