@@ -43,11 +43,9 @@
 
 <section class="product">
   {#if product}
-    <div class="product__left">
-      <h1>{product.title}</h1>
+    <h1>{product.title}</h1>
+    <div class="product__content">
       <img alt="du pain" src={product.image}/>
-    </div>
-    <div class="product__right">
       <div class="infos">
         <span class="title">{product.title}</span>
         <span class="price">Prix : <b>{product.price} €</b></span>
@@ -55,7 +53,7 @@
           Quantité :
           <QuantityControl bind:productQuantity={quantity}/>
         </div>
-        {@html product.description}
+        <div> {@html product.description}</div>
       </div>
       {#if Cookies.get("token")}
         <Btn small onClick={handleSubmit}>Ajouter au panier</Btn>
@@ -93,34 +91,27 @@
     width: 90%;
     margin: 6rem auto;
     gap: 2rem;
-    @media (min-width: 768px) {
-      flex-direction: row;
-    }
+  }
 
-    > div {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      flex: 1;
-      justify-content: flex-end;
-      @media (min-width: 768px) {
-        gap: 1rem;
-      }
+  .product__content {
+    display: grid;
+    grid-template-rows: 1fr min-content;
+    grid-template-areas: "image infos" "image cta";
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-areas: "image" "infos" "cta";
     }
   }
 
 
   img {
-    display: flex;
-    flex-direction: column;
+    grid-area: image;
     width: 100%;
-    height: 16rem;
+    height: 100%;
     border-radius: 0.25rem;
     object-fit: cover;
     gap: 1rem;
-    @media (min-width: 768px) {
-      height: auto;
-    }
   }
 
   .infos {
@@ -130,6 +121,7 @@
     border-radius: 0.25rem;
     background-color: #D4CAC4;
     gap: 1rem;
+    justify-content: center;
   }
 
   .quantity {

@@ -61,8 +61,10 @@
   <div class="text">
     <h2>Une entreprise artisanale</h2>
     <p>
-      L’Atelier du Talemelier est une entreprise artisanale productrice de produits de boulangerie, pâtisserie et
-      traiteur depuis plus de 35 ans.
+      <b>Talemelier</b> est une entreprise <b>artisanale</b> productrice de produits de <b>boulangerie</b>, <b>pâtisserie</b> et
+      <b>traiteur bio</b> depuis plus de <b>35 ans</b>. Nous sommes les <b>précurseurs du bio</b> dans le Gers. Tous nos pains et biscuits sont réalisés avec
+      des produits issus
+      de l'<b>agriculture biologique</b>. Également nos farines sont <b>bio et locales</b> et nous les <b>façonnons à la main</b>.
     </p>
   </div>
 </section>
@@ -72,16 +74,17 @@
     <div class="where">
       <span>Où ?</span>
       <p>
-        Nos produits sont disponibles sur une sélections de marchés du sud-ouest de la France.
+        Nous vendons essentiellement sur le marché de <b>Fleurance</b> dans le Gers, dans les <b>magasins bio du Gers</b> et des <b>départements limitrophes</b>,
+        les <b>épiceries de villages</b> et les <b>épiceries fines</b>, les <b>écoles</b>, <b>collèges</b> et <b>lycées</b> et tous ceux qui veulent <b>promouvoir la qualité</b>.
       </p>
-      <Btn href="/infos#where">Voir les marchés</Btn>
+      <Btn small href="/infos#where">Voir les marchés</Btn>
     </div>
     <div class="when">
       <span>Quand ?</span>
       <p>
         Les horaires de récupération des produits change en fonction des marchés.
       </p>
-      <Btn href="/infos#hours">
+      <Btn small href="/infos#hours">
         Voir les horaires
       </Btn>
     </div>
@@ -113,6 +116,9 @@
 
 
 <style lang="scss">
+  b {
+    font-weight: 600;
+  }
   .display {
     height: 100vh;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 10)), url("/img/display.webp") no-repeat center center;
@@ -149,38 +155,72 @@
   }
 
   .infos {
-    position: relative;
-
-    .scroll-container {
-      background-color: #D4CAC4;
-      border: dashed 1px var(--black);
-      width: 90%;
-      margin: 0 auto 4rem auto;
-      padding: 1rem 2rem 2rem 2rem;
-      display: flex;
-      gap: 2rem;
-      border-radius: 0.25rem;
-      max-width: 64rem;
-      @media (max-width: 768px) {
-        overflow-x: scroll;
-        scroll-snap-type: x mandatory;
-        > * {
-          width: 100%;
-          flex-shrink: 0;
-        }
-      }
-
-      > * {
-        scroll-snap-align: center;
+    @media (min-width: 768px) {
+      .scroll-container {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-        align-items: center;
+        gap: 4rem;
+        margin: 8rem auto;
+        width: 90%;
+        max-width: 72rem;
+
+        > * {
+          border-bottom: 1px solid var(--black);
+          padding-bottom: 4rem;
+          display: grid;
+          grid-template-areas: "title description" "title cta";
+          grid-template-columns: 25% 1fr;
+          row-gap: 2rem;
+        }
 
         span {
+          font-size: 4rem;
           font-family: var(--title-font);
-          font-size: 2rem;
-          font-weight: 600;
+          grid-area: title;
+          display: flex;
+          margin: auto 0;
+        }
+
+        :global(a) {
+          grid-area: cta;
+          width: min-content;
+        }
+      }
+    }
+    @media (max-width: 768px) {
+      position: relative;
+
+      .scroll-container {
+        background-color: #D4CAC4;
+        border: dashed 1px var(--black);
+        width: 90%;
+        margin: 0 auto 8rem auto;
+        padding: 1rem 2rem 2rem 2rem;
+        display: flex;
+        gap: 2rem;
+        border-radius: 0.25rem;
+        max-width: 72rem;
+        @media (max-width: 768px) {
+          overflow-x: scroll;
+          scroll-snap-type: x mandatory;
+          > * {
+            width: 100%;
+            flex-shrink: 0;
+          }
+        }
+
+        > * {
+          scroll-snap-align: center;
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          align-items: center;
+
+          span {
+            font-family: var(--title-font);
+            font-size: 2rem;
+            font-weight: 600;
+          }
         }
       }
     }
@@ -192,8 +232,8 @@
     gap: 0.5rem;
     align-items: center;
     width: 90%;
-    margin: 4rem auto;
-    max-width: 64rem;
+    margin: 8rem auto;
+    max-width: 72rem;
     @media (min-width: 768px) {
       flex-direction: row;
       gap: 2rem;
@@ -203,6 +243,16 @@
     }
     @media (min-width: 1440px) {
       gap: 4rem;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    p {
+      line-height: 1.5;
     }
 
     img {
@@ -230,18 +280,41 @@
   }
 
   .products {
-    max-width: 64rem;
+    max-width: 72rem;
     margin: auto;
+    display: grid;
+    gap: 2rem;
+    width: 90%;
+
+    @media (min-width: 768px) {
+      grid-template-areas: "title carrousel" "more carrousel";
+      grid-template-columns: min-content 1fr;
+      border: solid 1px var(--black);
+      padding: 2rem;
+      border-radius: 0.25rem;
+      :global(.productCardCarrousel) {
+        grid-area: carrousel;
+      }
+    }
 
     h2 {
       font-size: 4rem;
       text-align: center;
-      margin-bottom: 1rem;
+      @media (min-width: 768px) {
+        text-align: left;
+        display: flex;
+        margin-top: auto;
+      }
     }
+
 
     .more {
       width: 90%;
-      margin: 2rem auto;
+      margin: auto;
+      @media (min-width: 768px) {
+        width: auto;
+        margin: 0;
+      }
     }
   }
 </style>

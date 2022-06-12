@@ -1,7 +1,6 @@
 <script>
     import Cookies from "js-cookie"
     import Btn from "$lib/Btn.svelte"
-    import { onMount } from "svelte"
 
     export let connected = false
 
@@ -14,12 +13,6 @@
   <a class="header-left" href="/"><img alt="logo Talemelier" src="/logo.svg"/></a>
   <div class="header-right">
     {#if connected}
-      <Btn outline onClick={() => {
-    Cookies.remove('token')
-    window.location.reload()
-      }}>
-        Deconnexion
-      </Btn>
       <a class="cart" href="/cart">
         Panier
         <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -29,14 +22,23 @@
           <path d="M16 10a4 4 0 01-8 0"></path>
         </svg>
       </a>
-      <a class="account" href="/account">
+      <button class="account">
         Mon compte
         <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
              stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
           <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
           <circle cx="12" cy="7" r="4"></circle>
         </svg>
-      </a>
+        <div class="account-popup">
+          <Btn outline href="/account">Accéder à mon compte</Btn>
+          <Btn outline onClick={() => {
+                Cookies.remove('token')
+                window.location.reload()
+            }}>
+            Deconnexion
+          </Btn>
+        </div>
+      </button>
     {:else}
       <Btn href="/login" outline>Se connecter</Btn>
       <Btn href="/register" outline>S'inscrire</Btn>
@@ -81,6 +83,26 @@
       align-items: center;
       gap: 0.5rem;
     }
+  }
 
+  .account {
+    position: relative;
+    &:focus, &:hover, &:focus-within {
+      .account-popup {
+        display: flex !important;
+      }
+    }
+  }
+
+  .account-popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #D4CAC4;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    flex-direction: column;
+    gap: 1rem;
   }
 </style>
