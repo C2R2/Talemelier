@@ -23,12 +23,7 @@
 
 <style lang="scss">
   a {
-    min-width: 18rem;
-    max-width: 20rem;
-    @media (min-width: 768px) {
-      min-width: 18rem;
-      max-width: 24rem;
-    }
+    width: 20rem;
   }
 
   figure {
