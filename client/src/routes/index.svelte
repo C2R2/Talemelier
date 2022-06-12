@@ -105,7 +105,7 @@
     {/if}
   </ProductCardCarrousel>
   <div class="more">
-    <Btn href="products" width="100%">
+    <Btn  href="products" width="100%">
       Découvrir nos produits
     </Btn>
   </div>
@@ -155,7 +155,7 @@
       background-color: #D4CAC4;
       border: dashed 1px var(--black);
       width: 90%;
-      margin: 0 auto 4rem auto;
+      margin: 0 auto 8rem auto;
       padding: 1rem 2rem 2rem 2rem;
       display: flex;
       gap: 2rem;
@@ -192,7 +192,7 @@
     gap: 0.5rem;
     align-items: center;
     width: 90%;
-    margin: 4rem auto;
+    margin: 8rem auto;
     max-width: 64rem;
     @media (min-width: 768px) {
       flex-direction: row;
@@ -232,6 +232,7 @@
   .products {
     max-width: 64rem;
     margin: auto;
+    //TODO: better desktop
 
     h2 {
       font-size: 4rem;

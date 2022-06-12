@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding: 2rem;
+    padding: 8rem 2rem 2rem 2rem;
     @media (max-width: 768px) {
       padding: 1rem;
     }

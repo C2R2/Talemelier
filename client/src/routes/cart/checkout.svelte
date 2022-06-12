@@ -211,6 +211,7 @@
 </main>
 
 <style lang="scss">
+  //FIXME : more padding on background
   .modal {
     display: flex;
     flex-direction: column;
