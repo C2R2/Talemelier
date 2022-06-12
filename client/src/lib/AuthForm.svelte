@@ -129,6 +129,7 @@
     text-align: center;
     color: white;
     background-color: var(--black);
+    font-family: var(--body-font);
   }
 
   .input-container {
