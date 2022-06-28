@@ -99,7 +99,7 @@
 <section class="products">
   <h2>Nos produits</h2>
   <ProductCardCarrousel>
-    {#if $products}
+    {#if $products.length > 0}
       {#each shuffle($products) as product}
         <ProductCard {product}/>
       {/each}
@@ -169,7 +169,7 @@
           padding-bottom: 4rem;
           display: grid;
           grid-template-areas: "title description" "title cta";
-          grid-template-columns: 25% 1fr;
+          grid-template-columns: 33% 1fr;
           row-gap: 2rem;
         }
 
@@ -184,6 +184,7 @@
         :global(a) {
           grid-area: cta;
           width: min-content;
+          justify-self: end;
         }
       }
     }

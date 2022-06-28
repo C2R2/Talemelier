@@ -4,6 +4,7 @@
     import { cart, collectData, products } from "../../stores.js"
     import { onMount } from "svelte"
     import Cookies from "js-cookie"
+    import formatter from "$functions/formatter.js"
 
     let success = false
     let redirect = false
@@ -20,11 +21,7 @@
         ...$products.find(product => product._id === cartItem._id),
         quantity: cartItem.quantity
     }))
-    const priceFormatter = new Intl.NumberFormat("fr-FR", {
-        style: "currency",
-        currency: "EUR",
-        minimumFractionDigits: 2
-    })
+
     $: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
 
     onMount(() => {
@@ -118,7 +115,7 @@
         }).then(res => {
             success = res.ok
             cart.set([])
-            //TODO: send email to user
+            //TODO : send email to user
         }).catch(err => {
             console.error(err)
             success = false
@@ -153,12 +150,12 @@
         {#each cartList as cartItem}
           <li>
             <img src={cartItem.image} alt={cartItem.title}>
-            {cartItem.title} <b class="price">{priceFormatter.format(cartItem.price)} x {cartItem.quantity}</b>
+            {cartItem.title} <b class="price">{formatter(cartItem.price)} x {cartItem.quantity}</b>
           </li>
         {/each}
       </ul>
       <span class="footer">
-      Total: <b class="price">{priceFormatter.format(totalPrice)}</b>
+      Total: <b class="price">{formatter(totalPrice)}</b>
     </span>
     </div>
   </section>
@@ -211,7 +208,6 @@
 </main>
 
 <style lang="scss">
-  //FIXME : more padding on background
   .modal {
     display: flex;
     flex-direction: column;
