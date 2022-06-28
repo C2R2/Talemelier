@@ -1,85 +1,84 @@
 <script>
-    import Btn from "$lib/Btn.svelte"
-    import Cookies from "js-cookie"
-    import Header from "$lib/Header.svelte"
+	import Btn from "$lib/Btn.svelte"
+	import Cookies from "js-cookie"
 
-    export let login = false
-    let email
-    let password = ""
-    let error
-    let passwordHidden = "password"
-    let pending = false
+	export let login = false
+	let email
+	let password = ""
+	let error
+	let passwordHidden = "password"
+	let pending = false
 
-    async function handleLogin () {
-        pending = true
-        await fetch("https://talemelier.herokuapp.com/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: JSON.stringify({
-                email, password
-            })
-        }).then(async res => {
-                if (res.status === 200) {
-                    Cookies.set("token", (await res.json()).token , { secure: true })
-                    // history.back()
-                    //FIXME: redirect to previous page
-                    location.href = "/"
-                } else if (res.status === 404) {
-                    console.error(await res.json())
-                    error = "L'utilisateur n'existe pas"
-                } else if (res.status === 400) {
-                    console.error(await res.json())
-                    document.location.pathname === "/login" ? error = "Mot de passe incorrect" : null
-                } else {
-                    console.error(await res.json())
-                    error = "Erreur inconnue. Veuillez réessayer"
-                }
-                pending = false
-            }
-        ).catch(err => {
-            error = err
-            console.error(err)
-        })
-    }
+	async function handleLogin () {
+		pending = true
+		await fetch("https://talemelier.herokuapp.com/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json"
+			},
+			body: JSON.stringify({
+				email, password
+			})
+		}).then(async res => {
+				if (res.status === 200) {
+					Cookies.set("token", (await res.json()).token, { secure: true })
+					// history.back()
+					//FIXME: redirect to previous page
+					location.href = "/"
+				} else if (res.status === 404) {
+					console.error(await res.json())
+					error = "L'utilisateur n'existe pas"
+				} else if (res.status === 400) {
+					console.error(await res.json())
+					document.location.pathname === "/login" ? error = "Mot de passe incorrect" : null
+				} else {
+					console.error(await res.json())
+					error = "Erreur inconnue. Veuillez réessayer"
+				}
+				pending = false
+			}
+		).catch(err => {
+			error = err
+			console.error(err)
+		})
+	}
 
-    async function handleRegister () {
-        pending = true
-        await fetch("https://talemelier.herokuapp.com/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email, password
-            })
-        }).then(async res => {
-            if (res.status === 201) {
-                await handleLogin()
-            } else if (res.status === 208) {
-                console.error(await res.json())
-                error = "L'utilisateur existe déjà"
-                await handleLogin()
-            } else {
-                console.error(await res.json())
-                error = "Erreur inconnue. Veuillez réessayer"
-            }
-            pending = false
-        }).catch(err => {
-            error = err
-            console.log(err)
-        })
-    }
+	async function handleRegister () {
+		pending = true
+		await fetch("https://talemelier.herokuapp.com/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				email, password
+			})
+		}).then(async res => {
+			if (res.status === 201) {
+				await handleLogin()
+			} else if (res.status === 208) {
+				console.error(await res.json())
+				error = "L'utilisateur existe déjà"
+				await handleLogin()
+			} else {
+				console.error(await res.json())
+				error = "Erreur inconnue. Veuillez réessayer"
+			}
+			pending = false
+		}).catch(err => {
+			error = err
+			console.log(err)
+		})
+	}
 </script>
 
 <form method="post" on:submit|preventDefault={login ? handleLogin : handleRegister}>
   <h3>{login ? "Se connecter à son" : "Créer un"} compte</h3>
   <div class="input-container">
-    <input bind:value={email} placeholder="Email" required type="text" autocomplete="email">
+    <input autocomplete="email" bind:value={email} placeholder="Email" required type="text">
     <div class="password">
-      <input on:input={(e)=>{password = e.target.value}} placeholder="Mot de passe" required autocomplete="current-password"
+      <input autocomplete="current-password" on:input={(e)=>{password = e.target.value}} placeholder="Mot de passe" required
              type={passwordHidden}
              value={password}/>
       <svg fill="none" height="24"

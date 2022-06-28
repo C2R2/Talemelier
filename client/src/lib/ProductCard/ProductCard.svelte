@@ -1,6 +1,7 @@
 <script>
     import Btn from "$lib/Btn.svelte"
     import slugify from "$functions/slugify.js"
+    import formatter from "$functions/formatter"
 
 
     export let product
@@ -13,7 +14,7 @@
     <figcaption>
       <span class="title">{product.title}</span>
       <p>{@html product.description}</p>
-      <span class="price">{product.price} €</span>
+      <span class="price">{formatter(product.price)}</span>
       <div class="cta">
         <Btn width="100%">Voir le produit</Btn>
       </div>

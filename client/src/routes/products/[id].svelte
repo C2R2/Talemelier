@@ -8,6 +8,7 @@
     import { cart, products } from "../../stores.js"
     import slugify from "$functions/slugify.js"
     import shuffle from "$functions/shuffle.js"
+    import formatter from "$functions/formatter"
 
     $: productId = $page.params.id
 
@@ -48,7 +49,7 @@
       <img alt="du pain" src={product.image}/>
       <div class="infos">
         <span class="title">{product.title}</span>
-        <span class="price">Prix : <b>{product.price} €</b></span>
+        <span class="price">Prix : <b>{formatter(product.price)} </b></span>
         <div class="quantity">
           Quantité :
           <QuantityControl bind:productQuantity={quantity}/>
@@ -56,9 +57,9 @@
         <div> {@html product.description}</div>
       </div>
       {#if Cookies.get("token")}
-        <Btn small onClick={handleSubmit}>Ajouter au panier</Btn>
+        <Btn  onClick={handleSubmit}>Ajouter au panier</Btn>
       {:else}
-        <Btn small href="/login">Connectez-vous pour ajouter au panier</Btn>
+        <Btn  href="/login">Connectez-vous pour ajouter au panier</Btn>
       {/if}
     </div>
   {:else}
@@ -112,6 +113,9 @@
     border-radius: 0.25rem;
     object-fit: cover;
     gap: 1rem;
+    @media (max-width: 768px) {
+      max-height: 16rem;
+    }
   }
 
   .infos {

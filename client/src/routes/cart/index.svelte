@@ -6,13 +6,10 @@
     import { cart, collectData, products } from "../../stores.js"
     import Select from "$lib/Select.svelte"
     import shuffle from "$functions/shuffle.js"
+    import formatter from "$functions/formatter.js"
 
     let markets = []
-    const formatter = new Intl.NumberFormat("fr-FR", {
-        style: "currency",
-        currency: "EUR",
-        minimumFractionDigits: 2
-    })
+
     let placeSelect = $collectData.place
     let daySelect = $collectData.day
     let hourSelect = $collectData.hour
@@ -73,7 +70,7 @@
           <div class="left">
             <div class="price">
               <QuantityControl bind:productQuantity={cartItem.quantity}/>
-              Prix unitaire: {formatter.format(cartItem.price)}
+              Prix unitaire: {formatter(cartItem.price)}
             </div>
             <Btn small onClick={()=>handleDelete(cartItem._id)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
