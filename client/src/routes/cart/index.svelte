@@ -1,55 +1,55 @@
 <script>
-    import QuantityControl from "$lib/QuantityControl.svelte"
-    import Btn from "$lib/Btn.svelte"
-    import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
-    import ProductCard from "$lib/ProductCard/ProductCard.svelte"
-    import { cart, collectData, products } from "../../stores.js"
-    import Select from "$lib/Select.svelte"
-    import shuffle from "$functions/shuffle.js"
-    import formatter from "$functions/formatter.js"
+	import QuantityControl from "$lib/QuantityControl.svelte"
+	import Btn from "$lib/Btn.svelte"
+	import ProductCardCarrousel from "$lib/ProductCard/ProductCardCarrousel.svelte"
+	import ProductCard from "$lib/ProductCard/ProductCard.svelte"
+	import { cart, collectData, products } from "../../stores.js"
+	import Select from "$lib/Select.svelte"
+	import shuffle from "$functions/shuffle.js"
+	import formatter from "$functions/formatter.js"
 
-    let markets = []
+	let markets = []
 
-    let placeSelect = $collectData.place
-    let daySelect = $collectData.day
-    let hourSelect = $collectData.hour
-    let cartList = $cart.map(cartItem => ({
-        ...$products.find(product => product._id === cartItem._id),
-        quantity: cartItem.quantity
-    }))
-    $: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
+	let placeSelect = $collectData.place
+	let daySelect = $collectData.day
+	let hourSelect = $collectData.hour
+	let cartList = $cart.map(cartItem => ({
+		...$products.find(product => product._id === cartItem._id),
+		quantity: cartItem.quantity
+	}))
+	$: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
 
-    function handleDelete (_id) {
-        cart.update(cartItem => cartItem.filter(item => item._id !== _id))
-        cartList = cartList.filter(item => item._id !== _id)
-    }
+	function handleDelete (_id) {
+		cart.update(cartItem => cartItem.filter(item => item._id !== _id))
+		cartList = cartList.filter(item => item._id !== _id)
+	}
 
-    function handleSubmit () {
-        cart.set(cartList.map(item => ({
-            _id: item._id,
-            quantity: item.quantity
-        })))
-        collectData.set({
-            place: placeSelect,
-            day: daySelect,
-            hour: hourSelect
-        })
-        window.location.href = "/cart/checkout"
-    }
+	function handleSubmit () {
+		cart.set(cartList.map(item => ({
+			_id: item._id,
+			quantity: item.quantity
+		})))
+		collectData.set({
+			place: placeSelect,
+			day: daySelect,
+			hour: hourSelect
+		})
+		window.location.href = "/cart/checkout"
+	}
 
-    fetch("https://talemelier.herokuapp.com/markets", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(res => res.json()).then(res => {
-        markets = res
-        if (!placeSelect || !daySelect || !hourSelect) {
-            placeSelect = res[0].place
-            daySelect = res[0].days[0]
-            hourSelect = res[0].hours[0]
-        }
-    })
+	fetch("https://talemelier.herokuapp.com/markets", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
+		}
+	}).then(res => res.json()).then(res => {
+		markets = res
+		if (!placeSelect || !daySelect || !hourSelect) {
+			placeSelect = res[0].place
+			daySelect = res[0].days[0]
+			hourSelect = res[0].hours[0]
+		}
+	})
 
 </script>
 
@@ -145,6 +145,8 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    position: relative;
+
     @media (min-width: 1100px) {
       flex-direction: row;
       > * {
@@ -153,7 +155,7 @@
     }
   }
 
-  .cart__recap{
+  .cart__recap {
     display: flex;
     flex-direction: column;
     gap: 1rem;

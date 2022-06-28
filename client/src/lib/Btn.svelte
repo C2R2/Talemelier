@@ -18,6 +18,7 @@
      class:outline
      class:small
      class:disabled
+     on:click={onClick}
   >
     <slot/>
     {@html children}
@@ -63,7 +64,7 @@
   .outline {
     padding: 0.5rem 1rem;
     border: 1px solid var(--second-black);
-    background-color: var(--background-color);
+    background-color: transparent;
   }
 
   .small {

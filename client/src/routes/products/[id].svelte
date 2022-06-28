@@ -20,8 +20,8 @@
         if ($cart.find((p) => p._id === product._id)) {
             // if product exists, update quantity
             cart.update((products) => {
-                let product = products.find((p) => p._id === product._id)
-                product.quantity += quantity
+                let newProduct = products.find((p) => p._id === product._id )
+                newProduct.quantity += quantity
                 return products
             })
         } else {
@@ -34,7 +34,7 @@
                 return products
             })
         }
-        window.location = "/cart"
+        // window.location = "/cart"
     }
 </script>
 
@@ -90,7 +90,7 @@
     display: flex;
     flex-direction: column;
     width: 90%;
-    margin: 6rem auto;
+    margin: 2rem auto 6rem auto;
     gap: 2rem;
   }
 
