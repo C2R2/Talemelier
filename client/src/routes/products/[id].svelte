@@ -8,7 +8,7 @@
     import { cart, products } from "../../stores.js"
     import slugify from "$functions/slugify.js"
     import shuffle from "$functions/shuffle.js"
-    import formatter from "$functions/formatter"
+    import formatter from "$functions/formatter.js"
 
     $: productId = $page.params.id
 

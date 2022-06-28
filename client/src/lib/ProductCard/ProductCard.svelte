@@ -1,7 +1,7 @@
 <script>
     import Btn from "$lib/Btn.svelte"
     import slugify from "$functions/slugify.js"
-    import formatter from "$functions/formatter"
+    import formatter from "$functions/formatter.js"
 
 
     export let product

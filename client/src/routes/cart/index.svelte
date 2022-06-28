@@ -87,7 +87,7 @@
       <div class="bottom">
         <hr>
         <div class="total">
-          Total: <b>{formatter.format(totalPrice)}</b>
+          Total: <b>{formatter(totalPrice)}</b>
         </div>
       </div>
     </ul>
@@ -128,7 +128,7 @@
 <section class="other">
   <h2>Autres produits</h2>
   <ProductCardCarrousel>
-    {#if $products}
+    {#if $products.length}
       {#each shuffle($products) as product}
         <ProductCard {product}/>
       {/each}

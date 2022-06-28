@@ -4,6 +4,6 @@ const numberFormat = new Intl.NumberFormat("fr-FR", {
   minimumFractionDigits: 2,
 });
 
-export default function formatter(numberToFormat : number) {
+export default function formatter(numberToFormat) {
   return numberFormat.format(numberToFormat);
 }
