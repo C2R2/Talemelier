@@ -7,6 +7,7 @@
 	import Select from "$lib/Select.svelte"
 	import shuffle from "$functions/shuffle.js"
 	import formatter from "$functions/formatter.js"
+	import slugify from "$functions/slugify.js"
 
 	let markets = []
 
@@ -63,11 +64,11 @@
     <ul>
       {#each cartList as cartItem}
         <li>
-          <a href={"/products/" + cartItem._id}>
+          <a href={`/products/${slugify(cartItem.title)}`} class="img-container">
             <img alt={cartItem.title} src={cartItem.image}>
           </a>
           <span>{cartItem.title}</span>
-          <div class="left">
+          <div class="right">
             <div class="price">
               <QuantityControl bind:productQuantity={cartItem.quantity}/>
               Prix unitaire: {formatter(cartItem.price)}
@@ -173,17 +174,22 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    flex: 1;
   }
 
   li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .left {
-    display: flex;
+    display: grid;
+    grid-template-columns: max-content 1fr max-content min-content;
     gap: 0.5rem;
+    place-items: center;
+    @media (min-width: 1100px) {
+      grid-template:  repeat(2, min-content) / repeat(2, 1fr);
+      justify-items: unset;
+      gap: 0 1rem;
+    }
+    @media (max-width: 425px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .price {
@@ -192,11 +198,38 @@
     gap: 0.5rem;
   }
 
-  img {
+  .right {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .img-container {
     width: 8rem;
+    @media (min-width: 1100px) {
+      grid-row: 1 / span 2;
+      width: 100%;
+    }
+    @media (max-width: 550px) {
+      width: 6rem;
+    }
+    @media (max-width: 425px) {
+      width: 100%;
+      grid-column: 1 / 3;
+    }
+  }
+
+  img {
+    width: 100%;
     height: 4rem;
     border-radius: 0.25rem;
     object-fit: cover;
+    @media (min-width: 1100px) {
+      height: 10rem;
+    }
+    @media (max-width: 425px) {
+      grid-row: 1/3;
+      height: 6rem;
+    }
   }
 
   hr {

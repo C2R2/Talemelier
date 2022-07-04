@@ -152,6 +152,9 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      @media (max-width: 500px) {
+        flex-direction: column-reverse;
+      }
     }
   }
 

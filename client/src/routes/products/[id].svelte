@@ -92,6 +92,7 @@
     width: 90%;
     margin: 2rem auto 6rem auto;
     gap: 2rem;
+    max-width: var(--max-width-container);
   }
 
   .product__content {
@@ -113,8 +114,10 @@
     border-radius: 0.25rem;
     object-fit: cover;
     gap: 1rem;
+    max-width: 32rem;
     @media (max-width: 768px) {
       max-height: 16rem;
+      max-width: unset;
     }
   }
 
@@ -138,6 +141,8 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    max-width: var(--max-width-container);
+    margin:  auto;
 
     h2 {
       width: 90%;

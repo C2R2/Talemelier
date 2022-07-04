@@ -149,7 +149,7 @@
       <ul>
         {#each cartList as cartItem}
           <li>
-            <img src={cartItem.image} alt={cartItem.title}>
+<!--            <img src={cartItem.image} alt={cartItem.title}>-->
             {cartItem.title} <b class="price">{formatter(cartItem.price)} x {cartItem.quantity}</b>
           </li>
         {/each}
