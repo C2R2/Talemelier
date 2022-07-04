@@ -5,6 +5,7 @@
   --second-black: #323232;
   --title-font: "meno-banner", serif;
   --body-font: "Acumin", sans-serif;
+  --max-width-container: 1200px;
 }
 
 ::selection {
