@@ -1,10 +1,8 @@
 <script>
-    import Btn from "$lib/Btn.svelte"
-    import slugify from "$functions/slugify.js"
-    import formatter from "$functions/formatter.js"
+	import slugify from "$functions/slugify.js"
+	import formatter from "$functions/formatter.js"
 
-
-    export let product
+	export let product
 
 </script>
 
@@ -13,25 +11,22 @@
     <img alt="du pain" src={product.image}/>
     <figcaption>
       <span class="title">{product.title}</span>
-      <p>{@html product.description}</p>
+      <p>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>
       <span class="price">{formatter(product.price)}</span>
-      <div class="cta">
-        <Btn width="100%">Voir le produit</Btn>
-      </div>
+      <!--      <div class="cta">-->
+      <!--        <Btn width="100%">Voir le produit</Btn>-->
+      <!--      </div>-->
     </figcaption>
   </figure>
 </a>
 
 <style lang="scss">
-  a {
-    width: 20rem;
-  }
-
   figure {
     overflow: hidden;
     border-radius: 0.25rem;
     background-color: #D4CAC4;
     flex-shrink: 0;
+    width: 20rem;
   }
 
   figcaption {
@@ -55,6 +50,7 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    /* autoprefixer: ignore next */
     -webkit-box-orient: vertical;
   }
 
