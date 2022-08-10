@@ -1,64 +1,68 @@
 <script>
-    import ProductCard from "$lib/ProductCard/ProductCard.svelte"
-    import Select from "$lib/Select.svelte"
-    import { products } from "../../stores.js"
+	import ProductCard from "$lib/ProductCard/ProductCard.svelte"
+	import Select from "$lib/Select.svelte"
+	import { products } from "../../stores.js"
 
-    let productsLimit = 10
-    let totalPages = Math.ceil($products.length / productsLimit)
-    let currentPage = 1
-    let filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
-    let filterTerm = ""
-    let searchTerm = ""
+	let productsLimit = 10
+	let totalPages = Math.ceil($products.length / productsLimit)
+	let currentPage = 1
+	let filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
+	let filterTerm = ""
+	let searchTerm = ""
 
-    function handleSearch (event) {
-        searchTerm = event.target.value
-        filteredProducts = $products.filter(product => {
-            return product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                product.ref.toLowerCase().includes(searchTerm.toLowerCase())
-        })
-        totalPages = Math.ceil(filteredProducts.length / productsLimit)
-        currentPage = 1
-        filteredProducts = filteredProducts.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
-    }
+	function handleSearch (event) {
+		searchTerm = event.target.value
+		filteredProducts = $products.filter(product => {
+			return product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+				product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+				product.ref.toLowerCase().includes(searchTerm.toLowerCase())
+		})
+		totalPages = Math.ceil(filteredProducts.length / productsLimit)
+		currentPage = 1
+		filteredProducts = filteredProducts.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
+	}
 
-    function handleFilter (event) {
-        filterTerm = event.target.value.trim()
-        switch (filterTerm) {
-            case "A-Z":
-                filteredProducts = $products.sort((a, b) => {
-                    return a.title.localeCompare(b.title)
-                })
-                break
-            case "Z-A":
-                filteredProducts = $products.sort((a, b) => {
-                    return b.title.localeCompare(a.title)
-                })
-                break
-            case "Prix croissant":
-                filteredProducts = $products.sort((a, b) => {
-                    return a.price - b.price
-                })
-                break
-            case "Prix décroissant":
-                filteredProducts = $products.sort((a, b) => {
-                    return b.price - a.price
-                })
-                break
-        }
+	function handleFilter (event) {
+		filterTerm = event.target.value.trim()
+		switch (filterTerm) {
+			case "A-Z":
+				filteredProducts = $products.sort((a, b) => {
+					return a.title.localeCompare(b.title)
+				})
+				break
+			case "Z-A":
+				filteredProducts = $products.sort((a, b) => {
+					return b.title.localeCompare(a.title)
+				})
+				break
+			case "Prix croissant":
+				filteredProducts = $products.sort((a, b) => {
+					return a.price - b.price
+				})
+				break
+			case "Prix décroissant":
+				filteredProducts = $products.sort((a, b) => {
+					return b.price - a.price
+				})
+				break
+		}
 
-        if (searchTerm) {
-            filteredProducts = filteredProducts.filter(product => {
-                return product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    product.ref.toLowerCase().includes(searchTerm.toLowerCase())
-            })
-        }
+		if (searchTerm) {
+			filteredProducts = filteredProducts.filter(product => {
+				return product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					product.ref.toLowerCase().includes(searchTerm.toLowerCase())
+			})
+		}
 
-        totalPages = Math.ceil(filteredProducts.length / productsLimit)
-        currentPage = 1
-        filteredProducts = filteredProducts.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
-    }
+		totalPages = Math.ceil(filteredProducts.length / productsLimit)
+		currentPage = 1
+		filteredProducts = filteredProducts.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
+	}
+
+	function handlePage () {
+		filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
+	}
 
 
 </script>
@@ -111,15 +115,23 @@
   </div>
 
   <div class="pagination">
-    <span class="left" on:click={()=>{ currentPage > 1 && currentPage--}}>←</span>
+    <span class="left" on:click={()=>{
+			currentPage > 1
+     currentPage--
+		handlePage()
+		}}>←</span>
     {#each Array(totalPages) as _, index}
       <span class:current={index +1 === currentPage} on:click={(event) => {
          event.target.classList.add("current")
         currentPage = index + 1
-        filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
+        handlePage()
       }}>{index + 1}</span>
     {/each}
-    <span class="right" on:click={()=>{ currentPage < totalPages && currentPage++}}>→</span>
+    <span class="right" on:click={()=>{
+			currentPage < totalPages
+     currentPage++
+		handlePage()
+		}}>→</span>
   </div>
 </section>
 
