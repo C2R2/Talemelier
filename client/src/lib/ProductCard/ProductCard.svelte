@@ -1,8 +1,16 @@
 <script>
 	import slugify from "$functions/slugify.js"
 	import formatter from "$functions/formatter.js"
+	import { onMount } from "svelte"
 
 	export let product
+	let isSafari = false
+
+	//detect if the browser is safari
+
+	onMount(() => {
+		isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+	})
 
 </script>
 
@@ -11,7 +19,7 @@
     <img alt="du pain" src={product.image}/>
     <figcaption>
       <span class="title">{product.title}</span>
-      <p>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>
+      <p class:isSafari>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>
       <span class="price">{formatter(product.price)}</span>
       <!--      <div class="cta">-->
       <!--        <Btn width="100%">Voir le produit</Btn>-->
@@ -50,9 +58,13 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    /* autoprefixer: ignore next */
     -webkit-box-orient: vertical;
   }
+
+  .isSafari {
+    -webkit-box-orient: unset;
+  }
+
 
   .price {
     grid-area: price;
