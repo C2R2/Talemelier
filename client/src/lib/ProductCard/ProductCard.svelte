@@ -1,16 +1,17 @@
 <script>
 	import slugify from "$functions/slugify.js"
 	import formatter from "$functions/formatter.js"
+	import clamp from "clamp-js/clamp"
 	import { onMount } from "svelte"
 
 	export let product
-	let isSafari = false
+  let productDescriptionElement
 
-	//detect if the browser is safari
+  onMount(()=>{
+	  clamp(productDescriptionElement, {clamp: 2})
+  })
 
-	onMount(() => {
-		isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-	})
+
 
 </script>
 
@@ -19,7 +20,7 @@
     <img alt="du pain" src={product.image}/>
     <figcaption>
       <span class="title">{product.title}</span>
-      <p class:isSafari>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>
+      <p bind:this={productDescriptionElement}>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>
       <span class="price">{formatter(product.price)}</span>
       <!--      <div class="cta">-->
       <!--        <Btn width="100%">Voir le produit</Btn>-->
@@ -35,6 +36,10 @@
     background-color: #D4CAC4;
     flex-shrink: 0;
     width: 20rem;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      transform: scale(0.99);
+    }
   }
 
   figcaption {
@@ -54,17 +59,12 @@
 
   p {
     grid-area: description;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    //overflow: hidden;
+    //text-overflow: ellipsis;
+    //display: -webkit-box;
+    //-webkit-line-clamp: 2;
+    //-webkit-box-orient: vertical;
   }
-
-  .isSafari {
-    -webkit-box-orient: unset;
-  }
-
 
   .price {
     grid-area: price;
