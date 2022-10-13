@@ -12,6 +12,7 @@
     onMount(() => {
         selectEl.firstChild.selected = true
     })
+    console.log(value)
 </script>
 
 <div class="select" class:allsize>
@@ -19,7 +20,8 @@
     <slot/>
     {#if options.length > 0}
       {#each options as option}
-        <option value={option.value}>{option.label}</option>
+        {console.log()}
+        <option value={option.value} selected={value === option.value}>{option.label}</option>
       {/each}
     {/if}
   </select>
