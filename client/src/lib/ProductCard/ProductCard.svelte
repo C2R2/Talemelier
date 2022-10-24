@@ -1,7 +1,6 @@
 <script>
 	import slugify from "$functions/slugify.js"
 	import formatter from "$functions/formatter.js"
-	import clamp from "clamp-js/clamp"
 	import { onMount } from "svelte"
 
 	export let product
