@@ -8,7 +8,9 @@ const config = {
         adapter: adapter(), vite: {
             resolve: {
                 alias: {
-                    "$functions": path.resolve("./src/functions")
+                    "$functions": path.resolve("./src/functions"),
+                    "$lib": path.resolve("./src/lib"),
+                    "$routes": path.resolve("./src/routes"),
                 }
             }
         }

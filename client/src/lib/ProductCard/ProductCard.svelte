@@ -5,27 +5,26 @@
 	import { onMount } from "svelte"
 
 	export let product
-  let productDescriptionElement
+	let productDescriptionElement
 
-  onMount(()=>{
-	  clamp(productDescriptionElement, {clamp: 2})
-  })
-
+	// onMount(() => {
+	// 	clamp(productDescriptionElement, { clamp: 2 })
+	// })
 
 
 </script>
 
 <a href={`/products/${slugify(product.title)}`}>
   <figure class="product-card">
-    <img alt="du pain" src={product.image}/>
     <figcaption>
       <span class="title">{product.title}</span>
-      <p bind:this={productDescriptionElement}>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>
+      <!--      <p bind:this={productDescriptionElement}>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>-->
       <span class="price">{formatter(product.price)}</span>
       <!--      <div class="cta">-->
       <!--        <Btn width="100%">Voir le produit</Btn>-->
       <!--      </div>-->
     </figcaption>
+    <img alt="du pain" src={product.image}/>
   </figure>
 </a>
 
@@ -35,8 +34,10 @@
     border-radius: 0.25rem;
     background-color: #D4CAC4;
     flex-shrink: 0;
-    width: 20rem;
+    width: 16rem;
     transition: transform 0.2s ease-in-out;
+    padding: 1rem;
+
     &:hover {
       transform: scale(0.99);
     }
@@ -46,13 +47,14 @@
     display: grid;
     border-radius: 0.25rem;
     grid-template-areas: "title cta" "description cta" "price cta";
-    gap: 0.5rem;
-    padding: 1rem;
+    //gap: 0.5rem;
+    //padding: 1rem;
+    margin-bottom: 1rem;
   }
 
   .title {
     grid-area: title;
-    font-size: 1.25rem;
+    //font-size: 1.25rem;
     font-weight: 600;
     white-space: nowrap;
   }
@@ -74,6 +76,7 @@
     width: 100%;
     height: 16rem;
     object-fit: cover;
+    border-radius: 0.25rem;
   }
 
   .cta {

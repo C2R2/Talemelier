@@ -18,7 +18,7 @@
 </script>
 
 <div class="quantity-control">
-  <Btn small onClick={() => removeProduct()} outline>-</Btn>
+  <Btn borderRadius="0.25rem" padding="0.25rem 0.75rem" color="var(--black)" small onClick={() => removeProduct()} outline>-</Btn>
   <input bind:value={productQuantity} max="99" maxlength="2" min="1"
          on:keypress={(e)=> {
             e.key === '-' ? e.preventDefault() : null
@@ -26,20 +26,20 @@
          }}
          required
          type="number"/>
-  <Btn small onClick={() => addProduct()} outline>+</Btn>
+  <Btn borderRadius="0.25rem" padding="0.25rem 0.75rem" color="var(--black)" small onClick={() => addProduct()} outline>+</Btn>
 </div>
 
 <style lang="scss">
   .quantity-control {
     display: flex;
-    gap: 0.5rem;
     align-items: center;
 
     input {
-      padding: 0.5rem 1rem 0.5rem 0.25rem;
+      padding: 0.5rem 0.75rem 0.5rem 0;
       border: none;
-      background-color: var(--background-color);
+      background-color: transparent;
       text-align: right;
+      outline: none;
 
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;

@@ -25,11 +25,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: false,
     trim: true,
+	  required: [true, "Please provide a first name!"],
   },
   lastName: {
     type: String,
     unique: false,
     trim: true,
+	  required: [true, "Please provide a last name!"],
   },
   tel: {
     type: String,
