@@ -161,6 +161,16 @@
   </section>
 
   <form class="client" on:submit={handleSubmit}>
+    <div>
+      <span class="title">Lieu de récupération</span>
+      <p>{$collectData.place}</p>
+    </div>
+    <div>
+      <span class="title">Date de récupération</span>
+      <p>
+        {nextDate} à {$collectData.hour}00
+      </p>
+    </div>
     <span class="title">Pour mettre à jour les informations, veuillez vous rendre sur la page <a class="underline" href="/account">"Mon compte"</a>.</span>
     {#if userInfos.firstName}
       <div>
@@ -193,16 +203,6 @@
         </label>
       </div>
     {/if}
-    <div>
-      <span class="title">Lieu de récupération</span>
-      <p>{$collectData.place}</p>
-    </div>
-    <div>
-      <span class="title">Date de récupération</span>
-      <p>
-        {nextDate} à {$collectData.hour}00
-      </p>
-    </div>
     <Btn small type="submit">{submit ? "Chargement..." : "Valider"}</Btn>
   </form>
 </main>
