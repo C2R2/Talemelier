@@ -9,9 +9,15 @@
 	let filteredProducts = $products.slice(currentPage * productsLimit - productsLimit, currentPage * productsLimit)
 	let filterTerm = ""
 	let searchTerm = ""
+	let searchInput = null
 
 	function handleSearch (event) {
 		searchTerm = event.target.value
+		if (searchTerm.length > 0) {
+			searchInput.classList.remove("search-input")
+		} else {
+      searchInput.classList.add("search-input")
+    }
 		filteredProducts = $products.filter(product => {
 			return product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
 				product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -72,18 +78,13 @@
 </svelte:head>
 
 <section class="head">
-  <h1>Les produits</h1>
-
-  <p class="instruction">
-    Passez votre commande puis venez récupérer vos produits sur les différents marchés.
-  </p>
-</section>
-<!-- -->
-<section class="all-products">
-  <h2>Tous nos produits</h2>
+  <h1>Nos produits</h1>
   <div class="filters">
+    <div bind:this={searchInput} class="search-input">
+      <input on:input={handleSearch} placeholder="Que souhaitez-vous commander ?" type="search">
+    </div>
     <Select onChange={handleFilter}>
-      <option selected>Trier</option>
+      <option selected>Trier par</option>
       <option>
         A-Z
       </option>
@@ -97,9 +98,10 @@
         Prix décroissant
       </option>
     </Select>
-    <input on:input={handleSearch} placeholder="Rechercher un produit" type="search">
   </div>
-
+</section>
+<!-- -->
+<section class="all-products">
   <div class="products">
     {#if filteredProducts.length > 0}
       {#each filteredProducts as product}
@@ -114,34 +116,64 @@
     {/if}
   </div>
 
-  <div class="pagination">
-    <span class="left" on:click={()=>{
-			currentPage > 1
-     currentPage--
-		handlePage()
-		}}>←</span>
-    {#each Array(totalPages) as _, index}
-      <span class:current={index +1 === currentPage} on:click={(event) => {
-         event.target.classList.add("current")
-        currentPage = index + 1
-        handlePage()
-      }}>{index + 1}</span>
-    {/each}
-    <span class="right" on:click={()=>{
-			currentPage < totalPages
-     currentPage++
-		handlePage()
-		}}>→</span>
-  </div>
+  {#if filteredProducts.length > 0}
+    <div class="pagination">
+      <span class="left" on:click={()=>{
+        currentPage > 1
+       currentPage--
+      handlePage()
+      }}>←</span>
+      {#each Array(totalPages) as _, index}
+        <span class:current={index +1 === currentPage} on:click={(event) => {
+           event.target.classList.add("current")
+          currentPage = index + 1
+          handlePage()
+        }}>{index + 1}</span>
+      {/each}
+      <span class="right" on:click={()=>{
+        currentPage < totalPages
+       currentPage++
+      handlePage()
+      }}>→</span>
+    </div>
+  {/if}
 </section>
 
 <style lang="scss">
+  h1 {
+    font-family: var(--body-font);
+    font-weight: 400;
+  }
+
   .head {
     width: 90%;
-    margin: 6rem auto 2rem auto;
+    margin: 6rem auto 4rem auto;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .filters {
+    display: flex;
     gap: 1rem;
+    align-items: center;
+
+    input {
+      background: var(--white);
+      width: 16rem;
+      padding: 1rem;
+    }
+
+    .search-input {
+      position: relative;
+      display: flex;
+      align-items: center;
+      &::after {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 21 20'%3E%3Cpath d='M10 0a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19Zm0 11.8H7a.8.8 0 0 1-.8-.8c0-.4.4-.8.8-.8h3c.4 0 .8.4.8.8s-.4.8-.8.8Zm3-3H7a.8.8 0 0 1-.8-.8c0-.4.4-.8.8-.8h6c.4 0 .8.4.8.8s-.4.8-.8.8ZM19.8 20c-.2 0-.4 0-.5-.2l-1.8-1.9a.7.7 0 0 1 0-1c.2-.2.7-.2 1 0l1.8 2c.3.2.3.6 0 .9l-.5.2Z'/%3E%3C/svg%3E");
+        position: absolute;
+        right: 1rem;
+        width: 1rem;
+      }
+    }
   }
 
   .instruction {
@@ -157,30 +189,21 @@
     flex-direction: column;
     gap: 2rem;
 
-    .filters {
-      display: flex;
-      gap: 1rem;
-
-      input {
-        background: transparent;
-        width: 16rem;
-      }
-    }
 
     .products {
       gap: 2rem;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       justify-items: center;
-      @media (max-width: 768px) {
-        grid-template-columns: repeat(1, 1fr);
-      }
-      @media (min-width: 1024px) {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      @media (min-width: 1440px) {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      //@media (max-width: 768px) {
+      //  grid-template-columns: repeat(1, 1fr);
+      //}
+      //@media (min-width: 992px) {
+      //  grid-template-columns: repeat(3, 1fr);
+      //}
+      //@media (min-width: 1024px) {
+      //  grid-template-columns: repeat(4, 1fr);
+      //}
     }
   }
 

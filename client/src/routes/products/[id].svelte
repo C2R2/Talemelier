@@ -49,18 +49,18 @@
       <img alt="du pain" src={product.image}/>
       <div class="infos">
         <span class="title">{product.title}</span>
-        <span class="price">Prix : <b>{formatter(product.price)} </b></span>
+        <div> {@html product.description}</div>
         <div class="quantity">
           Quantité :
           <QuantityControl bind:productQuantity={quantity}/>
         </div>
-        <div> {@html product.description}</div>
-      </div>
+        <span class="price">Prix : <b>{formatter(product.price)} </b></span>
       {#if Cookies.get("token")}
-        <Btn  onClick={handleSubmit}>Ajouter au panier</Btn>
+        <Btn onClick={handleSubmit}>Ajouter au panier</Btn>
       {:else}
-        <Btn  href="/login">Connectez-vous pour ajouter au panier</Btn>
+        <Btn href="/login">Connectez-vous pour ajouter au panier</Btn>
       {/if}
+      </div>
     </div>
   {:else}
     <p>Chargement...</p>
@@ -78,12 +78,20 @@
       <div class="loader"></div>
     {/if}
   </ProductCardCarrousel>
+  <div class="cta">
+    <Btn href="/products">Voir le catalogue</Btn>
+  </div>
 </section>
 
 
 <style lang="scss">
   b {
     font-weight: 600;
+  }
+
+  h1, h2 {
+    font-family: var(--body-font);
+    font-weight: 400;
   }
 
   .product {
@@ -114,9 +122,11 @@
     border-radius: 0.25rem;
     object-fit: cover;
     gap: 1rem;
-    max-width: 32rem;
+    max-width: 48rem;
+    max-height: 32rem;
+
     @media (max-width: 768px) {
-      max-height: 16rem;
+      max-height: 24rem;
       max-width: unset;
     }
   }
@@ -124,11 +134,14 @@
   .infos {
     display: flex;
     flex-direction: column;
-    padding: 1rem 2rem;
+    padding: 0 1rem;
     border-radius: 0.25rem;
-    background-color: #D4CAC4;
-    gap: 1rem;
-    justify-content: center;
+    gap: 2rem;
+    align-items:start;
+  }
+
+  .title{
+    font-weight: 600;
   }
 
   .quantity {
@@ -140,9 +153,14 @@
   .other {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     max-width: var(--max-width-container);
-    margin:  auto;
+    margin: auto;
+
+    .cta{
+      align-self: flex-end;
+      margin-right: 1rem;
+    }
 
     h2 {
       width: 90%;

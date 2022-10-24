@@ -99,6 +99,8 @@
           <Btn small width="100%" href="/account">Accéder à mon compte</Btn>
           <Btn
               outline
+              small
+              color="var(--primary)"
               onClick={() => {
               Cookies.remove("token")
               window.location.reload()
@@ -122,7 +124,12 @@
           Connexion
         </a>
       {/if}
-      <a href="/about">À propos</a>
+      <a href="/about">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path  d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 6 1-1 1 1v5l-1 1-1-1V8Zm2 8v1h-2v-2h2v1Z"/>
+        </svg>
+        À propos
+      </a>
     </div>
   </header>
 {/key}

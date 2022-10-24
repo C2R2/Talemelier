@@ -51,6 +51,7 @@
   Chargement...
 {:then users}
   {#key users}
+    {console.log(users)}
     <Grid data={users}
           filteredFields={["_id", "email", "role"]}
           title="Utilisateurs"
@@ -69,8 +70,7 @@
     render: [{
         component: Select,
         props: row =>{
-					console.log(row.role)
-					return( {
+					return({
             value: row.role,
             onChange: (event) => handleChange(event, row._id).then((res)=> res.status > 300 && alert("Erreur lors de la modification de l'utilisateur") ).catch(()=>alert("Erreur lors de la modification de l'utilisateur")),
             options: [

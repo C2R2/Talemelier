@@ -67,14 +67,14 @@
           <a href={`/products/${slugify(cartItem.title)}`} class="img-container">
             <img alt={cartItem.title} src={cartItem.image}>
           </a>
-          <span>{cartItem.title}</span>
+          <span class="title">{cartItem.title}</span>
           <div class="right">
             <div class="price">
               <QuantityControl bind:productQuantity={cartItem.quantity}/>
               Prix unitaire: {formatter(cartItem.price)}
             </div>
-            <Btn small onClick={()=>handleDelete(cartItem._id)}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            <Btn padding="0.5rem 0.75rem" small onClick={()=>handleDelete(cartItem._id)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -137,9 +137,21 @@
       <div class="loader"></div>
     {/if}
   </ProductCardCarrousel>
+  <div class="cta">
+    <Btn href="/products">Voir le catalogue</Btn>
+  </div>
 </section>
 
 <style lang="scss">
+  h1, h2 {
+    font-family: var(--body-font);
+    font-size: 2rem;
+    font-weight: 400;
+  }
+
+  .title{
+    font-weight: 600;
+  }
   .cart {
     width: 90%;
     margin: 6rem auto 4rem auto;
@@ -160,11 +172,6 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
-
-  h1 {
-    font-size: 3rem;
-    font-weight: 400;
   }
 
   ul {
@@ -201,6 +208,7 @@
   .right {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
   }
 
   .img-container {
@@ -259,6 +267,11 @@
     flex-direction: column;
     gap: 1rem;
 
+    .cta{
+      align-self: flex-end;
+      margin-right: 1rem;
+    }
+
     h2 {
       width: 90%;
       margin: 0 auto;
@@ -274,9 +287,8 @@
   .input-container {
     display: flex;
     flex-direction: column;
-    background-color: #D4CAC4;
     gap: 1rem;
-    padding: 2rem 1.5rem;
+    padding: 1rem 0;
     border-radius: 0.25rem;
 
     div {

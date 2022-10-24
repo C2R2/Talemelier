@@ -9,6 +9,8 @@
   export let type = "button"
   export let disabled = false
   export let color = ""
+  export let borderRadius = ""
+  export let padding = ""
 </script>
 
 {#if href}
@@ -17,6 +19,8 @@
     style:width
     style:color={color}
     style:border-color={color}
+    style:border-radius={borderRadius}
+    style:padding={padding}
     {href}
     class={$$props.class}
     class:outline
@@ -33,6 +37,8 @@
     style:width
     style:color={color}
     style:border-color={color}
+    style:border-radius={borderRadius}
+    style:padding={padding}
     on:click={onClick}
     class={$$props.class}
     class:outline

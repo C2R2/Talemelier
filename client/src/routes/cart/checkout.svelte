@@ -208,6 +208,11 @@
 </main>
 
 <style lang="scss">
+  h1{
+    font-family: var(--body-font);
+    font-weight: 400  ;
+  }
+
   .modal {
     display: flex;
     flex-direction: column;
