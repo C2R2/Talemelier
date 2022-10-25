@@ -20,6 +20,7 @@
     position: fixed;
     border-radius: 0.25rem;
     width: 90%;
+    max-width: 500px;
     background: var(--background-color);
     border: 1px solid var(--black);
     margin: auto;

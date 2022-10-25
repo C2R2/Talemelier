@@ -18,11 +18,11 @@
       let dot = document.createElement("div")
       dot.classList.add("dot")
     }
-    setTimeout(() => {
-      if (dotsContainer.children[0]) {
-        dotsContainer.children[0].style.backgroundColor = "var(--primary-color)"
-      }
-    }, 1)
+    // setTimeout(() => {
+    //   if (dotsContainer.children[0]) {
+    //     dotsContainer.children[0].style.backgroundColor = "var(--primary-color)"
+    //   }
+    // }, 1)
   })
 
   function infosScroll() {
