@@ -7,9 +7,8 @@
 	export let connected = false
 	export let color
 	let productAdded = false
-	// burger = true if th viewport is less than 768px
 	let burger = false
-	let menuOpen = false
+	let menuOpen = true
 
 	if (typeof window !== "undefined") {
 		window.addEventListener("resize", () => {
@@ -50,7 +49,7 @@
     </a>
     {#if burger}
       {#if menuOpen}
-        <svg on:click={toggleMenu}  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        <svg style="cursor: pointer" on:click={toggleMenu} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
              stroke="currentColor" stroke-width="2"
              stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -121,6 +120,12 @@
               </div>
             {/if}
           </a>
+          <a href="/about">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 6 1-1 1 1v5l-1 1-1-1V8Zm2 8v1h-2v-2h2v1Z"/>
+            </svg>
+            À propos
+          </a>
           {#if connected}
             <button class="account">
               <svg
@@ -162,12 +167,6 @@
               Connexion
             </a>
           {/if}
-          <a href="/about">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1 6 1-1 1 1v5l-1 1-1-1V8Zm2 8v1h-2v-2h2v1Z"/>
-            </svg>
-            À propos
-          </a>
         </div>
       {/if}
 
@@ -346,9 +345,7 @@
       gap: 0.5rem;
       color: inherit;
       border-color: inherit;
-      @media (max-width: 500px) {
-        flex-direction: column-reverse;
-      }
+
     }
   }
 
@@ -360,6 +357,9 @@
     border-radius: 0.5rem;
     color: var(--black) !important;
     outline: var(--black) 1px solid;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
   }
 
   .account {

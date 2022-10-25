@@ -74,7 +74,7 @@
               Prix unitaire: {formatter(cartItem.price)}
             </div>
             <Btn padding="0.5rem 0.75rem" small onClick={()=>handleDelete(cartItem._id)}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              <svg class="delete-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -188,7 +188,7 @@
     display: grid;
     grid-template-columns: max-content 1fr max-content min-content;
     gap: 0.5rem;
-    place-items: center;
+    align-items: center;
     @media (min-width: 1100px) {
       grid-template:  repeat(2, min-content) / repeat(2, 1fr);
       justify-items: unset;
@@ -209,6 +209,14 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 425px) {
+    .delete-icon {
+      width: 1rem;
+      height: 1rem;
+    }
   }
 
   .img-container {

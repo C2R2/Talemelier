@@ -131,7 +131,7 @@
   <title>Validation de la commande - Talemelier</title>
 </svelte:head>
 
-{#if !success}
+{#if success}
   <Modal>
     <div class="modal">
       <h1>Merci !</h1>

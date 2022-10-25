@@ -150,12 +150,20 @@
     margin: 6rem auto 4rem auto;
     display: flex;
     justify-content: space-between;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
   }
 
   .filters {
     display: flex;
     gap: 1rem;
     align-items: center;
+    @media (max-width: 768px) {
+      margin-top: 2rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
     input {
       background: var(--white);
