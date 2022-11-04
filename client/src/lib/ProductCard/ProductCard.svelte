@@ -28,12 +28,16 @@
 </a>
 
 <style lang="scss">
+  a{
+    width: 100%;
+  }
   figure {
     overflow: hidden;
     border-radius: 0.25rem;
     background-color: #D4CAC4;
     flex-shrink: 0;
-    width: 16rem;
+    width: 100%;
+    min-width: 16rem;
     transition: transform 0.2s ease-in-out;
     padding: 1rem;
 

@@ -123,8 +123,6 @@
 			success = false
 		})
 	}
-
-
 </script>
 
 <svelte:head>

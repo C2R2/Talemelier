@@ -194,7 +194,7 @@
       justify-items: unset;
       gap: 0 1rem;
     }
-    @media (max-width: 425px) {
+    @media (max-width: 550px) {
       grid-template-columns: repeat(2, 1fr);
     }
   }
@@ -212,7 +212,7 @@
     gap: 0.5rem;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 550px) {
     .delete-icon {
       width: 1rem;
       height: 1rem;
@@ -226,11 +226,11 @@
       width: 100%;
     }
     @media (max-width: 550px) {
-      width: 6rem;
-    }
-    @media (max-width: 425px) {
+      //width: 6rem;
       width: 100%;
       grid-column: 1 / 3;
+    }
+    @media (max-width: 425px) {
     }
   }
 
@@ -242,7 +242,7 @@
     @media (min-width: 1100px) {
       height: 10rem;
     }
-    @media (max-width: 425px) {
+    @media (max-width: 550px) {
       grid-row: 1/3;
       height: 6rem;
     }

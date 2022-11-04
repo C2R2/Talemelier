@@ -56,6 +56,32 @@
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
+        {#if productAdded}
+          <div class="cart-popup">
+            <h2>Merci !</h2>
+            <span>Ce produit à été ajouté au panier</span>
+            <Btn
+                href="/cart"
+                onClick={() => {
+              productAdded = false
+            }}
+                small
+            >
+              Voir mon panier
+            </Btn>
+            <Btn
+                onClick={(e) => {
+              e.preventDefault()
+              productAdded = false
+            }}
+                small
+                outline
+                color="var(--black)"
+            >
+              Continuer mes achats
+            </Btn>
+          </div>
+        {/if}
       {:else}
         <div class="header-right header-right-burger" style:color>
           <svg class="burger-icon" on:click={toggleMenu} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
