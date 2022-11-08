@@ -6,11 +6,20 @@
 	import { products } from "../stores.js"
 	import shuffle from "$functions/shuffle.js"
 
-
 	let infosWidth
 	let infosEl
 	let infosChildren = []
 	let dotsContainer
+	let markets = []
+
+	fetch("https://talemelier.herokuapp.com/markets", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
+		}
+	}).then(res => res.json()).then(res => {
+		markets = res
+	})
 
 	onMount(() => {
 		if (infosWidth < 692) {
@@ -26,7 +35,7 @@
 		// }, 1)
 	})
 
-	function infosScroll() {
+	function infosScroll () {
 		if (infosWidth < 692) {
 			// console.log(Math.round(infosEl.scrollLeft / infosEl.children[0].offsetWidth))
 
@@ -41,6 +50,8 @@
 			}
 		}
 	}
+
+
 </script>
 
 <section class="display">
@@ -62,43 +73,46 @@
       <b>précurseurs du bio</b>
       dans le Gers. Tous nos pains et biscuits sont réalisés avec des produits
       issus de l'<b>agriculture biologique</b>. Également nos farines sont
-      <b>bio et locales</b>
-      et nous les <b>façonnons à la main</b>.
+      <b>bio et locales</b> et nous les <b>façonnons à la main</b>.
     </p>
   </div>
 </section>
 
 <section class="infos">
   <div
-    bind:offsetWidth={infosWidth}
-    bind:this={infosEl}
-    class="scroll-container"
-    on:scroll={infosScroll}
+      bind:offsetWidth={infosWidth}
+      bind:this={infosEl}
+      class="scroll-container"
+      on:scroll={infosScroll}
   >
     <div class="where">
       <span>Où ?</span>
-      <p>
-        Nous vendons essentiellement sur le marché de <b>Fleurance</b> dans le
-        Gers, dans les <b>magasins bio du Gers</b> et des
-        <b>départements limitrophes</b>, les <b>épiceries de villages</b> et les
-        <b>épiceries fines</b>, les <b>écoles</b>, <b>collèges</b> et
-        <b>lycées</b>
-        et tous ceux qui veulent <b>promouvoir la qualité</b>.
-      </p>
-      <Btn small href="/infos#where">Voir les marchés</Btn>
+      <p>Vous pouvez récupérer vos produits sur les différent marchés :</p>
+      <ul>
+        {#key markets}
+          {#if markets.length > 0}
+            {#each markets as market}
+              <li>{market.place.split(',')[0]}, <strong>{market.place.split(',')[1]}</strong> le <strong>{market.days.map((day) => day).join(" ou ")}</strong> à
+                <strong>{market.hours.map((hour) => hour).join(" ou ")}</strong></li>
+            {/each}
+          {:else}
+            <li class="loader"></li>
+          {/if}
+        {/key}
+      </ul>
     </div>
-    <div class="when">
+    <!--<div class="when">
       <span>Quand ?</span>
       <p>
         Les horaires de récupération des produits change en fonction des
         marchés.
       </p>
-      <Btn small href="/infos#hours">Voir les horaires</Btn>
-    </div>
+      <Btn href="/infos#hours" small>Voir les horaires</Btn>
+    </div>-->
   </div>
   <div bind:this={dotsContainer} class="dots-container">
     {#each infosChildren as i}
-      <div class="dot active" />
+      <div class="dot active"/>
     {/each}
   </div>
 </section>
@@ -120,6 +134,14 @@
 </section>
 
 <style lang="scss">
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: unset;
+    margin-left: 1rem;
+  }
+
   .display {
     height: 100vh;
     background: linear-gradient(180deg, rgba(24, 20, 17, 0.45) 44.3%, rgba(221, 213, 208, 0) 79.21%),
@@ -169,8 +191,8 @@
         max-width: 72rem;
 
         > * {
-          border-bottom: 1px solid var(--black);
-          padding-bottom: 4rem;
+          //border-bottom: 1px solid var(--black);
+          //padding-bottom: 4rem;
           display: grid;
           grid-template-areas: "title description" "title cta";
           grid-template-columns: 33% 1fr;
@@ -291,7 +313,7 @@
     max-width: var(--max-width-container);
     margin: auto;
 
-    .cta{
+    .cta {
       align-self: flex-end;
       margin-right: 1rem;
     }

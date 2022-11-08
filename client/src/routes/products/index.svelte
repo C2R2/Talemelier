@@ -103,7 +103,7 @@
 <!-- -->
 <section class="all-products">
   <div class="products">
-    {#if filteredProducts.length > 0}
+    {#if filteredProducts.length > 0 }
       {#each filteredProducts as product}
         <ProductCard {product}/>
       {/each}
@@ -111,7 +111,9 @@
       {#if searchTerm.length > 0 || filterTerm.length > 0}
         <p>Aucun produit ne correspond à votre recherche</p>
       {:else}
-        <div class="loader"></div>
+        <ProductCard skeleton/>
+        <ProductCard skeleton/>
+        <ProductCard skeleton/>
       {/if}
     {/if}
   </div>

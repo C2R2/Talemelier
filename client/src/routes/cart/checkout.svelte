@@ -14,6 +14,8 @@
 	let firstName = ""
 	let lastName = ""
 	let tel = ""
+	let telInput = null
+	let telError = false
 
 	let checkoutForm = null
 
@@ -25,6 +27,12 @@
 	}))
 
 	$: totalPrice = Math.round((cartList.reduce((acc, item) => acc + item.price * item.quantity, 0) + Number.EPSILON) * 100) / 100
+
+	function handleTelChange () {
+		telInput.setCustomValidity("Le numéro de téléphone doit contenir 10 chiffres")
+		telInput.reportValidity()
+		telError = telInput.validity.patternMismatch
+	}
 
 	onMount(() => {
 		const parseDay = () => {
@@ -77,8 +85,15 @@
 			redirect = true
 		}
 	}).then(res => {
-		userInfos = res
+		if (res) {
+			userInfos = res
+			firstName = res.firstName
+			lastName = res.lastName
+			tel = res.tel
+		}
 	})
+
+	$: console.log(telError)
 
 	function handleSubmit (e) {
 		e.preventDefault()
@@ -113,7 +128,7 @@
 				})
 		}
 
-		fetch("http://localhost:3001/orders", {
+		fetch("https://talemelier.herokuapp.com/orders", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -122,7 +137,6 @@
 		}).then(res => {
 			success = res.ok
 			cart.set([])
-			//TODO : send email to user
 		}).catch(err => {
 			console.error(err)
 			success = false
@@ -164,7 +178,6 @@
         <ul>
           {#each cartList as cartItem}
             <li>
-              <!--            <img src={cartItem.image} alt={cartItem.title}>-->
               {cartItem.title} <b class="price">{formatter(cartItem.price)} x {cartItem.quantity}</b>
             </li>
           {/each}
@@ -173,7 +186,9 @@
       Total: <b class="price">{formatter(totalPrice)}</b>
     </span>
       </div>
-      <Btn onClick={handleSubmit} type="submit">{submit ? "Chargement..." : "Valider la commande"}</Btn>
+      <Btn disabled={
+      firstName === "" || lastName === "" || tel === "" || telError
+       } onClick={handleSubmit} type="submit">{submit ? "Chargement..." : "Valider la commande"}</Btn>
     </section>
     <form bind:this={checkoutForm} class="client" on:submit={handleSubmit}>
       <div>
@@ -219,7 +234,8 @@
           <div class="inputs-container">
             <span id="tel" class="title">Téléphone</span>
             <label for="tel">
-              <input required bind:value={tel} pattern={`[0-9]{10}`} type="tel" maxlength="10" placeholder="0600000000">
+              <input class:telError on:input={handleTelChange} bind:this={telInput} required bind:value={tel} pattern={`[0-9]{10}`} type="tel" maxlength="10"
+                     placeholder="0600000000">
             </label>
           </div>
         {/if}
@@ -229,6 +245,10 @@
 </main>
 
 <style lang="scss">
+  .telError {
+    border: 1px solid red;
+  }
+
   h1 {
     font-family: var(--body-font);
     font-weight: 400;

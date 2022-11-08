@@ -1,54 +1,54 @@
 <script>
-    import Cookies from "js-cookie"
-    import Btn from "$lib/Btn.svelte"
+	import Cookies from "js-cookie"
+	import Btn from "$lib/Btn.svelte"
 
-    let userInfos = {}
-    let editingEmail = false
-    let editingFirstName = false
-    let editingLastName = false
-    let editingTel = false
-    let submit = false
+	let userInfos = {}
+	let editingEmail = false
+	let editingFirstName = false
+	let editingLastName = false
+	let editingTel = false
+	let submit = false
 
-    fetch("https://talemelier.herokuapp.com/user", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token")}`
-        }
-    }).then((response) => response.json())
-        .then((data) => {
-            userInfos = data
-        })
+	fetch("https://talemelier.herokuapp.com/user", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${Cookies.get("token")}`
+		}
+	}).then((response) => response.json())
+		.then((data) => {
+			userInfos = data
+		})
 
-    $:console.log(userInfos.tel)
+	$:console.log(userInfos.tel)
 
-    function handleSubmit (e) {
-        e.preventDefault()
-        submit = true
-        fetch("https://talemelier.herokuapp.com/user", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${Cookies.get("token")}`
-            },
-            body: JSON.stringify({
-                email: userInfos.email,
-                firstName: userInfos.firstName,
-                lastName: userInfos.lastName,
-                tel: userInfos.tel
-            })
-        }).then((res) => {
-            if (res.status === 200) {
-                editingEmail = false
-                editingFirstName = false
-                editingLastName = false
-                editingTel = false
-            } else {
-                alert("Une erreur est survenue")
-            }
-            submit = false
-        })
-    }
+	function handleSubmit (e) {
+		e.preventDefault()
+		submit = true
+		fetch("https://talemelier.herokuapp.com/user", {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${Cookies.get("token")}`
+			},
+			body: JSON.stringify({
+				email: userInfos.email,
+				firstName: userInfos.firstName,
+				lastName: userInfos.lastName,
+				tel: userInfos.tel
+			})
+		}).then((res) => {
+			if (res.status === 200) {
+				editingEmail = false
+				editingFirstName = false
+				editingLastName = false
+				editingTel = false
+			} else {
+				alert("Une erreur est survenue")
+			}
+			submit = false
+		})
+	}
 
 </script>
 

@@ -1,9 +1,9 @@
 <script>
 	import slugify from "$functions/slugify.js"
 	import formatter from "$functions/formatter.js"
-	import { onMount } from "svelte"
 
 	export let product
+	export let skeleton = false
 	let productDescriptionElement
 
 	// onMount(() => {
@@ -13,24 +13,38 @@
 
 </script>
 
-<a href={`/products/${slugify(product.title)}`}>
-  <figure class="product-card">
-    <figcaption>
-      <span class="title">{product.title}</span>
-      <!--      <p bind:this={productDescriptionElement}>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>-->
-      <span class="price">{formatter(product.price)}</span>
-      <!--      <div class="cta">-->
-      <!--        <Btn width="100%">Voir le produit</Btn>-->
-      <!--      </div>-->
-    </figcaption>
-    <img alt="du pain" src={product.image}/>
-  </figure>
-</a>
+{#if !skeleton}
+  <a href={`/products/${slugify(product.title)}`}>
+    <figure class="product-card">
+      <figcaption>
+        <span class="title">{product.title}</span>
+        <!--      <p bind:this={productDescriptionElement}>{@html product.description.replace("<p>", "").replace("</p>", "")}</p>-->
+        <span class="price">{formatter(product.price)}</span>
+        <!--      <div class="cta">-->
+        <!--        <Btn width="100%">Voir le produit</Btn>-->
+        <!--      </div>-->
+      </figcaption>
+      <img alt={product.title} height="16rem" src={product.image}/>
+    </figure>
+  </a>
+{:else}
+  <a href="" class="skeleton">
+    <figure class="product-card">
+      <figcaption>
+        <span class="title"></span>
+        <span class="price"></span>
+      </figcaption>
+      <div class="img"></div>
+  </a>
+{/if}
 
 <style lang="scss">
-  a{
+
+
+  a {
     width: 100%;
   }
+
   figure {
     overflow: hidden;
     border-radius: 0.25rem;
@@ -40,6 +54,7 @@
     min-width: 16rem;
     transition: transform 0.2s ease-in-out;
     padding: 1rem;
+    min-height: 21.5rem;
 
     &:hover {
       transform: scale(0.99);
@@ -77,7 +92,7 @@
 
   img {
     width: 100%;
-    height: 16rem;
+    min-height: 16rem;
     object-fit: cover;
     border-radius: 0.25rem;
   }
@@ -85,6 +100,46 @@
   .cta {
     grid-area: cta;
     margin: auto 0;
+  }
+
+  .skeleton {
+
+    .title {
+      width: 100%;
+      height: 1.25rem;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 0.25rem;
+      animation: skeleton 1s infinite;
+    }
+
+    .price {
+      margin-top: 0.5rem;
+      width: 100%;
+      height: 1rem;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 0.25rem;
+      animation: skeleton 1s infinite;
+    }
+  }
+
+  .img {
+    width: 100%;
+    min-height: 16rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0.25rem;
+    animation: skeleton 1s infinite;
+  }
+
+  @keyframes skeleton {
+    0% {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    50% {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+    100% {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
   }
 
 </style>
