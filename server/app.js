@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 // require database connection
 const dbConnect = require("./db/dbConnect");
@@ -13,6 +14,17 @@ const Market = require("./db/marketModel");
 const adminAuth = require("./adminAuth");
 const userAuth = require("./userAuth");
 const port = process.env.PORT || 3001;
+
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "atelier.du.talemelier@gmail.com",
+    pass: "xardbujdoqnaacxq",
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
 // execute database connection
 dbConnect();
@@ -53,8 +65,8 @@ app.post("/register", (request, response) => {
         .then((hashedPassword) => {
           // create a new user instance and collect the data
           const user = new User({
-	          firstName: request.body.firstName,
-	          lastName: request.body.lastName,
+            firstName: request.body.firstName,
+            lastName: request.body.lastName,
             email: request.body.email,
             password: hashedPassword,
             role: "user",
@@ -230,6 +242,47 @@ app.put("/products/:id", adminAuth, (request, response) => {
 // add order
 app.post("/orders", (request, response) => {
   const order = new Order(request.body);
+  const userInfosRequest = User.findById(request.body.user);
+  userInfosRequest.then((userInfos) => {
+    const cartContentRequest = order.cart.map((item) => {
+      return Product.findById(item._id);
+    });
+    Promise.all(cartContentRequest).then((cartContent) => {
+      const mailOptions = {
+        from: "atelier.du.talemelier@gmail.com",
+        to: userInfos.email,
+        subject: "Confirmation de commande",
+        text: `Votre commande a bien été prise en compte. Rendez vous le ${request.body.date} à ${request.body.place} pour récupérer. Merci de votre confiance.`,
+        html: `<p>Votre commande a bien été prise en compte. Rendez-vous le
+						<strong>${request.body.date}</strong>
+						à 
+						<strong>${request.body.place}</strong>
+						pour récupérer votre commande.</p>
+			    <p>Voici le récapitulatif de votre commande :</p>
+			    <strong>
+			    <ul>
+            ${cartContent
+              .map((item) => {
+                return `<li>${
+                  order.cart.find((cartItem) => {
+                    return cartItem._id == item._id;
+                  }).quantity
+                } ${item.title}</li>`;
+              })
+              .join("")}
+			    </ul>
+			    </strong>
+			    <p>Merci de votre confiance.</p>`,
+      };
+      transporter.sendMail(mailOptions, (err, success) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Email sent successfully");
+        }
+      });
+    });
+  });
   order
     .save()
     .then((result) => response.status(200).json(result))

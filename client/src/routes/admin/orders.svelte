@@ -29,6 +29,8 @@
             }
         })
     }
+
+    console.log(orders)
 </script>
 
 <h1>Liste des commandes</h1>

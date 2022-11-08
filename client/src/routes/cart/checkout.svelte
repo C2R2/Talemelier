@@ -58,6 +58,10 @@
 			month: "long"
 		}).format(date)
 		nextDate = nextDate.charAt(0).toUpperCase() + nextDate.slice(1)
+
+		if ($cart.length === 0) {
+			location.href = "/cart"
+		}
 	})
 
 	fetch("https://talemelier.herokuapp.com/user", {
@@ -82,7 +86,8 @@
 		const order = {
 			cart: $cart,
 			place: $collectData.place,
-			date: nextDate,
+
+			date: nextDate + " à " + $collectData.hour,
 			user: userInfos._id
 		}
 
@@ -108,7 +113,7 @@
 				})
 		}
 
-		fetch("https://talemelier.herokuapp.com/orders", {
+		fetch("http://localhost:3001/orders", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -134,7 +139,7 @@
     <div class="modal">
       <h1>Merci !</h1>
       <p>Votre commande a bien été validée. Vous aller bientôt recevoir une confirmation de votre commande par mail.</p>
-      <Btn  href="/">Retour à l'accueil</Btn>
+      <Btn href="/">Retour à l'accueil</Btn>
     </div>
   </Modal>
 {/if}

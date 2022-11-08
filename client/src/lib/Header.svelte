@@ -42,7 +42,9 @@
 </script>
 
 {#key color}
-  <header style:color style:position={ color ? null : "sticky"}>
+  <header style:color style:position={ color ? null : "sticky"} style:background-color={
+    color ? "transparent" : "var(--background-color)"
+  }>
     <a class="header-left" href="/">
       <img alt="logo Talemelier" src="/logo.svg" style:filter={ color ? "invert(1)" : null}/>
       Talemelier
