@@ -75,7 +75,9 @@
         <ProductCard {product}/>
       {/each}
     {:else}
-      <div class="loader"></div>
+     <ProductCard skeleton/>
+     <ProductCard skeleton/>
+     <ProductCard skeleton/>
     {/if}
   </ProductCardCarrousel>
   <div class="cta">
