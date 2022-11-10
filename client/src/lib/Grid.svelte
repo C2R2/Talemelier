@@ -1,19 +1,20 @@
 <script>
-    export let columns = []
-    export let data = []
-    export let filteredFields = []
-    export let searchTerm = ""
-    export let title = ""
 
-    let filteredData = data
+	export let columns = []
+	export let data = []
+	export let filteredFields = []
+	export let searchTerm = ""
+	export let title = ""
 
-    function handleInputSearch () {
-        filteredData = data.filter((row) => (
-            filteredFields.some((field) => (
-                row[field].toString().toLowerCase().includes(searchTerm.toLowerCase())
-            ))
-        ))
-    }
+	let filteredData = data
+
+	function handleInputSearch () {
+		filteredData = data.filter((row) => (
+			filteredFields.some((field) => (
+				JSON.stringify(row[field]).toLowerCase().includes(searchTerm.toLowerCase())
+			))
+		))
+	}
 </script>
 
 <div class="grid-container">
@@ -27,7 +28,7 @@
            type="search"
     />
   </div>
-  <div class="table">
+  <div class="table" style:grid-template-columns={columns.map((column) => column.width || 'auto').join(" ")}>
     {#each columns as column}
       <div class="column sortable" on:click={()=> {
           filteredData = filteredData.sort((a, b) => (a[column] > b[column]) ? 1 : -1)
@@ -44,7 +45,9 @@
               {#if element.component}
                 <svelte:component this={element.component} {...element.props(row)}/>
               {:else}
-                <svelte:element this={element.element} {...element.props(row)}/>
+                <svelte:element this={element.element} {...element.props(row)}>
+                  {element.props(row).children}
+                </svelte:element>
               {/if}
             {/each}
              </span>
@@ -67,6 +70,26 @@
   .table {
     display: grid;
     overflow: auto;
+    position: relative;
+  }
+
+  :global(button[data-tooltip]) {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  :global(button[data-tooltip]):hover:before, :global(button[data-tooltip]):focus:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--background-color);
+    border: 1px solid var(--black);
+    color: var(--black);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 100;
+    user-select: all;
   }
 
   .column {
@@ -105,10 +128,14 @@
   }
 
   .actions-column {
-    padding: 0!important;
+    padding: 0 !important;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
+  }
+
+  .actions-column:has(> *[data-tooltip]) {
+    overflow: unset;
   }
 </style>

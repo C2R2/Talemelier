@@ -40,7 +40,6 @@
 
 <style lang="scss">
 
-
   a {
     width: 100%;
   }

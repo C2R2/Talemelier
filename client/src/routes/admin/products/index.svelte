@@ -49,7 +49,7 @@
                 alt: row.title,
               })
           }]},
-          { name: "_id", label: "id" },
+          { name: "_id", width: "75px", label: "id" },
           { name: "title", label: "Titre" },
           { name: "description", label: "Description"},
           { name: "price", label: "Prix" },

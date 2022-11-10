@@ -1,20 +1,21 @@
 <script>
-    import { onMount } from "svelte"
+	import { onMount } from "svelte"
 
-    export let allsize = false
-    export let id = ""
-    export let options = []
-    export let value = ""
-    export let onChange = () => {}
+	export let allsize = false
+	export let id = ""
+	export let options = []
+	export let value = ""
+	export let onChange = () => {}
+	export let small = false
 
-    let selectEl
+	let selectEl
 
-    onMount(() => {
-        selectEl.firstChild.selected = true
-    })
+	onMount(() => {
+		selectEl.firstChild.selected = true
+	})
 </script>
 
-<div class="select" class:allsize>
+<div class="select" class:allsize class:small>
   <select bind:this={selectEl} bind:value={value} {id} on:change={onChange}>
     <slot/>
     {#if options.length > 0}
@@ -35,6 +36,12 @@
     border-radius: 2rem;
     width: min-content;
     font: inherit;
+  }
+
+  .small {
+    select {
+      padding: 0.5rem 2rem 0.5rem 1rem;
+    }
   }
 
   .select {

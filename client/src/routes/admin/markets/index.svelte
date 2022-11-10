@@ -41,7 +41,7 @@
         filteredFields={["_id", "place", "days", "hours" ]}
         title="Marchés"
         columns={[
-          { name: "_id", label: "id" },
+          { name: "_id", label: "id", width: "75px"},
           { name: "place", label: "Lieu" },
           { name: "days", label: "Jours"},
           { name: "hours", label: "Heures" },
