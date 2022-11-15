@@ -54,7 +54,6 @@
 
 {#if userInfos}
   <main>
-
     <h1>Mon compte</h1>
 
     <div class="forms">
@@ -111,6 +110,9 @@
   main {
     width: 90%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .forms {

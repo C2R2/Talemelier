@@ -276,6 +276,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    position: relative;
 
     .cta{
       align-self: flex-end;
@@ -283,7 +284,7 @@
     }
 
     h2 {
-      width: 90%;
+      width: 90vw;
       margin: 0 auto;
     }
   }

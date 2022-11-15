@@ -78,15 +78,15 @@
   </div>
 </section>
 
-<section class="infos">
+<section class="about">
   <div
       bind:offsetWidth={infosWidth}
       bind:this={infosEl}
       class="scroll-container"
       on:scroll={infosScroll}
   >
-    <div class="where">
-      <span>Où ?</span>
+    <div class="text">
+      <h2>Où récupérer ma commande ?</h2>
       <p>Vous pouvez récupérer vos produits sur les différent marchés :</p>
       <ul>
         {#key markets}
@@ -321,7 +321,7 @@
     }
 
     h2 {
-      width: 90%;
+      width: 90vw;
       margin: 0 auto;
     }
 

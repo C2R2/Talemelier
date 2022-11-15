@@ -158,6 +158,7 @@
     gap: 2rem;
     max-width: var(--max-width-container);
     margin: auto;
+    position: relative;
 
     .cta{
       align-self: flex-end;
@@ -165,7 +166,7 @@
     }
 
     h2 {
-      width: 90%;
+      width: 90vw;
       margin: 0 auto;
     }
   }
