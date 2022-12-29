@@ -15,7 +15,7 @@
 
 	async function handleLogin () {
 		pending = true
-		await fetch("https://talemelier.herokuapp.com/login", {
+		await fetch(import.meta.env.VITE_SERVER_URL + "/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -54,7 +54,7 @@
 
 	async function handleRegister () {
 		pending = true
-		await fetch("https://talemelier.herokuapp.com/register", {
+		await fetch(import.meta.env.VITE_SERVER_URL + "/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"

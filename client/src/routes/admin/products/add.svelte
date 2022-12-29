@@ -8,7 +8,7 @@
 
     function handleSubmit () {
         submit = true
-        fetch("https://talemelier.herokuapp.com/products", {
+        fetch(import.meta.env.VITE_SERVER_URL + "/products", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

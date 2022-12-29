@@ -5,8 +5,9 @@
 
     let loaded = false
 
+
     onMount(() => {
-        fetch("https://talemelier.herokuapp.com/users", {
+        fetch(import.meta.env.VITE_SERVER_URL + "/users", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

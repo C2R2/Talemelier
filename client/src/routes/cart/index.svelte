@@ -38,7 +38,7 @@
 		window.location.href = "/cart/checkout"
 	}
 
-	fetch("https://talemelier.herokuapp.com/markets", {
+	fetch(import.meta.env.VITE_SERVER_URL + "/markets", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json"

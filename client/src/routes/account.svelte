@@ -9,7 +9,7 @@
 	let editingTel = false
 	let submit = false
 
-	fetch("https://talemelier.herokuapp.com/user", {
+	fetch(import.meta.env.VITE_SERVER_URL + "/user", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -25,7 +25,7 @@
 	function handleSubmit (e) {
 		e.preventDefault()
 		submit = true
-		fetch("https://talemelier.herokuapp.com/user", {
+		fetch(import.meta.env.VITE_SERVER_URL + "/user", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

@@ -7,7 +7,7 @@
     let market
     let submit = false
 
-    fetch("https://talemelier.herokuapp.com/markets/" + marketID, {
+    fetch(import.meta.env.VITE_SERVER_URL + "/markets/" + marketID, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -17,7 +17,7 @@
 
     function handleSubmit () {
         submit = true
-        fetch("https://talemelier.herokuapp.com/markets/" + marketID, {
+        fetch(import.meta.env.VITE_SERVER_URL + "/markets/" + marketID, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

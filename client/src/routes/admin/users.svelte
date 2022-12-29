@@ -8,7 +8,7 @@
 
 	// const serverURL = process.env.SERVER_URL
 
-	const usersPromise = fetch("https://talemelier.herokuapp.com/users", {
+	const usersPromise = fetch(import.meta.env.VITE_SERVER_URL + "/users", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -17,7 +17,7 @@
 	}).then(response => response.json())
 
 	async function handleDelete (id) {
-		return await fetch(`https://talemelier.herokuapp.com/users/${id}`, {
+		return await fetch(`${import.meta.env.VITE_SERVER_URL}/users/${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -27,7 +27,7 @@
 	}
 
 	async function handleChange (event, _id) {
-		return await fetch(`https://talemelier.herokuapp.com/users/${_id}`, {
+		return await fetch(`${import.meta.env.VITE_SERVER_URL}/users/${_id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

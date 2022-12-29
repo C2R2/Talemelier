@@ -7,7 +7,7 @@
     let product
     let submit = false
 
-    fetch("https://talemelier.herokuapp.com/products/" + productID, {
+    fetch(import.meta.env.VITE_SERVER_URL + "/products/" + productID, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -17,7 +17,7 @@
 
     function handleSubmit () {
         submit = true
-        fetch("https://talemelier.herokuapp.com/products/" + productID, {
+        fetch(import.meta.env.VITE_SERVER_URL + "/products/" + productID, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

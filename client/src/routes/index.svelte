@@ -1,8 +1,5 @@
 <script>
   import Btn from "$lib/Btn.svelte"
-
-
-
 </script>
 
 <svelte:head>

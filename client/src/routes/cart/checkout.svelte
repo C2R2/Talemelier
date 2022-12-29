@@ -72,7 +72,7 @@
 		}
 	})
 
-	fetch("https://talemelier.herokuapp.com/user", {
+	fetch(import.meta.env.VITE_SERVER_URL + "/user", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -107,7 +107,7 @@
 		}
 
 		if (firstName || lastName || tel) {
-			fetch("https://talemelier.herokuapp.com/user", {
+			fetch(import.meta.env.VITE_SERVER_URL + "/user", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
@@ -128,7 +128,7 @@
 				})
 		}
 
-		fetch("https://talemelier.herokuapp.com/orders", {
+		fetch(import.meta.env.VITE_SERVER_URL + "/orders", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"

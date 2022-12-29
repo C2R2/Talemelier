@@ -14,7 +14,7 @@
 
 	const deleteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`
 
-	fetch("https://talemelier.herokuapp.com/orders", {
+	fetch(import.meta.env.VITE_SERVER_URL + "/orders", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -22,7 +22,7 @@
 		}
 	}).then(response => response.json()).then(data => {
 		data.map(order => {
-			fetch("https://talemelier.herokuapp.com/users/" + order.user, {
+			fetch(import.meta.env.VITE_SERVER_URL + "/users/" + order.user, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
@@ -35,7 +35,7 @@
 			})
 
 			order.cart.map(product => {
-				fetch("https://talemelier.herokuapp.com/products/" + product._id, {
+				fetch(import.meta.env.VITE_SERVER_URL + "/products/" + product._id, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -55,7 +55,7 @@
 	$: console.log(orders)
 
 	async function handleDelete (id) {
-		return await fetch(`https://talemelier.herokuapp.com/orders/${id}`, {
+		return await fetch(`${import.meta.env.VITE_SERVER_URL}/orders/${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
