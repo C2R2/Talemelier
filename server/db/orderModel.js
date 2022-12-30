@@ -12,6 +12,11 @@ const OrderSchema = new mongoose.Schema({
     required: [true, "Please provide a date!"],
     unique: false,
   },
+  timestamp: {
+    type: Number,
+    required: [true, "Please provide a timestamp!"],
+    unique: false,
+  },
   place: {
     type: String,
     unique: false,

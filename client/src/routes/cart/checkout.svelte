@@ -16,6 +16,7 @@
 	let tel = ""
 	let telInput = null
 	let telError = false
+  let date = null
 
 	let checkoutForm = null
 
@@ -53,7 +54,7 @@
 					return 7
 			}
 		}
-		const date = new Date()
+		 date = new Date()
 
 		date.setDate(date.getDate() + (parseDay() + 7 - date.getDay()) % 7)
 		if (date <= new Date()) {
@@ -93,15 +94,15 @@
 		}
 	})
 
-	$: console.log(telError)
 
 	function handleSubmit (e) {
 		e.preventDefault()
 		submit = true
+    cartList.forEach(item => delete item.image)
 		const order = {
-			cart: $cart,
+			cart: cartList,
 			place: $collectData.place,
-
+      timestamp: date.getTime(),
 			date: nextDate + " à " + $collectData.hour,
 			user: userInfos._id
 		}
@@ -127,6 +128,7 @@
 					submit = false
 				})
 		}
+		console.log(order)
 
 		fetch(import.meta.env.VITE_SERVER_URL + "/orders", {
 			method: "POST",

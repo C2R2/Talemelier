@@ -47,6 +47,13 @@
               {:else}
                 <svelte:element this={element.element} {...element.props(row)}>
                   {element.props(row).children}
+                  {#if element.props(row)["data-tooltip"]}
+                    <ul class="tooltip">
+                     {#each element.props(row)["data-tooltip"].split("\n") as line}
+                        <li>{line}</li>
+                      {/each}
+                    </ul>
+                  {/if}
                 </svelte:element>
               {/if}
             {/each}
@@ -70,27 +77,53 @@
   .table {
     display: grid;
     overflow: auto;
-    position: relative;
   }
+
 
   :global(button[data-tooltip]) {
     cursor: pointer;
     text-decoration: underline;
   }
 
-  :global(button[data-tooltip]):hover:before, :global(button[data-tooltip]):focus:before {
-    content: attr(data-tooltip);
-    position: absolute;
-    top: 0;
-    left: 0;
+  //:global(button[data-tooltip]):hover:before, :global(button[data-tooltip]):focus:before {
+  //  content: attr(data-tooltip);
+  //  position: absolute;
+  //  background: var(--background-color);
+  //  border: 1px solid var(--black);
+  //  color: var(--black);
+  //  padding: 0.5rem;
+  //  border-radius: 0.5rem;
+  //  z-index: 100;
+  //  user-select: all;
+  //  top: 25%;
+  //  bottom: 25%;
+  //  left: 25%;
+  //  right: 25%;
+  //  text-align: left;
+  //}
+
+  .tooltip{
+    display: none;
+    position: fixed;
     background: var(--background-color);
     border: 1px solid var(--black);
     color: var(--black);
-    padding: 0.5rem;
+    padding: 1rem 1rem 1rem 2rem;
     border-radius: 0.5rem;
     z-index: 100;
     user-select: all;
+    top: 25%;
+    left: 25%;
+    right: 25%;
+    text-align: left;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 11px rgba(0,0,0,0.1);
+    list-style: unset;
   }
+
+  :global(button[data-tooltip]):hover .tooltip, :global(button[data-tooltip]):focus .tooltip {
+    display: block;
+  }
+
 
   .column {
     font-weight: 600;
@@ -108,10 +141,7 @@
     right: 0;
     width: 0;
     height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
+    border: 5px solid transparent;
     border-top-color: rgb(81, 81, 81);
   }
 
