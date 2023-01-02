@@ -4,6 +4,9 @@
   </title>
 </svelte:head>
 <script>
+	import { PDFDocument } from "pdf-lib"
+	import order_form_2022 from "./order_form_2022.pdf"
+	import order_form_position from "./order_form_position.json"
 	import Cookies from "js-cookie"
 	import Grid from "$lib/Grid.svelte"
 	import Btn from "$lib/Btn.svelte"
@@ -43,19 +46,50 @@
 		const afterDate = new Date(event.target.afterDate.value)
 
 		const ordersToPrint = orders.filter(order => {
-			const orderYear = order.date.includes("Janvier") ? new Date().getFullYear() + 1 : new Date().getFullYear()
-			console.log(order)
-			const orderDate = new Date(order.date.split("à")[0] + " " +  orderYear)
-			return orderDate >= afterDate && orderDate <= beforeDate
+			const orderDate = new Date(order.timestamp)
+			return orderDate >= beforeDate && orderDate <= afterDate
 		})
-		console.log(ordersToPrint)
 		if (ordersToPrint.length === 0) {
 			alert("Aucune commande à imprimer")
 			return
 		}
+		const productsToPrint = {}
+		ordersToPrint.map(order => {
+			order.cart.map(product => {
+				if (productsToPrint[product.ref]) {
+					productsToPrint[product.ref] += product.quantity
+				} else {
+					productsToPrint[product.ref] = product.quantity
+				}
+			})
+		})
+
+		modifyPdf(productsToPrint)
 
 		printModalOpen = false
+	}
 
+	async function modifyPdf (productsToPrint) {
+		const existingPdfBytes = await fetch(order_form_2022).then(res => res.arrayBuffer())
+
+		const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+		const pages = pdfDoc.getPages()
+		const firstPage = pages[0]
+		const { width, height } = firstPage.getSize()
+		for (const refPositionKey in order_form_position) {
+			const refPositionValue = order_form_position[refPositionKey]
+			if (productsToPrint[refPositionKey]) {
+				firstPage.drawText(productsToPrint[refPositionKey].toString(), {
+					x: refPositionValue.x,
+					y: height - refPositionValue.y,
+					size: 12
+				})
+			}
+		}
+
+		const pdfBytes = await pdfDoc.save()
+		open(URL.createObjectURL(new Blob([pdfBytes], { type: "application/pdf" })))
 	}
 
 	async function handleDelete (id) {
